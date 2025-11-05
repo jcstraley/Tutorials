@@ -1,0 +1,1159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>California Respiratory Care Practice Regulations - Interactive Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .nav-tabs {
+            display: flex;
+            background: #f8f9fa;
+            border-bottom: 3px solid #dee2e6;
+            overflow-x: auto;
+        }
+
+        .nav-tab {
+            padding: 15px 25px;
+            cursor: pointer;
+            border: none;
+            background: none;
+            font-size: 1em;
+            font-weight: 600;
+            color: #495057;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+
+        .nav-tab:hover {
+            background: #e9ecef;
+        }
+
+        .nav-tab.active {
+            background: white;
+            color: #1e3c72;
+            border-bottom: 3px solid #1e3c72;
+            margin-bottom: -3px;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .law-card {
+            background: #f8f9fa;
+            border-left: 5px solid #1e3c72;
+            padding: 25px;
+            margin: 20px 0;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+
+        .law-card:hover {
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transform: translateX(5px);
+        }
+
+        .law-card h3 {
+            color: #1e3c72;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+
+        .law-card.sb1451 {
+            border-left-color: #e74c3c;
+        }
+
+        .law-card.sb389 {
+            border-left-color: #27ae60;
+        }
+
+        .law-card.ccr {
+            border-left-color: #f39c12;
+        }
+
+        .law-card.bpc {
+            border-left-color: #3498db;
+        }
+
+        .timeline {
+            position: relative;
+            padding: 20px 0;
+            margin: 30px 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: #dee2e6;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin: 30px 0;
+            padding: 0 20px;
+        }
+
+        .timeline-item:nth-child(odd) {
+            text-align: right;
+            padding-right: calc(50% + 40px);
+        }
+
+        .timeline-item:nth-child(even) {
+            text-align: left;
+            padding-left: calc(50% + 40px);
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #1e3c72;
+            transform: translateX(-50%);
+            border: 4px solid white;
+            box-shadow: 0 0 0 3px #dee2e6;
+        }
+
+        .timeline-content {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        .timeline-date {
+            font-weight: bold;
+            color: #1e3c72;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+        }
+
+        .relationship-diagram {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            margin: 30px 0;
+            gap: 20px;
+        }
+
+        .diagram-box {
+            flex: 1;
+            min-width: 250px;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            color: white;
+            position: relative;
+            transition: all 0.3s;
+        }
+
+        .diagram-box:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        .diagram-box.foundation {
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+        }
+
+        .diagram-box.regulation {
+            background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
+        }
+
+        .diagram-box.legislation {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+        }
+
+        .diagram-box.exemption {
+            background: linear-gradient(135deg, #27ae60 0%, #229954 100%);
+        }
+
+        .diagram-box h4 {
+            margin-bottom: 10px;
+            font-size: 1.3em;
+        }
+
+        .accordion {
+            margin: 20px 0;
+        }
+
+        .accordion-item {
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            overflow: hidden;
+        }
+
+        .accordion-header {
+            background: #f8f9fa;
+            padding: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.3s;
+        }
+
+        .accordion-header:hover {
+            background: #e9ecef;
+        }
+
+        .accordion-header.active {
+            background: #1e3c72;
+            color: white;
+        }
+
+        .accordion-icon {
+            transition: transform 0.3s;
+        }
+
+        .accordion-header.active .accordion-icon {
+            transform: rotate(180deg);
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            background: white;
+        }
+
+        .accordion-content.active {
+            max-height: 2000px;
+            padding: 20px;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .comparison-table th {
+            background: #1e3c72;
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .comparison-table td {
+            padding: 15px;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .comparison-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .comparison-table tr:hover {
+            background: #e9ecef;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin: 5px 5px 5px 0;
+        }
+
+        .tag.rcp {
+            background: #3498db;
+            color: white;
+        }
+
+        .tag.lvn {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .tag.unlicensed {
+            background: #27ae60;
+            color: white;
+        }
+
+        .tag.home-health {
+            background: #f39c12;
+            color: white;
+        }
+
+        .tag.school {
+            background: #9b59b6;
+            color: white;
+        }
+
+        .highlight-box {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .highlight-box.important {
+            background: #f8d7da;
+            border-left-color: #dc3545;
+        }
+
+        .highlight-box.info {
+            background: #d1ecf1;
+            border-left-color: #17a2b8;
+        }
+
+        .highlight-box.success {
+            background: #d4edda;
+            border-left-color: #28a745;
+        }
+
+        ul.key-points {
+            list-style: none;
+            padding: 0;
+        }
+
+        ul.key-points li {
+            padding: 10px 10px 10px 40px;
+            margin: 10px 0;
+            background: #f8f9fa;
+            border-radius: 5px;
+            position: relative;
+        }
+
+        ul.key-points li::before {
+            content: "✓";
+            position: absolute;
+            left: 15px;
+            color: #27ae60;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        .flow-diagram {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 30px 0;
+        }
+
+        .flow-box {
+            background: white;
+            border: 2px solid #1e3c72;
+            padding: 20px;
+            margin: 10px;
+            border-radius: 10px;
+            min-width: 300px;
+            text-align: center;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        .flow-arrow {
+            font-size: 2em;
+            color: #1e3c72;
+            margin: 10px 0;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8em;
+            }
+
+            .content {
+                padding: 20px;
+            }
+
+            .timeline::before {
+                left: 20px;
+            }
+
+            .timeline-item,
+            .timeline-item:nth-child(odd),
+            .timeline-item:nth-child(even) {
+                padding-left: 60px;
+                text-align: left;
+            }
+
+            .timeline-dot {
+                left: 20px;
+            }
+
+            .nav-tab {
+                padding: 12px 15px;
+                font-size: 0.9em;
+            }
+        }
+
+        footer {
+            background: #343a40;
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        footer a {
+            color: #17a2b8;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>California Respiratory Care Practice</h1>
+            <p>Interactive Guide to Laws, Regulations, and Policies</p>
+        </header>
+
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="openTab(event, 'overview')">Overview</button>
+            <button class="nav-tab" onclick="openTab(event, 'bpc3765')">BPC § 3765</button>
+            <button class="nav-tab" onclick="openTab(event, 'ccr')">Title 16 CCR</button>
+            <button class="nav-tab" onclick="openTab(event, 'sb1451')">SB 1451 (2024)</button>
+            <button class="nav-tab" onclick="openTab(event, 'sb389')">SB 389 (2025)</button>
+            <button class="nav-tab" onclick="openTab(event, 'relationships')">Relationships</button>
+            <button class="nav-tab" onclick="openTab(event, 'timeline')">Timeline</button>
+        </div>
+
+        <div class="content">
+            <!-- OVERVIEW TAB -->
+            <div id="overview" class="tab-content active">
+                <h2>Understanding California Respiratory Care Practice</h2>
+
+                <div class="highlight-box info">
+                    <strong>What You'll Learn:</strong> This interactive guide explains how California law regulates respiratory care practice, including who can perform various respiratory tasks and under what circumstances.
+                </div>
+
+                <div class="relationship-diagram">
+                    <div class="diagram-box foundation">
+                        <h4>BPC § 3765</h4>
+                        <p>Foundation statute defining respiratory care practice scope</p>
+                    </div>
+                    <div class="diagram-box regulation">
+                        <h4>Title 16 CCR</h4>
+                        <p>Regulations defining "basic respiratory tasks" for non-RCPs</p>
+                    </div>
+                    <div class="diagram-box legislation">
+                        <h4>SB 1451</h4>
+                        <p>Home health setting authorization for LVNs (2024)</p>
+                    </div>
+                    <div class="diagram-box exemption">
+                        <h4>SB 389</h4>
+                        <p>School-only exemption for unlicensed personnel (2025)</p>
+                    </div>
+                </div>
+
+                <h3>Key Players</h3>
+                <table class="comparison-table">
+                    <tr>
+                        <th>Provider Type</th>
+                        <th>What They Can Do</th>
+                        <th>Where</th>
+                        <th>Requirements</th>
+                    </tr>
+                    <tr>
+                        <td><span class="tag rcp">Respiratory Care Practitioners (RCPs)</span></td>
+                        <td>Full scope of respiratory care practice as defined in BPC § 3765</td>
+                        <td>All settings</td>
+                        <td>RCP license required</td>
+                    </tr>
+                    <tr>
+                        <td><span class="tag lvn">Licensed Vocational Nurses (LVNs)</span></td>
+                        <td>Basic respiratory tasks per CCR § 1399.365</td>
+                        <td>Home health settings (as of SB 1451)</td>
+                        <td>LVN license + physician/RCP order + training</td>
+                    </tr>
+                    <tr>
+                        <td><span class="tag unlicensed">Unlicensed School Personnel</span></td>
+                        <td>Aerosol medication administration only</td>
+                        <td>K-12 schools only</td>
+                        <td>Training + school nurse authorization (SB 389)</td>
+                    </tr>
+                </table>
+
+                <div class="highlight-box important">
+                    <strong>Critical Date:</strong> October 1, 2025 — Title 16 CCR § 1399.365 became operative, formally defining "basic respiratory tasks" that non-RCPs may perform.
+                </div>
+            </div>
+
+            <!-- BPC 3765 TAB -->
+            <div id="bpc3765" class="tab-content">
+                <div class="law-card bpc">
+                    <h3>Business & Professions Code § 3765</h3>
+                    <span class="tag rcp">Foundation Statute</span>
+
+                    <h4>What It Does</h4>
+                    <p>This statute establishes the foundational definition and scope of respiratory care practice in California. It serves as the legal basis for all respiratory care regulation in the state.</p>
+
+                    <h4>Scope of Practice Defined</h4>
+                    <ul class="key-points">
+                        <li><strong>Respiratory care practitioner (RCP):</strong> A person licensed to practice respiratory care under the Respiratory Care Practice Act</li>
+                        <li><strong>Respiratory care:</strong> Treatment, management, diagnostic evaluation, and care of patients with deficiencies and abnormalities of the cardiopulmonary system</li>
+                        <li>Includes administration of pharmacologic agents, oxygen, and other therapeutic gases</li>
+                        <li>Encompasses mechanical ventilation, bronchopulmonary hygiene, and cardiopulmonary resuscitation</li>
+                        <li>Allows maintenance of natural and artificial airways</li>
+                    </ul>
+
+                    <div class="highlight-box">
+                        <strong>Key Principle:</strong> BPC § 3765 establishes that respiratory care is a licensed profession, but it does not prohibit all non-RCPs from performing certain basic respiratory tasks. This created the legal foundation for subsequent regulations and legislation.
+                    </div>
+
+                    <h4>Who It Applies To</h4>
+                    <p>This statute governs Respiratory Care Practitioners and establishes the Respiratory Care Board of California's authority to regulate the profession.</p>
+
+                    <div class="accordion">
+                        <div class="accordion-item">
+                            <div class="accordion-header" onclick="toggleAccordion(this)">
+                                <span>Detailed Legal Language</span>
+                                <span class="accordion-icon">▼</span>
+                            </div>
+                            <div class="accordion-content">
+                                <p><strong>BPC § 3765(a)</strong> — "Respiratory care practitioner" means a person licensed under this chapter to practice respiratory care.</p>
+                                <p><strong>BPC § 3765(b)</strong> — "Respiratory care" means the treatment, management, diagnostic evaluation, and care of patients with deficiencies and abnormalities of the cardiopulmonary system and associated aspects of other systems. The practice includes:</p>
+                                <ul>
+                                    <li>Therapeutic and life support services</li>
+                                    <li>Pulmonary rehabilitation</li>
+                                    <li>Patient assessment and testing</li>
+                                    <li>Implementation of respiratory care protocols</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CCR TAB -->
+            <div id="ccr" class="tab-content">
+                <div class="law-card ccr">
+                    <h3>Title 16 CCR §§ 1399.361–1399.365</h3>
+                    <span class="tag">Regulatory Framework</span>
+                    <span class="tag">Effective Oct 1, 2025</span>
+
+                    <h4>What This Regulation Does</h4>
+                    <p>These regulations, adopted by the Respiratory Care Board of California, define "basic respiratory tasks" that may be performed by non-RCPs (including LVNs) without violating the RCP licensing requirements.</p>
+
+                    <div class="highlight-box important">
+                        <strong>Operative Date:</strong> October 1, 2025 — This is when the regulation officially took effect, creating a clear legal framework for non-RCP performance of basic respiratory tasks.
+                    </div>
+
+                    <h4>Key Sections</h4>
+
+                    <div class="accordion">
+                        <div class="accordion-item">
+                            <div class="accordion-header" onclick="toggleAccordion(this)">
+                                <span>§ 1399.365 — Basic Respiratory Tasks Defined</span>
+                                <span class="accordion-icon">▼</span>
+                            </div>
+                            <div class="accordion-content">
+                                <p><strong>What Tasks Are Included:</strong></p>
+                                <ul class="key-points">
+                                    <li><strong>Oxygen therapy:</strong> Administration via nasal cannula, simple face mask, or non-rebreather mask</li>
+                                    <li><strong>Aerosol therapy:</strong> Nebulized medications administered via small volume nebulizer</li>
+                                    <li><strong>Pulse oximetry:</strong> Measurement and monitoring of oxygen saturation</li>
+                                    <li><strong>Suctioning:</strong> Oral and nasopharyngeal suctioning (NOT tracheal)</li>
+                                </ul>
+
+                                <div class="highlight-box important">
+                                    <strong>Critical Limitations:</strong>
+                                    <ul>
+                                        <li>Does NOT include mechanical ventilation</li>
+                                        <li>Does NOT include tracheal suctioning</li>
+                                        <li>Does NOT include CPAP/BiPAP initiation</li>
+                                        <li>Does NOT include arterial blood gas sampling</li>
+                                        <li>Does NOT include chest physiotherapy</li>
+                                    </ul>
+                                </div>
+
+                                <p><strong>Requirements for Non-RCPs Performing These Tasks:</strong></p>
+                                <ul class="key-points">
+                                    <li>Must have valid order from physician or RCP</li>
+                                    <li>Must be within their professional scope (e.g., LVN scope)</li>
+                                    <li>Must have appropriate training and competency verification</li>
+                                    <li>Must work under appropriate supervision</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <div class="accordion-header" onclick="toggleAccordion(this)">
+                                <span>§§ 1399.361-1399.364 — Related Provisions</span>
+                                <span class="accordion-icon">▼</span>
+                            </div>
+                            <div class="accordion-content">
+                                <p>These sections provide additional context and requirements:</p>
+                                <ul class="key-points">
+                                    <li><strong>§ 1399.361:</strong> Definitions and scope</li>
+                                    <li><strong>§ 1399.362:</strong> Training requirements</li>
+                                    <li><strong>§ 1399.363:</strong> Supervision standards</li>
+                                    <li><strong>§ 1399.364:</strong> Documentation requirements</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h4>Why This Matters</h4>
+                    <p>Before these regulations, there was significant ambiguity about what respiratory tasks non-RCPs could legally perform. The regulation provides clarity and legal protection for healthcare facilities, LVNs, and patients.</p>
+                </div>
+            </div>
+
+            <!-- SB 1451 TAB -->
+            <div id="sb1451" class="tab-content">
+                <div class="law-card sb1451">
+                    <h3>Senate Bill 1451 (2024)</h3>
+                    <span class="tag lvn">LVN Authorization</span>
+                    <span class="tag home-health">Home Health</span>
+
+                    <h4>What This Law Does</h4>
+                    <p>SB 1451, signed into law in 2024, specifically authorizes Licensed Vocational Nurses (LVNs) to perform basic respiratory care tasks in home health settings.</p>
+
+                    <div class="highlight-box success">
+                        <strong>Problem Solved:</strong> Before SB 1451, LVNs working in home health faced legal uncertainty about performing respiratory tasks, even basic ones like oxygen administration. This law provided explicit authorization.
+                    </div>
+
+                    <h4>Key Provisions</h4>
+                    <ul class="key-points">
+                        <li><strong>Authorization:</strong> LVNs may perform basic respiratory tasks as defined in Title 16 CCR § 1399.365</li>
+                        <li><strong>Setting:</strong> Home health and hospice settings only</li>
+                        <li><strong>Requirements:</strong> LVNs must act under physician order or RCP supervision</li>
+                        <li><strong>Training:</strong> LVNs must receive appropriate training and demonstrate competency</li>
+                        <li><strong>Scope limitation:</strong> Only "basic" tasks — no ventilator management or advanced procedures</li>
+                    </ul>
+
+                    <h4>Impact on Practice</h4>
+                    <table class="comparison-table">
+                        <tr>
+                            <th>Before SB 1451</th>
+                            <th>After SB 1451</th>
+                        </tr>
+                        <tr>
+                            <td>Legal uncertainty for LVNs performing respiratory tasks in home health</td>
+                            <td>Clear legal authorization for basic respiratory tasks</td>
+                        </tr>
+                        <tr>
+                            <td>Many home health agencies reluctant to allow LVNs to provide respiratory care</td>
+                            <td>LVNs can confidently provide oxygen therapy, nebulizers, suctioning, pulse oximetry</td>
+                        </tr>
+                        <tr>
+                            <td>Patients with respiratory needs often required RN visits (more expensive)</td>
+                            <td>Cost-effective care delivery with LVN services</td>
+                        </tr>
+                        <tr>
+                            <td>Potential gaps in care for home health patients</td>
+                            <td>Improved access to respiratory care at home</td>
+                        </tr>
+                    </table>
+
+                    <div class="accordion">
+                        <div class="accordion-item">
+                            <div class="accordion-header" onclick="toggleAccordion(this)">
+                                <span>Legislative Intent & Background</span>
+                                <span class="accordion-icon">▼</span>
+                            </div>
+                            <div class="accordion-content">
+                                <p><strong>Why SB 1451 Was Needed:</strong></p>
+                                <ul>
+                                    <li>Growing elderly population with chronic respiratory conditions</li>
+                                    <li>Shortage of RCPs and RNs in home health settings</li>
+                                    <li>Need for cost-effective care delivery models</li>
+                                    <li>LVNs have training and capability to safely perform basic respiratory tasks</li>
+                                    <li>Existing legal ambiguity created barriers to care</li>
+                                </ul>
+
+                                <p><strong>Legislative Process:</strong></p>
+                                <ul>
+                                    <li>Introduced in 2024 legislative session</li>
+                                    <li>Supported by California Association for Health Services at Home</li>
+                                    <li>Passed Assembly and Senate</li>
+                                    <li>Signed by Governor in 2024</li>
+                                    <li>Works in conjunction with CCR § 1399.365 (operative Oct 1, 2025)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SB 389 TAB -->
+            <div id="sb389" class="tab-content">
+                <div class="law-card sb389">
+                    <h3>Senate Bill 389 (2025)</h3>
+                    <span class="tag school">School Setting</span>
+                    <span class="tag unlicensed">Unlicensed Personnel</span>
+
+                    <h4>What This Law Does</h4>
+                    <p>SB 389, signed into law in 2025, creates a narrow, school-specific exemption allowing trained unlicensed school personnel to administer aerosol medications to students.</p>
+
+                    <div class="highlight-box">
+                        <strong>Narrow Scope:</strong> SB 389 is highly specific — it only applies to K-12 schools and only covers aerosol medication administration (nebulizers). It does not expand general respiratory care authority.
+                    </div>
+
+                    <h4>Key Provisions</h4>
+                    <ul class="key-points">
+                        <li><strong>Who:</strong> Unlicensed school personnel (not required to be RCPs, RNs, or LVNs)</li>
+                        <li><strong>What:</strong> Aerosol medication administration via nebulizer only</li>
+                        <li><strong>Where:</strong> K-12 public and private schools only</li>
+                        <li><strong>Requirements:</strong> Training, competency verification, and authorization from school nurse</li>
+                        <li><strong>Student consent:</strong> Parent/guardian must provide written authorization</li>
+                        <li><strong>Medical order:</strong> Valid physician order required for the student</li>
+                    </ul>
+
+                    <h4>Why This Law Was Needed</h4>
+                    <div class="flow-diagram">
+                        <div class="flow-box">
+                            <strong>Problem:</strong> Many students with asthma need nebulizer treatments during school day
+                        </div>
+                        <div class="flow-arrow">↓</div>
+                        <div class="flow-box">
+                            <strong>Barrier:</strong> Not enough school nurses to administer all treatments; RCP requirement impractical
+                        </div>
+                        <div class="flow-arrow">↓</div>
+                        <div class="flow-box">
+                            <strong>Result:</strong> Students missed treatments or parents had to leave work to administer medications
+                        </div>
+                        <div class="flow-arrow">↓</div>
+                        <div class="flow-box">
+                            <strong>Solution:</strong> SB 389 allows trained school staff to administer nebulizers under nurse oversight
+                        </div>
+                    </div>
+
+                    <h4>Strict Limitations</h4>
+                    <div class="highlight-box important">
+                        <strong>What SB 389 Does NOT Allow:</strong>
+                        <ul>
+                            <li>Does NOT apply outside school settings</li>
+                            <li>Does NOT allow oxygen administration</li>
+                            <li>Does NOT allow suctioning</li>
+                            <li>Does NOT allow any ventilator or CPAP/BiPAP management</li>
+                            <li>Does NOT eliminate need for school nurse oversight</li>
+                            <li>Does NOT allow administration without valid physician order</li>
+                        </ul>
+                    </div>
+
+                    <div class="accordion">
+                        <div class="accordion-item">
+                            <div class="accordion-header" onclick="toggleAccordion(this)">
+                                <span>Training & Safety Requirements</span>
+                                <span class="accordion-icon">▼</span>
+                            </div>
+                            <div class="accordion-content">
+                                <p><strong>Required Training Components:</strong></p>
+                                <ul class="key-points">
+                                    <li>Proper nebulizer assembly and operation</li>
+                                    <li>Medication administration technique</li>
+                                    <li>Recognition of adverse reactions</li>
+                                    <li>Emergency response procedures</li>
+                                    <li>Documentation requirements</li>
+                                    <li>Infection control practices</li>
+                                </ul>
+
+                                <p><strong>Ongoing Requirements:</strong></p>
+                                <ul class="key-points">
+                                    <li>School nurse must verify competency before authorization</li>
+                                    <li>Regular refresher training required</li>
+                                    <li>Documentation of each administration</li>
+                                    <li>Communication with parents and school nurse</li>
+                                    <li>Annual review of authorization</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <div class="accordion-header" onclick="toggleAccordion(this)">
+                                <span>Relationship to Other Laws</span>
+                                <span class="accordion-icon">▼</span>
+                            </div>
+                            <div class="accordion-content">
+                                <p>SB 389 works within the existing regulatory framework:</p>
+                                <ul>
+                                    <li><strong>BPC § 3765:</strong> SB 389 creates a specific exemption to RCP licensing for this narrow school-based activity</li>
+                                    <li><strong>CCR § 1399.365:</strong> Aerosol administration is a "basic respiratory task," but SB 389 goes further by allowing unlicensed personnel in schools</li>
+                                    <li><strong>SB 1451:</strong> Different scope (home health vs. schools) and different personnel (LVNs vs. unlicensed)</li>
+                                </ul>
+
+                                <div class="highlight-box info">
+                                    <strong>Important Distinction:</strong> SB 389 is a carve-out specifically for schools. It does not set a general precedent for unlicensed respiratory care — it's a limited exception based on the unique needs of the school environment.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RELATIONSHIPS TAB -->
+            <div id="relationships" class="tab-content">
+                <h2>How These Laws & Regulations Work Together</h2>
+
+                <div class="highlight-box info">
+                    <strong>Understanding the Hierarchy:</strong> California's respiratory care regulatory framework consists of a foundational statute (BPC § 3765), implementing regulations (CCR), and specific legislative authorizations (SB 1451 & SB 389) that work together to define who can do what, where, and how.
+                </div>
+
+                <h3>Legal Framework Architecture</h3>
+
+                <div class="flow-diagram">
+                    <div class="flow-box" style="background: linear-gradient(135deg, #3498db 0%, #2980b9 100%); color: white;">
+                        <strong>BPC § 3765</strong>
+                        <p>Foundation: Defines respiratory care practice and establishes RCP licensing</p>
+                    </div>
+                    <div class="flow-arrow">↓</div>
+                    <div class="flow-box" style="background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%); color: white;">
+                        <strong>Title 16 CCR §§ 1399.361–1399.365</strong>
+                        <p>Regulations: Define "basic respiratory tasks" that non-RCPs may perform</p>
+                    </div>
+                    <div class="flow-arrow">↓</div>
+                    <div style="display: flex; gap: 20px; justify-content: center; width: 100%;">
+                        <div class="flow-box" style="background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); color: white; flex: 1;">
+                            <strong>SB 1451 (2024)</strong>
+                            <p>Home Health: Authorizes LVNs to perform basic tasks</p>
+                        </div>
+                        <div class="flow-box" style="background: linear-gradient(135deg, #27ae60 0%, #229954 100%); color: white; flex: 1;">
+                            <strong>SB 389 (2025)</strong>
+                            <p>Schools: Allows unlicensed personnel to give nebulizers</p>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>Key Relationships</h3>
+
+                <div class="accordion">
+                    <div class="accordion-item">
+                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                            <span>BPC § 3765 ← → Title 16 CCR</span>
+                            <span class="accordion-icon">▼</span>
+                        </div>
+                        <div class="accordion-content">
+                            <p><strong>Relationship:</strong> The Respiratory Care Board has regulatory authority under BPC § 3765 to adopt regulations that implement and clarify the statute.</p>
+
+                            <ul class="key-points">
+                                <li><strong>BPC § 3765 establishes:</strong> General scope of respiratory care practice and RCP licensing requirements</li>
+                                <li><strong>CCR implements by:</strong> Defining specific "basic respiratory tasks" that fall within nursing or other healthcare professional scopes</li>
+                                <li><strong>Result:</strong> CCR § 1399.365 clarifies which respiratory tasks are "basic" enough that they don't require RCP licensure when performed by other licensed professionals</li>
+                            </ul>
+
+                            <div class="highlight-box">
+                                <strong>Key Insight:</strong> BPC § 3765 doesn't prohibit ALL non-RCPs from doing ANY respiratory care. The CCR regulations clarify that certain basic tasks can be performed by other healthcare professionals within their scopes of practice.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                            <span>Title 16 CCR ← → SB 1451</span>
+                            <span class="accordion-icon">▼</span>
+                        </div>
+                        <div class="accordion-content">
+                            <p><strong>Relationship:</strong> SB 1451 explicitly references and relies on the CCR definition of "basic respiratory tasks."</p>
+
+                            <ul class="key-points">
+                                <li><strong>CCR § 1399.365 defines:</strong> What constitutes "basic respiratory tasks"</li>
+                                <li><strong>SB 1451 authorizes:</strong> LVNs to perform those specific tasks in home health settings</li>
+                                <li><strong>Timing:</strong> SB 1451 passed in 2024, CCR became operative Oct 1, 2025 — they work together</li>
+                            </ul>
+
+                            <div class="highlight-box info">
+                                <strong>Interdependence:</strong> Without the CCR definition, SB 1451 would be vague. Without SB 1451, LVNs might still face legal uncertainty in home health despite the CCR. Together, they provide comprehensive clarity.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                            <span>SB 1451 vs. SB 389: Different Contexts</span>
+                            <span class="accordion-icon">▼</span>
+                        </div>
+                        <div class="accordion-content">
+                            <p><strong>Relationship:</strong> These bills address different settings and different personnel — they don't conflict, they complement.</p>
+
+                            <table class="comparison-table">
+                                <tr>
+                                    <th>Aspect</th>
+                                    <th>SB 1451</th>
+                                    <th>SB 389</th>
+                                </tr>
+                                <tr>
+                                    <td><strong>Setting</strong></td>
+                                    <td>Home health & hospice</td>
+                                    <td>K-12 schools only</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Personnel</strong></td>
+                                    <td>Licensed Vocational Nurses (LVNs)</td>
+                                    <td>Unlicensed school personnel</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Scope</strong></td>
+                                    <td>All "basic respiratory tasks" per CCR § 1399.365</td>
+                                    <td>Aerosol medication administration ONLY</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Supervision</strong></td>
+                                    <td>Physician order or RCP supervision</td>
+                                    <td>School nurse authorization + physician order</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Rationale</strong></td>
+                                    <td>Cost-effective home care delivery</td>
+                                    <td>Student access to necessary medications during school day</td>
+                                </tr>
+                            </table>
+
+                            <div class="highlight-box">
+                                <strong>No Conflict:</strong> A school cannot use SB 1451 (it's for home health), and home health agencies cannot use SB 389 (it's for schools). Each law is narrowly tailored to its specific context.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                            <span>Complete Picture: Who Can Do What, Where</span>
+                            <span class="accordion-icon">▼</span>
+                        </div>
+                        <div class="accordion-content">
+                            <table class="comparison-table">
+                                <tr>
+                                    <th>Task</th>
+                                    <th>Hospital</th>
+                                    <th>Home Health</th>
+                                    <th>School</th>
+                                </tr>
+                                <tr>
+                                    <td><strong>Mechanical Ventilation</strong></td>
+                                    <td><span class="tag rcp">RCP Only</span></td>
+                                    <td><span class="tag rcp">RCP Only</span></td>
+                                    <td><span class="tag rcp">RCP Only</span></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Oxygen Therapy (basic)</strong></td>
+                                    <td><span class="tag rcp">RCP</span> <span class="tag">RN</span></td>
+                                    <td><span class="tag rcp">RCP</span> <span class="tag">RN</span> <span class="tag lvn">LVN (SB 1451)</span></td>
+                                    <td><span class="tag rcp">RCP</span> <span class="tag">School Nurse</span></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Aerosol Medication (nebulizer)</strong></td>
+                                    <td><span class="tag rcp">RCP</span> <span class="tag">RN</span></td>
+                                    <td><span class="tag rcp">RCP</span> <span class="tag">RN</span> <span class="tag lvn">LVN (SB 1451)</span></td>
+                                    <td><span class="tag rcp">RCP</span> <span class="tag">School Nurse</span> <span class="tag unlicensed">Trained Staff (SB 389)</span></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Suctioning (oral/nasal)</strong></td>
+                                    <td><span class="tag rcp">RCP</span> <span class="tag">RN</span></td>
+                                    <td><span class="tag rcp">RCP</span> <span class="tag">RN</span> <span class="tag lvn">LVN (SB 1451)</span></td>
+                                    <td><span class="tag rcp">RCP</span> <span class="tag">School Nurse</span></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Pulse Oximetry</strong></td>
+                                    <td><span class="tag rcp">RCP</span> <span class="tag">RN</span> <span class="tag">Others</span></td>
+                                    <td><span class="tag rcp">RCP</span> <span class="tag">RN</span> <span class="tag lvn">LVN (SB 1451)</span></td>
+                                    <td><span class="tag rcp">RCP</span> <span class="tag">School Nurse</span></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TIMELINE TAB -->
+            <div id="timeline" class="tab-content">
+                <h2>Legislative & Regulatory Timeline</h2>
+
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-date">Historical Foundation</div>
+                            <h4>Business & Professions Code § 3765 Enacted</h4>
+                            <p>California establishes the Respiratory Care Practice Act, defining respiratory care practice and creating RCP licensing requirements. This foundational statute governs the profession for decades.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-date">2022-2023</div>
+                            <h4>Growing Concerns in Home Health</h4>
+                            <p>Home health agencies and LVN associations raise concerns about legal ambiguity regarding LVN performance of basic respiratory tasks. Patients with respiratory needs face access barriers.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-dot" style="background: #e74c3c;"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-date">2024</div>
+                            <h4>Senate Bill 1451 Signed Into Law</h4>
+                            <p><strong>Key Achievement:</strong> Explicitly authorizes LVNs to perform basic respiratory care tasks in home health and hospice settings, providing legal clarity and improving patient access to care.</p>
+                            <span class="tag lvn">LVN Authorization</span>
+                            <span class="tag home-health">Home Health</span>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-dot" style="background: #f39c12;"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-date">2024-2025</div>
+                            <h4>Regulatory Development Process</h4>
+                            <p>Respiratory Care Board of California develops and adopts Title 16 CCR §§ 1399.361–1399.365, defining "basic respiratory tasks" through formal rulemaking process including public comment periods.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-dot" style="background: #27ae60;"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-date">2025</div>
+                            <h4>Senate Bill 389 Signed Into Law</h4>
+                            <p><strong>Key Achievement:</strong> Creates school-specific exemption allowing trained unlicensed personnel to administer aerosol medications to students, addressing critical access issues for students with asthma.</p>
+                            <span class="tag school">School Setting</span>
+                            <span class="tag unlicensed">Unlicensed Personnel</span>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-dot" style="background: #f39c12;"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-date">October 1, 2025</div>
+                            <h4>Title 16 CCR § 1399.365 Becomes Operative</h4>
+                            <p><strong>Critical Date:</strong> The regulation defining "basic respiratory tasks" officially takes effect, providing comprehensive regulatory framework that works in conjunction with SB 1451 and SB 389.</p>
+                            <span class="tag">Regulation Effective</span>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-dot" style="background: #3498db;"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-date">October-November 2025</div>
+                            <h4>Implementation Phase</h4>
+                            <p>Healthcare facilities, home health agencies, and schools begin implementing the new framework. Training programs developed. Respiratory Care Board provides guidance and oversight.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-dot" style="background: #9b59b6;"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-date">Current (November 2025)</div>
+                            <h4>Regulatory Framework Fully Operational</h4>
+                            <p>All components of the respiratory care regulatory framework are now in effect. LVNs can perform basic tasks in home health (SB 1451), schools can authorize unlicensed staff for nebulizers (SB 389), all within the CCR-defined framework.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="highlight-box success">
+                    <strong>Where We Are Today:</strong> California now has a comprehensive, clear regulatory framework governing respiratory care practice. The combination of BPC § 3765, Title 16 CCR §§ 1399.361–1399.365, SB 1451, and SB 389 provides legal certainty for healthcare providers, protects patient safety, and improves access to respiratory care across multiple settings.
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <h3>Additional Resources</h3>
+            <p>
+                <a href="https://www.rcb.ca.gov" target="_blank">Respiratory Care Board of California</a> | 
+                <a href="https://leginfo.legislature.ca.gov" target="_blank">California Legislative Information</a> | 
+                <a href="https://www.bvnpt.ca.gov" target="_blank">Board of Vocational Nursing</a>
+            </p>
+            <p style="margin-top: 20px; font-size: 0.9em; opacity: 0.8;">
+                <strong>Disclaimer:</strong> This interactive guide provides educational information about California respiratory care regulations. It is not legal advice. Healthcare providers should consult with legal counsel and their regulatory boards for specific guidance.
+            </p>
+            <p style="margin-top: 10px; font-size: 0.9em; opacity: 0.8;">
+                Last Updated: November 2025
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        // Tab Navigation
+        function openTab(evt, tabName) {
+            var i, tabContent, navTab;
+
+            tabContent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabContent.length; i++) {
+                tabContent[i].classList.remove("active");
+            }
+
+            navTab = document.getElementsByClassName("nav-tab");
+            for (i = 0; i < navTab.length; i++) {
+                navTab[i].classList.remove("active");
+            }
+
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+
+            // Scroll to top of content
+            document.querySelector('.content').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Accordion Toggle
+        function toggleAccordion(header) {
+            header.classList.toggle("active");
+            var content = header.nextElementSibling;
+            content.classList.toggle("active");
+        }
+
+        // Add smooth scroll behavior
+        document.addEventListener('DOMContentLoaded', function() {
+            // Optional: Add any initialization code here
+            console.log('California Respiratory Care Regulations Interactive Guide Loaded');
+        });
+    </script>
+</body>
+</html>
