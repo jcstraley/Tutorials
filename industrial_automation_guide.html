@@ -1,0 +1,1884 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Industrial Automation: OT, IEC 61131 & IEC 61499</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --success-color: #27ae60;
+            --warning-color: #f39c12;
+            --bg-light: #ecf0f1;
+            --text-dark: #2c3e50;
+            --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: var(--card-shadow);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        h1 {
+            color: var(--primary-color);
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: var(--secondary-color);
+            font-size: 1.2em;
+        }
+
+        nav {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: var(--card-shadow);
+            margin-bottom: 30px;
+            position: sticky;
+            top: 20px;
+            z-index: 100;
+        }
+
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .nav-btn {
+            padding: 12px 25px;
+            background: var(--secondary-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: all 0.3s ease;
+        }
+
+        .nav-btn:hover {
+            background: var(--primary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .nav-btn.active {
+            background: var(--accent-color);
+        }
+
+        .section {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: var(--card-shadow);
+            margin-bottom: 30px;
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h2 {
+            color: var(--primary-color);
+            font-size: 2em;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid var(--secondary-color);
+        }
+
+        h3 {
+            color: var(--secondary-color);
+            font-size: 1.5em;
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+
+        .card {
+            background: var(--bg-light);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid var(--secondary-color);
+        }
+
+        .card.highlight {
+            border-left-color: var(--accent-color);
+            background: #fff5f5;
+        }
+
+        .card.success {
+            border-left-color: var(--success-color);
+            background: #f0fdf4;
+        }
+
+        .accordion {
+            margin: 20px 0;
+        }
+
+        .accordion-header {
+            background: var(--primary-color);
+            color: white;
+            padding: 15px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.3s ease;
+        }
+
+        .accordion-header:hover {
+            background: var(--secondary-color);
+        }
+
+        .accordion-header::after {
+            content: '+';
+            font-size: 1.5em;
+            transition: transform 0.3s ease;
+        }
+
+        .accordion-header.active::after {
+            transform: rotate(45deg);
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            background: white;
+            border: 1px solid var(--bg-light);
+            border-top: none;
+            border-radius: 0 0 5px 5px;
+        }
+
+        .accordion-content.active {
+            max-height: 1000px;
+            padding: 20px;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            box-shadow: var(--card-shadow);
+        }
+
+        .comparison-table th {
+            background: var(--primary-color);
+            color: white;
+            padding: 15px;
+            text-align: left;
+        }
+
+        .comparison-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid var(--bg-light);
+        }
+
+        .comparison-table tr:nth-child(even) {
+            background: var(--bg-light);
+        }
+
+        .comparison-table tr:hover {
+            background: #dfe6e9;
+        }
+
+        .language-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .language-card {
+            background: white;
+            border: 2px solid var(--secondary-color);
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .language-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            border-color: var(--accent-color);
+        }
+
+        .language-card h4 {
+            color: var(--secondary-color);
+            margin-bottom: 10px;
+            font-size: 1.3em;
+        }
+
+        .diagram {
+            background: white;
+            border: 2px solid var(--secondary-color);
+            border-radius: 8px;
+            padding: 30px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .flow-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .flow-box {
+            background: var(--secondary-color);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            min-width: 150px;
+            text-align: center;
+            font-weight: bold;
+            position: relative;
+        }
+
+        .flow-arrow {
+            font-size: 2em;
+            color: var(--primary-color);
+        }
+
+        .interactive-demo {
+            background: var(--bg-light);
+            padding: 25px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .demo-controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .demo-btn {
+            padding: 10px 20px;
+            background: var(--success-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: all 0.3s ease;
+        }
+
+        .demo-btn:hover {
+            background: var(--primary-color);
+            transform: scale(1.05);
+        }
+
+        .demo-output {
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            min-height: 100px;
+            border: 2px solid var(--secondary-color);
+        }
+
+        .info-box {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+
+        .warning-box {
+            background: #fff3cd;
+            border-left: 4px solid var(--warning-color);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            padding: 10px 20px;
+            background: var(--bg-light);
+            border: 2px solid var(--secondary-color);
+            color: var(--primary-color);
+            cursor: pointer;
+            border-radius: 5px 5px 0 0;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn:hover {
+            background: var(--secondary-color);
+            color: white;
+        }
+
+        .tab-btn.active {
+            background: var(--secondary-color);
+            color: white;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 20px;
+            background: var(--bg-light);
+            border-radius: 0 5px 5px 5px;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        ul, ol {
+            margin: 15px 0 15px 30px;
+        }
+
+        li {
+            margin: 8px 0;
+        }
+
+        .key-point {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-size: 1.1em;
+            box-shadow: var(--card-shadow);
+        }
+
+        footer {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: var(--card-shadow);
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8em;
+            }
+
+            .nav-links {
+                flex-direction: column;
+            }
+
+            .flow-container {
+                flex-direction: column;
+            }
+
+            .comparison-table {
+                font-size: 0.9em;
+            }
+        }
+
+        .highlight-text {
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .visual-representation {
+            margin: 30px 0;
+            padding: 20px;
+            background: linear-gradient(to right, #f8f9fa, #e9ecef);
+            border-radius: 8px;
+        }
+
+        .architecture-layer {
+            background: white;
+            border: 2px solid var(--secondary-color);
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            text-align: center;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .architecture-layer:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🏭 Industrial Automation Comprehensive Guide</h1>
+            <p class="subtitle">Exploring Operational Technology, IEC 61131 & IEC 61499 Standards</p>
+        </header>
+
+        <nav>
+            <div class="nav-links">
+                <button class="nav-btn active" onclick="showSection('overview')">Overview</button>
+                <button class="nav-btn" onclick="showSection('ot')">Operational Technology</button>
+                <button class="nav-btn" onclick="showSection('iec61131')">IEC 61131</button>
+                <button class="nav-btn" onclick="showSection('iec61499')">IEC 61499</button>
+                <button class="nav-btn" onclick="showSection('comparison')">Standards Comparison</button>
+                <button class="nav-btn" onclick="showSection('industry4')">Industry 4.0</button>
+            </div>
+        </nav>
+
+        <!-- Overview Section -->
+        <section id="overview" class="section active">
+            <h2>🎯 Industrial Automation Overview</h2>
+
+            <div class="key-point">
+                Industrial automation is the use of control systems, such as computers, robots, and information technologies, to handle different processes and machinery in an industry to replace human intervention and improve efficiency, reliability, and precision.
+            </div>
+
+            <div class="card">
+                <h3>What is Industrial Automation?</h3>
+                <p>Industrial automation represents a fundamental shift in manufacturing and process control, where manual operations are replaced by intelligent, automated systems. This transformation encompasses hardware, software, and communication networks that work together to monitor, control, and optimize industrial processes.</p>
+            </div>
+
+            <h3>Core Components of Industrial Automation</h3>
+            <div class="flow-container">
+                <div class="flow-box">Sensors & Actuators</div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-box">Controllers (PLCs/DCS)</div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-box">SCADA Systems</div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-box">Enterprise Systems</div>
+            </div>
+
+            <div class="accordion">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    Benefits of Industrial Automation
+                </div>
+                <div class="accordion-content">
+                    <ul>
+                        <li><strong>Increased Productivity:</strong> Automated systems operate continuously without breaks, significantly increasing output.</li>
+                        <li><strong>Improved Quality:</strong> Consistent, precise control reduces defects and variations in production.</li>
+                        <li><strong>Enhanced Safety:</strong> Removes humans from hazardous environments and dangerous tasks.</li>
+                        <li><strong>Cost Reduction:</strong> Lower labor costs, reduced waste, and optimized resource utilization.</li>
+                        <li><strong>Real-time Monitoring:</strong> Instant visibility into production processes enables quick decision-making.</li>
+                        <li><strong>Flexibility:</strong> Quick reconfiguration for different products or processes.</li>
+                        <li><strong>Data Analytics:</strong> Collection and analysis of operational data for continuous improvement.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="accordion">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    Key Technologies in Modern Automation
+                </div>
+                <div class="accordion-content">
+                    <div class="language-grid">
+                        <div class="language-card">
+                            <h4>🤖 Robotics</h4>
+                            <p>Industrial robots for assembly, welding, painting, and material handling</p>
+                        </div>
+                        <div class="language-card">
+                            <h4>🔌 PLCs</h4>
+                            <p>Programmable Logic Controllers for discrete and sequential control</p>
+                        </div>
+                        <div class="language-card">
+                            <h4>📊 SCADA</h4>
+                            <p>Supervisory Control and Data Acquisition for process monitoring</p>
+                        </div>
+                        <div class="language-card">
+                            <h4>🌐 IIoT</h4>
+                            <p>Industrial Internet of Things for connected devices and analytics</p>
+                        </div>
+                        <div class="language-card">
+                            <h4>🧠 AI/ML</h4>
+                            <p>Artificial Intelligence for predictive maintenance and optimization</p>
+                        </div>
+                        <div class="language-card">
+                            <h4>☁️ Cloud Computing</h4>
+                            <p>Cloud-based platforms for data storage and advanced analytics</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="visual-representation">
+                <h3>Automation Pyramid Architecture</h3>
+                <div class="architecture-layer" style="background: #e74c3c; color: white;">
+                    Level 5: Enterprise Resource Planning (ERP)
+                </div>
+                <div class="architecture-layer" style="background: #e67e22; color: white;">
+                    Level 4: Manufacturing Execution Systems (MES)
+                </div>
+                <div class="architecture-layer" style="background: #f39c12; color: white;">
+                    Level 3: Supervisory Control (SCADA/HMI)
+                </div>
+                <div class="architecture-layer" style="background: #27ae60; color: white;">
+                    Level 2: Control Systems (PLC/DCS)
+                </div>
+                <div class="architecture-layer" style="background: #3498db; color: white;">
+                    Level 1: Field Devices (Sensors & Actuators)
+                </div>
+                <div class="architecture-layer" style="background: #2c3e50; color: white;">
+                    Level 0: Physical Process (Production Equipment)
+                </div>
+            </div>
+        </section>
+
+        <!-- Operational Technology Section -->
+        <section id="ot" class="section">
+            <h2>⚙️ Operational Technology (OT)</h2>
+
+            <div class="key-point">
+                Operational Technology (OT) is hardware and software that detects or causes a change through the direct monitoring and control of industrial equipment, assets, processes, and events.
+            </div>
+
+            <div class="card highlight">
+                <h3>Understanding OT vs IT</h3>
+                <p>OT focuses on monitoring and controlling physical devices and processes, while Information Technology (IT) focuses on data processing and management. The convergence of OT and IT is a key trend in modern industrial automation, enabling smart manufacturing and Industry 4.0.</p>
+            </div>
+
+            <h3>Key Characteristics of OT Systems</h3>
+            <div class="tabs">
+                <button class="tab-btn active" onclick="showTab(event, 'ot-char1')">Real-Time Operations</button>
+                <button class="tab-btn" onclick="showTab(event, 'ot-char2')">Reliability Focus</button>
+                <button class="tab-btn" onclick="showTab(event, 'ot-char3')">Legacy Systems</button>
+                <button class="tab-btn" onclick="showTab(event, 'ot-char4')">Safety Critical</button>
+            </div>
+
+            <div id="ot-char1" class="tab-content active">
+                <h4>Real-Time Operations</h4>
+                <p>OT systems operate in real-time, with millisecond-level response requirements. They continuously monitor sensors and control actuators to maintain process parameters within specified ranges. Any delay can result in production issues, safety hazards, or equipment damage.</p>
+                <ul>
+                    <li>Deterministic behavior required</li>
+                    <li>Time-critical control loops</li>
+                    <li>Immediate response to process changes</li>
+                    <li>Continuous operation (24/7/365)</li>
+                </ul>
+            </div>
+
+            <div id="ot-char2" class="tab-content">
+                <h4>Reliability and Availability Focus</h4>
+                <p>Unlike IT systems that can be rebooted or updated during maintenance windows, OT systems must maintain extremely high availability. Downtime directly impacts production, safety, and revenue.</p>
+                <ul>
+                    <li>Target availability: 99.99% or higher</li>
+                    <li>Redundant systems and fail-safe designs</li>
+                    <li>Minimal planned downtime</li>
+                    <li>Fault-tolerant architectures</li>
+                </ul>
+            </div>
+
+            <div id="ot-char3" class="tab-content">
+                <h4>Legacy Systems Integration</h4>
+                <p>Many OT environments contain equipment and control systems that are decades old. These legacy systems must be maintained and integrated with modern technologies, creating unique challenges.</p>
+                <ul>
+                    <li>Long equipment lifecycles (15-30 years)</li>
+                    <li>Proprietary protocols and interfaces</li>
+                    <li>Limited vendor support for older systems</li>
+                    <li>Gradual modernization requirements</li>
+                </ul>
+            </div>
+
+            <div id="ot-char4" class="tab-content">
+                <h4>Safety-Critical Operations</h4>
+                <p>OT systems often control processes that can be hazardous to personnel, equipment, or the environment. Safety is paramount and systems must be designed with multiple layers of protection.</p>
+                <ul>
+                    <li>Certified safety systems (SIL ratings)</li>
+                    <li>Emergency shutdown capabilities</li>
+                    <li>Regulatory compliance requirements</li>
+                    <li>Risk assessment and mitigation</li>
+                </ul>
+            </div>
+
+            <h3>Common OT Systems and Technologies</h3>
+            <div class="accordion">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    Programmable Logic Controllers (PLCs)
+                </div>
+                <div class="accordion-content">
+                    <p>PLCs are industrial computers designed for controlling manufacturing processes. They are ruggedized and designed to survive harsh industrial environments including extreme temperatures, dust, moisture, and electrical noise.</p>
+                    <strong>Key Features:</strong>
+                    <ul>
+                        <li>Scan-based execution cycle</li>
+                        <li>Multiple I/O configurations (digital, analog, specialty)</li>
+                        <li>Programming according to IEC 61131-3 standards</li>
+                        <li>Built-in communication protocols</li>
+                        <li>Modular and expandable architecture</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="accordion">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    SCADA Systems
+                </div>
+                <div class="accordion-content">
+                    <p>Supervisory Control and Data Acquisition (SCADA) systems provide operators with visibility into industrial processes and enable remote control of equipment. SCADA systems collect data from multiple PLCs, RTUs, and sensors.</p>
+                    <strong>Components:</strong>
+                    <ul>
+                        <li>Human-Machine Interface (HMI) for operator interaction</li>
+                        <li>Real-time and historical data trending</li>
+                        <li>Alarm management and notification</li>
+                        <li>Remote terminal units (RTUs) for distributed control</li>
+                        <li>Communication infrastructure</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="accordion">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    Distributed Control Systems (DCS)
+                </div>
+                <div class="accordion-content">
+                    <p>DCS are used primarily in continuous process industries like oil & gas, chemicals, and power generation. They provide distributed control across multiple controllers with centralized supervision.</p>
+                    <strong>Characteristics:</strong>
+                    <ul>
+                        <li>Hierarchical and distributed architecture</li>
+                        <li>Redundant controllers and networks</li>
+                        <li>Advanced process control capabilities</li>
+                        <li>Integrated with safety systems</li>
+                        <li>Scalable from small to very large installations</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="info-box">
+                <strong>🔍 OT/IT Convergence:</strong> Modern industrial environments are seeing increasing convergence between OT and IT systems. This enables advanced analytics, cloud connectivity, and integration with enterprise systems, but also introduces new cybersecurity challenges that must be carefully managed.
+            </div>
+
+            <div class="interactive-demo">
+                <h3>OT System Interaction Demo</h3>
+                <p>Click buttons to see how different OT components interact:</p>
+                <div class="demo-controls">
+                    <button class="demo-btn" onclick="simulateOT('sensor')">Trigger Sensor</button>
+                    <button class="demo-btn" onclick="simulateOT('plc')">PLC Processing</button>
+                    <button class="demo-btn" onclick="simulateOT('actuator')">Activate Actuator</button>
+                    <button class="demo-btn" onclick="simulateOT('scada')">Update SCADA</button>
+                    <button class="demo-btn" onclick="simulateOT('reset')">Reset</button>
+                </div>
+                <div id="ot-demo-output" class="demo-output">
+                    <p><strong>System Status:</strong> Ready</p>
+                    <p>Click a button to see OT system operations...</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- IEC 61131 Section -->
+        <section id="iec61131" class="section">
+            <h2>📘 IEC 61131: PLC Programming Standard</h2>
+
+            <div class="key-point">
+                IEC 61131 is the international standard for Programmable Logic Controllers (PLCs), defining programming languages, hardware requirements, and communication protocols. Part 3 of this standard defines five programming languages used worldwide in industrial automation.
+            </div>
+
+            <div class="card">
+                <h3>About IEC 61131</h3>
+                <p>First published in 1993 and updated to its 4th edition in 2025, IEC 61131 provides a comprehensive framework for PLC programming. It ensures portability of applications across different hardware platforms and establishes common programming practices.</p>
+            </div>
+
+            <h3>Structure of IEC 61131 Standard</h3>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Part</th>
+                        <th>Title</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Part 1</td>
+                        <td>General Information</td>
+                        <td>Definitions, terminology, and functional characteristics</td>
+                    </tr>
+                    <tr>
+                        <td>Part 2</td>
+                        <td>Equipment Requirements</td>
+                        <td>Hardware requirements, testing, EMC compliance</td>
+                    </tr>
+                    <tr>
+                        <td>Part 3</td>
+                        <td>Programming Languages</td>
+                        <td>Five standard programming languages (most widely used)</td>
+                    </tr>
+                    <tr>
+                        <td>Part 4</td>
+                        <td>User Guidelines</td>
+                        <td>Guidelines for application and implementation</td>
+                    </tr>
+                    <tr>
+                        <td>Part 5</td>
+                        <td>Communications</td>
+                        <td>Communication protocols and data exchange</td>
+                    </tr>
+                    <tr>
+                        <td>Part 6</td>
+                        <td>Functional Safety</td>
+                        <td>Safety-related systems and SIL compliance</td>
+                    </tr>
+                    <tr>
+                        <td>Part 7</td>
+                        <td>Fuzzy Control</td>
+                        <td>Fuzzy logic programming extensions</td>
+                    </tr>
+                    <tr>
+                        <td>Part 8</td>
+                        <td>Implementation Guidelines</td>
+                        <td>Application and implementation of programming languages</td>
+                    </tr>
+                    <tr>
+                        <td>Part 9</td>
+                        <td>SDCI (IO-Link)</td>
+                        <td>Single-drop digital communication interface</td>
+                    </tr>
+                    <tr>
+                        <td>Part 10</td>
+                        <td>XML Exchange</td>
+                        <td>XML format for project exchange between tools</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>IEC 61131-3: The Five Programming Languages</h3>
+
+            <div class="language-grid">
+                <div class="language-card" onclick="showLanguageDetail('ld')">
+                    <h4>📊 Ladder Diagram (LD)</h4>
+                    <p>Graphical language resembling electrical relay logic</p>
+                </div>
+                <div class="language-card" onclick="showLanguageDetail('fbd')">
+                    <h4>🔗 Function Block Diagram (FBD)</h4>
+                    <p>Graphical language using function blocks</p>
+                </div>
+                <div class="language-card" onclick="showLanguageDetail('st')">
+                    <h4>📝 Structured Text (ST)</h4>
+                    <p>High-level textual language similar to Pascal</p>
+                </div>
+                <div class="language-card" onclick="showLanguageDetail('il')">
+                    <h4>⚡ Instruction List (IL)</h4>
+                    <p>Low-level assembly-like language</p>
+                </div>
+                <div class="language-card" onclick="showLanguageDetail('sfc')">
+                    <h4>🔄 Sequential Function Chart (SFC)</h4>
+                    <p>Graphical language for sequential processes</p>
+                </div>
+            </div>
+
+            <div id="language-details" class="card" style="display: none;">
+                <!-- Language details will be populated by JavaScript -->
+            </div>
+
+            <div class="accordion">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    Ladder Diagram (LD) - Detailed Overview
+                </div>
+                <div class="accordion-content">
+                    <p><strong>Origin:</strong> Based on electrical relay logic diagrams, making it intuitive for electricians and technicians familiar with relay control systems.</p>
+
+                    <strong>Key Characteristics:</strong>
+                    <ul>
+                        <li>Visual representation of control logic</li>
+                        <li>Left power rail and right power rail structure</li>
+                        <li>Contacts (normally open/normally closed) and coils</li>
+                        <li>Horizontal rungs represent logic conditions</li>
+                        <li>Easy to understand for maintenance personnel</li>
+                    </ul>
+
+                    <strong>Best Used For:</strong>
+                    <ul>
+                        <li>Discrete manufacturing and machine control</li>
+                        <li>Sequential operations</li>
+                        <li>Boolean logic implementation</li>
+                        <li>Simple control applications</li>
+                    </ul>
+
+                    <div class="info-box">
+                        <strong>Example Use Case:</strong> A conveyor belt control system where the motor starts when a start button is pressed AND a safety guard is closed AND an emergency stop is not activated.
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    Function Block Diagram (FBD) - Detailed Overview
+                </div>
+                <div class="accordion-content">
+                    <p><strong>Origin:</strong> Based on electronic circuit diagrams and signal flow representations commonly used in process control.</p>
+
+                    <strong>Key Characteristics:</strong>
+                    <ul>
+                        <li>Function blocks with inputs on the left, outputs on the right</li>
+                        <li>Signal flow from left to right</li>
+                        <li>Encapsulation of complex functions</li>
+                        <li>Reusable function blocks</li>
+                        <li>Visual representation of data flow</li>
+                    </ul>
+
+                    <strong>Best Used For:</strong>
+                    <ul>
+                        <li>Process control applications</li>
+                        <li>Analog control and PID loops</li>
+                        <li>Mathematical calculations</li>
+                        <li>Complex control algorithms</li>
+                    </ul>
+
+                    <div class="info-box">
+                        <strong>Example Use Case:</strong> A temperature control system using PID blocks, analog scaling blocks, and alarm monitoring blocks connected to show the flow of process data.
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    Structured Text (ST) - Detailed Overview
+                </div>
+                <div class="accordion-content">
+                    <p><strong>Origin:</strong> High-level programming language similar to Pascal, designed for complex algorithms and data manipulation.</p>
+
+                    <strong>Key Characteristics:</strong>
+                    <ul>
+                        <li>Text-based programming</li>
+                        <li>IF-THEN-ELSE conditional statements</li>
+                        <li>WHILE, REPEAT, FOR loops</li>
+                        <li>Complex mathematical expressions</li>
+                        <li>Structured programming constructs</li>
+                    </ul>
+
+                    <strong>Best Used For:</strong>
+                    <ul>
+                        <li>Complex calculations and algorithms</li>
+                        <li>Data manipulation and array processing</li>
+                        <li>Recipe management systems</li>
+                        <li>Advanced control strategies</li>
+                    </ul>
+
+                    <div class="info-box">
+                        <strong>Example Code:</strong><br>
+                        <code>
+                        IF Temperature > SetPoint THEN<br>
+                        &nbsp;&nbsp;HeaterOutput := 0;<br>
+                        ELSIF Temperature < (SetPoint - Hysteresis) THEN<br>
+                        &nbsp;&nbsp;HeaterOutput := 100;<br>
+                        END_IF;
+                        </code>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    Instruction List (IL) - Detailed Overview
+                </div>
+                <div class="accordion-content">
+                    <p><strong>Origin:</strong> Low-level assembly-like language, similar to microprocessor instruction sets.</p>
+
+                    <strong>Key Characteristics:</strong>
+                    <ul>
+                        <li>Line-by-line instruction execution</li>
+                        <li>Accumulator-based operations</li>
+                        <li>Compact code representation</li>
+                        <li>Direct hardware control</li>
+                        <li>Memory-efficient</li>
+                    </ul>
+
+                    <strong>Best Used For:</strong>
+                    <ul>
+                        <li>Time-critical operations</li>
+                        <li>Memory-constrained systems</li>
+                        <li>Legacy system maintenance</li>
+                        <li>Low-level hardware interfacing</li>
+                    </ul>
+
+                    <div class="warning-box">
+                        <strong>Note:</strong> IL is deprecated in Edition 3.0 of IEC 61131-3 and is being phased out in favor of other languages.
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    Sequential Function Chart (SFC) - Detailed Overview
+                </div>
+                <div class="accordion-content">
+                    <p><strong>Origin:</strong> Based on Petri nets and GRAFCET, designed specifically for sequential process control.</p>
+
+                    <strong>Key Characteristics:</strong>
+                    <ul>
+                        <li>Steps and transitions structure</li>
+                        <li>Actions associated with steps</li>
+                        <li>Transition conditions between steps</li>
+                        <li>Parallel and alternative branches</li>
+                        <li>Hierarchical organization</li>
+                    </ul>
+
+                    <strong>Components:</strong>
+                    <ul>
+                        <li><strong>Steps:</strong> Represent states in the process</li>
+                        <li><strong>Transitions:</strong> Conditions for moving between steps</li>
+                        <li><strong>Actions:</strong> Operations performed in each step</li>
+                        <li><strong>Directed Links:</strong> Show the flow sequence</li>
+                    </ul>
+
+                    <strong>Best Used For:</strong>
+                    <ul>
+                        <li>Batch processing applications</li>
+                        <li>Sequential machine operations</li>
+                        <li>State machine implementation</li>
+                        <li>Complex process coordination</li>
+                    </ul>
+
+                    <div class="info-box">
+                        <strong>Example Use Case:</strong> A washing machine program with steps for fill water, heat water, wash, rinse, spin, and complete - each with specific transition conditions.
+                    </div>
+                </div>
+            </div>
+
+            <div class="card success">
+                <h3>Benefits of IEC 61131-3 Standardization</h3>
+                <ul>
+                    <li><strong>Vendor Independence:</strong> Programs can be more easily ported between different PLC brands</li>
+                    <li><strong>Reduced Training:</strong> Engineers familiar with standard languages can work on different systems</li>
+                    <li><strong>Code Reusability:</strong> Function blocks and libraries can be shared across projects</li>
+                    <li><strong>Multiple Language Support:</strong> Choose the best language for each part of the application</li>
+                    <li><strong>Industry Acceptance:</strong> Worldwide standard adopted by major automation vendors</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- IEC 61499 Section -->
+        <section id="iec61499" class="section">
+            <h2>🚀 IEC 61499: Distributed Automation Standard</h2>
+
+            <div class="key-point">
+                IEC 61499 is the next-generation standard for distributed industrial automation systems. It extends IEC 61131-3 by providing a component-based architecture designed for distributed, networked control systems with built-in support for Industry 4.0 and Industrial IoT applications.
+            </div>
+
+            <div class="card highlight">
+                <h3>Why IEC 61499 Was Developed</h3>
+                <p>As industrial systems evolved from centralized control to distributed architectures, IEC 61131-3 showed limitations. IEC 61499 was created to address the needs of modern, distributed control systems where intelligence is distributed across multiple controllers that communicate over networks.</p>
+            </div>
+
+            <h3>Key Differences: IEC 61131-3 vs IEC 61499</h3>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Aspect</th>
+                        <th>IEC 61131-3</th>
+                        <th>IEC 61499</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Architecture</strong></td>
+                        <td>Centralized, single PLC focus</td>
+                        <td>Distributed, multi-controller systems</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Execution Model</strong></td>
+                        <td>Cyclic scan-based</td>
+                        <td>Event-driven execution</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Communication</strong></td>
+                        <td>Limited standardization</td>
+                        <td>Built-in distributed communication</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Portability</strong></td>
+                        <td>Limited between vendors</td>
+                        <td>Enhanced vendor independence</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Reconfiguration</strong></td>
+                        <td>Manual, requires downtime</td>
+                        <td>Dynamic runtime reconfiguration</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Reusability</strong></td>
+                        <td>Function blocks with dependencies</td>
+                        <td>Truly encapsulated components</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Best For</strong></td>
+                        <td>Traditional manufacturing automation</td>
+                        <td>Industry 4.0, IIoT, flexible manufacturing</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Core Concepts of IEC 61499</h3>
+
+            <div class="accordion">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    Function Blocks (FBs) in IEC 61499
+                </div>
+                <div class="accordion-content">
+                    <p>IEC 61499 function blocks are the fundamental building blocks of applications. They are event-driven, encapsulated components that can be distributed across different devices.</p>
+
+                    <strong>Function Block Structure:</strong>
+                    <ul>
+                        <li><strong>Event Inputs:</strong> Trigger execution of the function block</li>
+                        <li><strong>Event Outputs:</strong> Signal completion or state changes</li>
+                        <li><strong>Data Inputs:</strong> Input parameters for the function</li>
+                        <li><strong>Data Outputs:</strong> Results of the function execution</li>
+                        <li><strong>Internal State:</strong> Private data maintained between executions</li>
+                        <li><strong>Algorithms:</strong> The actual logic executed</li>
+                    </ul>
+
+                    <strong>Types of Function Blocks:</strong>
+                    <ul>
+                        <li><strong>Basic FB:</strong> Contains algorithms and internal state machine</li>
+                        <li><strong>Composite FB:</strong> Networks of other function blocks</li>
+                        <li><strong>Service Interface FB (SIFB):</strong> Interface to external services</li>
+                        <li><strong>Adapter FB:</strong> Enable plug-and-play interfaces</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="accordion">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    Event-Driven Execution Model
+                </div>
+                <div class="accordion-content">
+                    <p>Unlike IEC 61131-3's cyclic scan, IEC 61499 uses an event-driven model where function blocks execute only when triggered by events. This provides more efficient use of processing resources and enables true distributed operation.</p>
+
+                    <strong>How It Works:</strong>
+                    <ol>
+                        <li>An event occurs (sensor input, timer, communication message)</li>
+                        <li>The event triggers execution of associated function block(s)</li>
+                        <li>Function blocks execute their algorithms</li>
+                        <li>Output events are generated</li>
+                        <li>These output events may trigger other function blocks</li>
+                    </ol>
+
+                    <strong>Advantages:</strong>
+                    <ul>
+                        <li>Faster response to critical events</li>
+                        <li>More efficient CPU utilization</li>
+                        <li>Natural fit for distributed systems</li>
+                        <li>Easier to implement priority-based execution</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="accordion">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    Distributed System Model
+                </div>
+                <div class="accordion-content">
+                    <p>IEC 61499 provides a hierarchical model for distributed systems:</p>
+
+                    <div class="visual-representation">
+                        <div class="architecture-layer" style="background: #e74c3c; color: white;">
+                            System: Complete distributed automation solution
+                        </div>
+                        <div class="architecture-layer" style="background: #e67e22; color: white;">
+                            Application: Network of distributed function blocks
+                        </div>
+                        <div class="architecture-layer" style="background: #f39c12; color: white;">
+                            Device: Physical controller or embedded system
+                        </div>
+                        <div class="architecture-layer" style="background: #27ae60; color: white;">
+                            Resource: Execution environment within a device
+                        </div>
+                        <div class="architecture-layer" style="background: #3498db; color: white;">
+                            Function Block: Executable control component
+                        </div>
+                    </div>
+
+                    <strong>Key Features:</strong>
+                    <ul>
+                        <li><strong>Device Independence:</strong> Applications designed without hardware in mind</li>
+                        <li><strong>Resource Management:</strong> Multiple resources can run on one device</li>
+                        <li><strong>Transparent Communication:</strong> FB networks span multiple devices seamlessly</li>
+                        <li><strong>Distribution Flexibility:</strong> FBs can be moved between devices</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="accordion">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    Application Portability
+                </div>
+                <div class="accordion-content">
+                    <p>One of the main goals of IEC 61499 is to enable true application portability - the ability to develop control applications independently of specific hardware platforms.</p>
+
+                    <strong>Benefits:</strong>
+                    <ul>
+                        <li><strong>Vendor Independence:</strong> Not locked into a single supplier</li>
+                        <li><strong>Best-of-Breed:</strong> Choose optimal hardware for each subsystem</li>
+                        <li><strong>Easier Upgrades:</strong> Migrate to new hardware without full redesign</li>
+                        <li><strong>Reduced Engineering Costs:</strong> Reuse applications across projects</li>
+                        <li><strong>Faster Time-to-Market:</strong> Leverage existing component libraries</li>
+                    </ul>
+
+                    <div class="info-box">
+                        <strong>Real-World Impact:</strong> A manufacturer can develop a machine control application once and deploy it on different hardware platforms across multiple production sites worldwide, significantly reducing engineering time and costs.
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    Dynamic Reconfiguration
+                </div>
+                <div class="accordion-content">
+                    <p>IEC 61499 supports runtime reconfiguration of control applications without stopping the entire system. This is crucial for flexible manufacturing and Industry 4.0 scenarios.</p>
+
+                    <strong>Reconfiguration Capabilities:</strong>
+                    <ul>
+                        <li>Add or remove function blocks at runtime</li>
+                        <li>Change connections between function blocks</li>
+                        <li>Modify parameters and configurations</li>
+                        <li>Redistribute function blocks across devices</li>
+                        <li>Update control logic without full system shutdown</li>
+                    </ul>
+
+                    <strong>Use Cases:</strong>
+                    <ul>
+                        <li>Product changeovers in flexible manufacturing</li>
+                        <li>Adding new equipment to production lines</li>
+                        <li>Software updates and patches</li>
+                        <li>Adaptive control based on production requirements</li>
+                        <li>Maintenance without full system downtime</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>Industry 4.0 and IIoT Enablement</h3>
+            <div class="card success">
+                <p>IEC 61499 is specifically designed to support Industry 4.0 initiatives and Industrial Internet of Things (IIoT) implementations:</p>
+                <ul>
+                    <li><strong>Edge Computing:</strong> Distributed intelligence at the edge of networks</li>
+                    <li><strong>Cloud Integration:</strong> Seamless connection to cloud services</li>
+                    <li><strong>Digital Twins:</strong> Virtual models of physical assets</li>
+                    <li><strong>Plug-and-Produce:</strong> Self-configuring manufacturing systems</li>
+                    <li><strong>Cyber-Physical Systems:</strong> Tight integration of computing and physical processes</li>
+                    <li><strong>IT/OT Convergence:</strong> Bridge between operational and information technology</li>
+                </ul>
+            </div>
+
+            <div class="interactive-demo">
+                <h3>IEC 61499 Event-Driven Demo</h3>
+                <p>Simulate an event-driven function block network:</p>
+                <div class="demo-controls">
+                    <button class="demo-btn" onclick="simulate61499('sensor')">Sensor Event</button>
+                    <button class="demo-btn" onclick="simulate61499('process')">Process FB</button>
+                    <button class="demo-btn" onclick="simulate61499('communicate')">Comm Event</button>
+                    <button class="demo-btn" onclick="simulate61499('actuator')">Actuator FB</button>
+                    <button class="demo-btn" onclick="simulate61499('reset')">Reset</button>
+                </div>
+                <div id="iec61499-demo-output" class="demo-output">
+                    <p><strong>Event Flow:</strong> No events triggered</p>
+                    <p>Click buttons to see event-driven execution...</p>
+                </div>
+            </div>
+
+            <div class="warning-box">
+                <strong>Implementation Challenges:</strong> While IEC 61499 offers significant advantages, adoption has been slower than IEC 61131-3 due to the paradigm shift required, limited tool availability, and the installed base of IEC 61131-3 systems. However, growing Industry 4.0 requirements are driving increased interest and adoption.
+            </div>
+        </section>
+
+        <!-- Comparison Section -->
+        <section id="comparison" class="section">
+            <h2>⚖️ Standards Comparison and When to Use Each</h2>
+
+            <div class="key-point">
+                Understanding when to use IEC 61131-3 versus IEC 61499 is crucial for successful automation projects. Each standard has its strengths and ideal applications.
+            </div>
+
+            <h3>Detailed Comparison Matrix</h3>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Criteria</th>
+                        <th>IEC 61131-3</th>
+                        <th>IEC 61499</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Maturity</strong></td>
+                        <td>Highly mature, 30+ years of use</td>
+                        <td>Emerging, growing adoption since 2005</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Tool Support</strong></td>
+                        <td>Extensive vendor ecosystem</td>
+                        <td>Limited but growing tool availability</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Learning Curve</strong></td>
+                        <td>Moderate, well-documented</td>
+                        <td>Steeper, requires new thinking</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Engineer Availability</strong></td>
+                        <td>Large pool of experienced engineers</td>
+                        <td>Smaller but growing talent pool</td>
+                    </tr>
+                    <tr>
+                        <td><strong>System Complexity</strong></td>
+                        <td>Best for single controller systems</td>
+                        <td>Excels in multi-controller distributed systems</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Flexibility</strong></td>
+                        <td>Fixed architecture, manual changes</td>
+                        <td>Dynamic reconfiguration capability</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Communication</strong></td>
+                        <td>Vendor-specific, requires integration</td>
+                        <td>Standardized distributed communication</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Future-Readiness</strong></td>
+                        <td>Continues to evolve but limited for I4.0</td>
+                        <td>Designed for Industry 4.0 and IIoT</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Initial Cost</strong></td>
+                        <td>Lower due to mature ecosystem</td>
+                        <td>Potentially higher initial investment</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Long-term Cost</strong></td>
+                        <td>Can be higher due to vendor lock-in</td>
+                        <td>Lower through flexibility and portability</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Decision Framework: Which Standard to Choose?</h3>
+
+            <div class="tabs">
+                <button class="tab-btn active" onclick="showTab(event, 'use-61131')">Use IEC 61131-3 When...</button>
+                <button class="tab-btn" onclick="showTab(event, 'use-61499')">Use IEC 61499 When...</button>
+                <button class="tab-btn" onclick="showTab(event, 'hybrid')">Hybrid Approaches</button>
+            </div>
+
+            <div id="use-61131" class="tab-content active">
+                <h4>IEC 61131-3 is the Right Choice When:</h4>
+                <ul>
+                    <li><strong>Single PLC Systems:</strong> Your application runs on a single programmable controller</li>
+                    <li><strong>Traditional Manufacturing:</strong> Conventional production with well-defined, stable processes</li>
+                    <li><strong>Limited Budget:</strong> Cost constraints require using existing, proven technology</li>
+                    <li><strong>Brownfield Projects:</strong> Expanding or modifying existing IEC 61131-3 systems</li>
+                    <li><strong>Time Constraints:</strong> Project timelines require leveraging experienced engineers and mature tools</li>
+                    <li><strong>Simple Architecture:</strong> Straightforward control requirements without complex distribution</li>
+                    <li><strong>Vendor Relationship:</strong> Committed to a single automation vendor ecosystem</li>
+                    <li><strong>Skills Availability:</strong> Existing team has strong IEC 61131-3 expertise</li>
+                </ul>
+
+                <div class="info-box">
+                    <strong>Example Applications:</strong> Packaging machines, conveyor systems, simple assembly lines, stand-alone equipment, retrofit projects
+                </div>
+            </div>
+
+            <div id="use-61499" class="tab-content">
+                <h4>IEC 61499 is the Right Choice When:</h4>
+                <ul>
+                    <li><strong>Distributed Control:</strong> Multiple controllers must work together across a network</li>
+                    <li><strong>Industry 4.0 Initiatives:</strong> Implementing smart manufacturing or IIoT strategies</li>
+                    <li><strong>Flexibility Requirements:</strong> Production systems need frequent reconfiguration</li>
+                    <li><strong>Vendor Independence:</strong> Want to avoid lock-in to a single supplier</li>
+                    <li><strong>Modular Systems:</strong> Building scalable, plug-and-produce architectures</li>
+                    <li><strong>Greenfield Projects:</strong> New facilities with no legacy constraints</li>
+                    <li><strong>Complex Coordination:</strong> Many systems must coordinate with sophisticated interactions</li>
+                    <li><strong>Long-term Vision:</strong> Strategic commitment to next-generation automation</li>
+                    <li><strong>Cloud Integration:</strong> Require seamless connection to cloud platforms</li>
+                    <li><strong>Multi-vendor Systems:</strong> Integrating equipment from different manufacturers</li>
+                </ul>
+
+                <div class="info-box">
+                    <strong>Example Applications:</strong> Flexible manufacturing cells, smart factories, logistics automation, modular production systems, process orchestration across multiple vendors
+                </div>
+            </div>
+
+            <div id="hybrid" class="tab-content">
+                <h4>Hybrid Approaches: Best of Both Worlds</h4>
+                <p>Many organizations are adopting hybrid strategies that leverage both standards:</p>
+
+                <strong>Common Hybrid Patterns:</strong>
+                <ul>
+                    <li><strong>IEC 61131-3 for Local Control:</strong> Individual machines use proven PLC programming</li>
+                    <li><strong>IEC 61499 for Coordination:</strong> Higher-level distributed control orchestrates machines</li>
+                    <li><strong>Gradual Migration:</strong> New equipment uses IEC 61499 while maintaining legacy systems</li>
+                    <li><strong>Gateway Approach:</strong> Bridge between IEC 61131-3 PLCs and IEC 61499 framework</li>
+                </ul>
+
+                <div class="diagram">
+                    <h4>Hybrid Architecture Example</h4>
+                    <div class="flow-container">
+                        <div class="flow-box" style="background: #3498db;">IEC 61499<br>Coordination Layer</div>
+                    </div>
+                    <div class="flow-arrow" style="text-align: center;">↓ ↓ ↓</div>
+                    <div class="flow-container">
+                        <div class="flow-box" style="background: #27ae60;">IEC 61131-3<br>Machine 1</div>
+                        <div class="flow-box" style="background: #27ae60;">IEC 61131-3<br>Machine 2</div>
+                        <div class="flow-box" style="background: #27ae60;">IEC 61131-3<br>Machine 3</div>
+                    </div>
+                </div>
+
+                <div class="card success">
+                    <strong>Migration Strategy:</strong> Organizations can start with IEC 61131-3 for immediate needs while planning a long-term transition to IEC 61499 for new systems, allowing them to preserve existing investments while moving toward more flexible, distributed architectures.
+                </div>
+            </div>
+
+            <h3>Real-World Adoption Considerations</h3>
+
+            <div class="accordion">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    Current Market Reality
+                </div>
+                <div class="accordion-content">
+                    <strong>IEC 61131-3 Dominance:</strong>
+                    <ul>
+                        <li>Used in over 80% of existing PLC installations worldwide</li>
+                        <li>Supported by all major automation vendors</li>
+                        <li>Massive installed base creates momentum</li>
+                        <li>Conservative industries prefer proven technology</li>
+                    </ul>
+
+                    <strong>IEC 61499 Growing Interest:</strong>
+                    <ul>
+                        <li>Increasing adoption in new industries (logistics, EV, green energy)</li>
+                        <li>Preferred by younger engineers familiar with modern software</li>
+                        <li>Gaining traction in Industry 4.0 pilot projects</li>
+                        <li>Growing support from major automation vendors</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="accordion">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    Skills and Training Considerations
+                </div>
+                <div class="accordion-content">
+                    <strong>IEC 61131-3:</strong>
+                    <ul>
+                        <li>Extensive training programs available worldwide</li>
+                        <li>Most automation engineers already trained</li>
+                        <li>Abundant online resources and communities</li>
+                        <li>Certification programs widely available</li>
+                    </ul>
+
+                    <strong>IEC 61499:</strong>
+                    <ul>
+                        <li>Requires new thinking paradigm (event-driven vs. cyclic)</li>
+                        <li>Limited training programs, mostly academic or vendor-specific</li>
+                        <li>Growing online communities and resources</li>
+                        <li>Better suited for engineers with software engineering background</li>
+                    </ul>
+
+                    <div class="info-box">
+                        <strong>Training Investment:</strong> Plan for 2-4 weeks of intensive training when transitioning experienced IEC 61131-3 engineers to IEC 61499. The paradigm shift is the biggest challenge, not the technical details.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Industry 4.0 Section -->
+        <section id="industry4" class="section">
+            <h2>🏭 Industry 4.0 and Future of Industrial Automation</h2>
+
+            <div class="key-point">
+                Industry 4.0 represents the fourth industrial revolution, characterized by cyber-physical systems, IoT, cloud computing, and artificial intelligence. Both IEC 61131 and IEC 61499 play roles in this transformation, with IEC 61499 specifically designed to enable Industry 4.0 capabilities.
+            </div>
+
+            <h3>The Four Industrial Revolutions</h3>
+            <div class="visual-representation">
+                <div class="architecture-layer" style="background: #8e44ad; color: white;">
+                    Industry 4.0 (Now): Cyber-Physical Systems, AI, IoT
+                </div>
+                <div class="architecture-layer" style="background: #2980b9; color: white;">
+                    Industry 3.0 (1970s): Computers, PLCs, Automation
+                </div>
+                <div class="architecture-layer" style="background: #27ae60; color: white;">
+                    Industry 2.0 (Early 1900s): Electricity, Assembly Lines, Mass Production
+                </div>
+                <div class="architecture-layer" style="background: #95a5a6; color: white;">
+                    Industry 1.0 (Late 1700s): Steam Power, Mechanization
+                </div>
+            </div>
+
+            <h3>Key Technologies in Industry 4.0</h3>
+            <div class="language-grid">
+                <div class="language-card">
+                    <h4>🌐 Industrial IoT</h4>
+                    <p>Connected sensors and devices generating real-time data</p>
+                </div>
+                <div class="language-card">
+                    <h4>☁️ Cloud & Edge</h4>
+                    <p>Distributed computing from edge devices to cloud platforms</p>
+                </div>
+                <div class="language-card">
+                    <h4>🤖 AI & Machine Learning</h4>
+                    <p>Predictive analytics and intelligent decision-making</p>
+                </div>
+                <div class="language-card">
+                    <h4>👥 Digital Twins</h4>
+                    <p>Virtual replicas of physical assets for simulation</p>
+                </div>
+                <div class="language-card">
+                    <h4>🔗 Blockchain</h4>
+                    <p>Secure, transparent supply chain and traceability</p>
+                </div>
+                <div class="language-card">
+                    <h4>👓 AR/VR</h4>
+                    <p>Augmented reality for maintenance and training</p>
+                </div>
+            </div>
+
+            <div class="accordion">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    Role of OT in Industry 4.0
+                </div>
+                <div class="accordion-content">
+                    <p>Operational Technology is the foundation upon which Industry 4.0 is built. The convergence of OT and IT is essential for realizing Industry 4.0 benefits.</p>
+
+                    <strong>OT Evolution for Industry 4.0:</strong>
+                    <ul>
+                        <li><strong>Connectivity:</strong> OT systems must connect securely to IT networks and cloud</li>
+                        <li><strong>Data Generation:</strong> Rich, contextualized data from production processes</li>
+                        <li><strong>Interoperability:</strong> Seamless communication between different OT systems</li>
+                        <li><strong>Intelligence:</strong> Edge computing capabilities for real-time decisions</li>
+                        <li><strong>Security:</strong> Robust cybersecurity protecting critical infrastructure</li>
+                    </ul>
+
+                    <div class="card success">
+                        <strong>IT/OT Convergence Benefits:</strong>
+                        <ul>
+                            <li>End-to-end visibility across the enterprise</li>
+                            <li>Advanced analytics on production data</li>
+                            <li>Predictive maintenance reducing downtime</li>
+                            <li>Optimized supply chain integration</li>
+                            <li>Improved quality through data-driven decisions</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    IEC 61499 as Industry 4.0 Enabler
+                </div>
+                <div class="accordion-content">
+                    <p>IEC 61499 was specifically designed with Industry 4.0 principles in mind, even before the term was coined:</p>
+
+                    <strong>Native Industry 4.0 Capabilities:</strong>
+                    <ul>
+                        <li><strong>Distributed Intelligence:</strong> Control logic distributed across edge devices</li>
+                        <li><strong>Plug-and-Produce:</strong> Devices auto-configure and integrate</li>
+                        <li><strong>Reconfigurability:</strong> Dynamic adaptation to changing requirements</li>
+                        <li><strong>Service-Oriented:</strong> Function blocks as microservices architecture</li>
+                        <li><strong>Cloud-Ready:</strong> Seamless integration with cloud platforms</li>
+                        <li><strong>Digital Twin Support:</strong> Virtual function blocks mirror physical systems</li>
+                    </ul>
+
+                    <div class="diagram">
+                        <h4>IEC 61499 in Industry 4.0 Architecture</h4>
+                        <div class="flow-container">
+                            <div class="flow-box" style="background: #9b59b6;">Cloud Analytics</div>
+                            <div class="flow-arrow">↔</div>
+                            <div class="flow-box" style="background: #3498db;">IEC 61499<br>Distributed Control</div>
+                            <div class="flow-arrow">↔</div>
+                            <div class="flow-box" style="background: #27ae60;">Physical Assets</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    Practical Industry 4.0 Use Cases
+                </div>
+                <div class="accordion-content">
+                    <strong>1. Predictive Maintenance:</strong>
+                    <ul>
+                        <li>OT systems collect vibration, temperature, and operational data</li>
+                        <li>Data sent to cloud-based ML models for analysis</li>
+                        <li>Predictions identify potential failures before they occur</li>
+                        <li>Maintenance scheduled optimally, reducing downtime</li>
+                    </ul>
+
+                    <strong>2. Flexible Manufacturing:</strong>
+                    <ul>
+                        <li>Production lines reconfigure automatically for different products</li>
+                        <li>IEC 61499 enables runtime reconfiguration of control logic</li>
+                        <li>Robots and machines self-organize based on production orders</li>
+                        <li>Mass customization without efficiency loss</li>
+                    </ul>
+
+                    <strong>3. Digital Twins:</strong>
+                    <ul>
+                        <li>Virtual replica of production system runs in parallel</li>
+                        <li>Test changes in virtual environment before deployment</li>
+                        <li>Optimize processes through simulation</li>
+                        <li>Real-time monitoring and "what-if" analysis</li>
+                    </ul>
+
+                    <strong>4. Autonomous Logistics:</strong>
+                    <ul>
+                        <li>AGVs (Automated Guided Vehicles) navigate dynamically</li>
+                        <li>Material delivery optimized in real-time</li>
+                        <li>Integration with production scheduling systems</li>
+                        <li>Self-organizing warehouse operations</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="accordion">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    Challenges in Industry 4.0 Implementation
+                </div>
+                <div class="accordion-content">
+                    <div class="warning-box">
+                        <strong>Common Challenges:</strong>
+                        <ul>
+                            <li><strong>Legacy Systems:</strong> Integrating old equipment with new technology</li>
+                            <li><strong>Cybersecurity:</strong> Protecting connected OT systems from threats</li>
+                            <li><strong>Skills Gap:</strong> Finding engineers with both OT and IT expertise</li>
+                            <li><strong>Standardization:</strong> Multiple competing protocols and standards</li>
+                            <li><strong>Investment:</strong> High upfront costs for transformation</li>
+                            <li><strong>Data Management:</strong> Handling massive volumes of operational data</li>
+                            <li><strong>Change Management:</strong> Organizational resistance to new approaches</li>
+                        </ul>
+                    </div>
+
+                    <strong>Success Factors:</strong>
+                    <ul>
+                        <li>Start with pilot projects to prove value</li>
+                        <li>Invest in training and skill development</li>
+                        <li>Adopt open standards like IEC 61499 when possible</li>
+                        <li>Implement robust cybersecurity from the start</li>
+                        <li>Focus on business outcomes, not just technology</li>
+                        <li>Partner with experienced system integrators</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>Future Trends in Industrial Automation</h3>
+            <div class="card highlight">
+                <strong>Emerging Trends to Watch:</strong>
+                <ul>
+                    <li><strong>AI-Driven Optimization:</strong> Machine learning optimizing processes in real-time</li>
+                    <li><strong>5G in Manufacturing:</strong> Ultra-reliable low-latency connectivity for critical control</li>
+                    <li><strong>Collaborative Robots (Cobots):</strong> Safe human-robot collaboration</li>
+                    <li><strong>Sustainability Focus:</strong> Energy optimization and carbon footprint reduction</li>
+                    <li><strong>Autonomous Systems:</strong> Self-optimizing production with minimal human intervention</li>
+                    <li><strong>Quantum Computing:</strong> Solving complex optimization problems</li>
+                    <li><strong>Neuromorphic Computing:</strong> Brain-inspired computing for pattern recognition</li>
+                </ul>
+            </div>
+
+            <div class="interactive-demo">
+                <h3>Industry 4.0 Concept Explorer</h3>
+                <p>Explore how different Industry 4.0 concepts work together:</p>
+                <div class="demo-controls">
+                    <button class="demo-btn" onclick="exploreI40('iiot')">IIoT Sensors</button>
+                    <button class="demo-btn" onclick="exploreI40('edge')">Edge Processing</button>
+                    <button class="demo-btn" onclick="exploreI40('cloud')">Cloud Analytics</button>
+                    <button class="demo-btn" onclick="exploreI40('ai')">AI Optimization</button>
+                    <button class="demo-btn" onclick="exploreI40('action')">Control Action</button>
+                </div>
+                <div id="i40-demo-output" class="demo-output">
+                    <p><strong>Industry 4.0 Flow:</strong> Select a component to explore</p>
+                    <p>See how data flows from sensors to actionable insights...</p>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p><strong>© 2025 Industrial Automation Guide</strong></p>
+            <p>Comprehensive guide to OT, IEC 61131, and IEC 61499 standards</p>
+            <p style="margin-top: 10px; font-size: 0.9em;">This interactive site provides educational information on industrial automation standards and technologies.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Navigation
+        function showSection(sectionId) {
+            // Hide all sections
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => section.classList.remove('active'));
+
+            // Show selected section
+            document.getElementById(sectionId).classList.add('active');
+
+            // Update nav buttons
+            const buttons = document.querySelectorAll('.nav-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            // Scroll to top
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+
+        // Accordion
+        function toggleAccordion(header) {
+            const content = header.nextElementSibling;
+            const isActive = content.classList.contains('active');
+
+            // Close all accordions in the same section
+            const section = header.closest('.section');
+            const allContents = section.querySelectorAll('.accordion-content');
+            const allHeaders = section.querySelectorAll('.accordion-header');
+
+            allContents.forEach(c => c.classList.remove('active'));
+            allHeaders.forEach(h => h.classList.remove('active'));
+
+            // Toggle current accordion
+            if (!isActive) {
+                content.classList.add('active');
+                header.classList.add('active');
+            }
+        }
+
+        // Tabs
+        function showTab(event, tabId) {
+            const container = event.target.closest('.section, .card, .accordion-content');
+            const tabContents = container.querySelectorAll('.tab-content');
+            const tabButtons = container.querySelectorAll('.tab-btn');
+
+            tabContents.forEach(content => content.classList.remove('active'));
+            tabButtons.forEach(btn => btn.classList.remove('active'));
+
+            document.getElementById(tabId).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        // Language Detail Display
+        function showLanguageDetail(lang) {
+            const detailsDiv = document.getElementById('language-details');
+            const languages = {
+                'ld': {
+                    name: 'Ladder Diagram (LD)',
+                    icon: '📊',
+                    description: 'Visual programming language based on electrical relay logic.',
+                    features: ['Intuitive for electricians', 'Easy debugging', 'Good for discrete logic', 'Standardized symbols'],
+                    example: 'Used extensively in discrete manufacturing, conveyor systems, and machine control.'
+                },
+                'fbd': {
+                    name: 'Function Block Diagram (FBD)',
+                    icon: '🔗',
+                    description: 'Graphical language showing data flow through function blocks.',
+                    features: ['Visual data flow', 'Reusable blocks', 'Good for process control', 'Complex algorithms'],
+                    example: 'Ideal for process control, PID loops, and continuous manufacturing.'
+                },
+                'st': {
+                    name: 'Structured Text (ST)',
+                    icon: '📝',
+                    description: 'High-level textual language similar to Pascal or C.',
+                    features: ['Powerful expressions', 'Complex algorithms', 'Compact code', 'Easy for programmers'],
+                    example: 'Perfect for complex calculations, data handling, and advanced control.'
+                },
+                'il': {
+                    name: 'Instruction List (IL)',
+                    icon: '⚡',
+                    description: 'Low-level assembly-like language for direct control.',
+                    features: ['Compact code', 'Fast execution', 'Low-level access', 'Memory efficient'],
+                    example: 'Used for time-critical operations and legacy systems (deprecated in Edition 3).'
+                },
+                'sfc': {
+                    name: 'Sequential Function Chart (SFC)',
+                    icon: '🔄',
+                    description: 'Graphical language for sequential and parallel processes.',
+                    features: ['Clear process flow', 'Steps and transitions', 'Parallel branches', 'State machines'],
+                    example: 'Excellent for batch processes, machine sequencing, and state-based control.'
+                }
+            };
+
+            const langInfo = languages[lang];
+            if (langInfo) {
+                detailsDiv.style.display = 'block';
+                detailsDiv.innerHTML = `
+                    <h3>${langInfo.icon} ${langInfo.name}</h3>
+                    <p><strong>${langInfo.description}</strong></p>
+                    <h4>Key Features:</h4>
+                    <ul>${langInfo.features.map(f => `<li>${f}</li>`).join('')}</ul>
+                    <div class="info-box">
+                        <strong>Typical Application:</strong> ${langInfo.example}
+                    </div>
+                `;
+                detailsDiv.scrollIntoView({behavior: 'smooth', block: 'nearest'});
+            }
+        }
+
+        // OT System Simulation
+        let otState = [];
+        function simulateOT(action) {
+            const output = document.getElementById('ot-demo-output');
+
+            if (action === 'reset') {
+                otState = [];
+                output.innerHTML = `
+                    <p><strong>System Status:</strong> Reset</p>
+                    <p>Click a button to see OT system operations...</p>
+                `;
+                return;
+            }
+
+            const actions = {
+                'sensor': {msg: '📡 Sensor detected: Temperature = 75°C', time: new Date().toLocaleTimeString()},
+                'plc': {msg: '⚙️ PLC processing: Temperature exceeds setpoint (70°C)', time: new Date().toLocaleTimeString()},
+                'actuator': {msg: '🔧 Actuator activated: Cooling valve opened', time: new Date().toLocaleTimeString()},
+                'scada': {msg: '📊 SCADA updated: Alarm displayed, data logged', time: new Date().toLocaleTimeString()}
+            };
+
+            if (actions[action]) {
+                otState.push(actions[action]);
+                let html = '<p><strong>OT System Event Log:</strong></p>';
+                otState.forEach(state => {
+                    html += `<p>[${state.time}] ${state.msg}</p>`;
+                });
+                output.innerHTML = html;
+            }
+        }
+
+        // IEC 61499 Event Simulation
+        let eventState = [];
+        function simulate61499(action) {
+            const output = document.getElementById('iec61499-demo-output');
+
+            if (action === 'reset') {
+                eventState = [];
+                output.innerHTML = `
+                    <p><strong>Event Flow:</strong> No events triggered</p>
+                    <p>Click buttons to see event-driven execution...</p>
+                `;
+                return;
+            }
+
+            const events = {
+                'sensor': {msg: '⚡ Event IN: Sensor_Changed → triggers Process_FB', fb: 'Sensor_FB'},
+                'process': {msg: '⚙️ Event EXEC: Process_FB executes algorithm → Event OUT', fb: 'Process_FB'},
+                'communicate': {msg: '📡 Event COMM: Data transmitted to remote device', fb: 'Comm_FB'},
+                'actuator': {msg: '✅ Event OUT: Actuator_FB receives event → executes action', fb: 'Actuator_FB'}
+            };
+
+            if (events[action]) {
+                eventState.push(events[action]);
+                let html = '<p><strong>IEC 61499 Event-Driven Execution:</strong></p>';
+                eventState.forEach((state, index) => {
+                    html += `<p><strong>Step ${index + 1}:</strong> [${state.fb}] ${state.msg}</p>`;
+                });
+                html += '<p style="margin-top: 15px;"><em>Note: Events trigger function blocks only when needed, improving efficiency!</em></p>';
+                output.innerHTML = html;
+            }
+        }
+
+        // Industry 4.0 Concept Explorer
+        function exploreI40(concept) {
+            const output = document.getElementById('i40-demo-output');
+
+            const concepts = {
+                'iiot': {
+                    title: '🌐 IIoT Sensors',
+                    description: 'Sensors throughout the factory collect real-time data: temperature, pressure, vibration, position, energy consumption.',
+                    dataFlow: 'Raw sensor data → Edge Gateway',
+                    example: 'Temperature sensor on Motor #3 reports 85°C'
+                },
+                'edge': {
+                    title: '⚡ Edge Processing',
+                    description: 'Edge devices process data locally for immediate decisions and filtering before sending to cloud.',
+                    dataFlow: 'Raw data → Filtered/Processed data → Cloud',
+                    example: 'Edge controller detects temperature trend, triggers local cooling response'
+                },
+                'cloud': {
+                    title: '☁️ Cloud Analytics',
+                    description: 'Cloud platform aggregates data from all facilities, performs advanced analytics and machine learning.',
+                    dataFlow: 'Aggregated data → ML Models → Insights',
+                    example: 'Cloud ML model identifies: "Motor #3 likely to fail in 72 hours based on historical patterns"'
+                },
+                'ai': {
+                    title: '🧠 AI Optimization',
+                    description: 'AI algorithms analyze patterns and generate optimization recommendations.',
+                    dataFlow: 'Historical data + Real-time data → AI Model → Recommendations',
+                    example: 'AI recommends: "Schedule maintenance for Motor #3 during next planned downtime, adjust load distribution to other motors"'
+                },
+                'action': {
+                    title: '🎯 Control Action',
+                    description: 'System automatically or operator manually implements AI recommendations.',
+                    dataFlow: 'Recommendation → Decision → Control Command → OT System',
+                    example: 'Maintenance work order created, load redistributed to Motors #1 and #2, notification sent to maintenance team'
+                }
+            };
+
+            const info = concepts[concept];
+            if (info) {
+                output.innerHTML = `
+                    <h4>${info.title}</h4>
+                    <p><strong>${info.description}</strong></p>
+                    <p style="margin: 10px 0; padding: 10px; background: white; border-left: 4px solid #3498db;">
+                        <strong>Data Flow:</strong> ${info.dataFlow}
+                    </p>
+                    <p style="margin-top: 10px; padding: 10px; background: #e8f5e9; border-radius: 5px;">
+                        <strong>📋 Example:</strong> ${info.example}
+                    </p>
+                `;
+            }
+        }
+
+        // Smooth scrolling for internal links
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize first section
+            document.getElementById('overview').classList.add('active');
+        });
+    </script>
+</body>
+</html>
