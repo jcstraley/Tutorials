@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Media over IP (PMoIP) - Interactive Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            text-align: center;
+        }
+
+        h1 {
+            color: #667eea;
+            font-size: 2.8em;
+            margin-bottom: 10px;
+            animation: fadeInDown 1s ease;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 1.2em;
+            font-weight: 300;
+            margin-top: 15px;
+        }
+
+        .intro {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            animation: fadeIn 1s ease;
+        }
+
+        .intro p {
+            font-size: 1.1em;
+            color: #555;
+            margin-bottom: 15px;
+        }
+
+        .framework-overview {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            animation: fadeInUp 1s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+
+        .card h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.8em;
+            display: flex;
+            align-items: center;
+        }
+
+        .card h2::before {
+            content: '';
+            width: 8px;
+            height: 40px;
+            background: linear-gradient(180deg, #667eea, #764ba2);
+            margin-right: 15px;
+            border-radius: 5px;
+        }
+
+        .card p {
+            color: #666;
+            margin-bottom: 12px;
+        }
+
+        .standard-tag {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .interactive-section {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
+
+        .interactive-section h2 {
+            color: #667eea;
+            margin-bottom: 25px;
+            font-size: 2em;
+            text-align: center;
+        }
+
+        .accordion {
+            margin-bottom: 15px;
+        }
+
+        .accordion-header {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1.2em;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .accordion-header:hover {
+            transform: scale(1.02);
+        }
+
+        .accordion-icon {
+            font-size: 1.5em;
+            transition: transform 0.3s ease;
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            background: #f8f9fa;
+            border-radius: 0 0 10px 10px;
+        }
+
+        .accordion-content.active {
+            max-height: 1000px;
+        }
+
+        .accordion-content-inner {
+            padding: 20px;
+        }
+
+        .accordion-content ul {
+            margin-left: 20px;
+            color: #555;
+        }
+
+        .accordion-content li {
+            margin-bottom: 10px;
+        }
+
+        .stack-diagram {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin: 30px 0;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+        }
+
+        .stack-layer {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 20px;
+            margin: 10px 0;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: bold;
+            animation: slideIn 0.5s ease;
+            transition: transform 0.3s ease;
+        }
+
+        .stack-layer:hover {
+            transform: scale(1.05);
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 25px;
+        }
+
+        .benefit-item {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .benefit-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .benefit-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+
+        .pulse-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            margin: 20px 10px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .pulse-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+
+        footer {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            margin-top: 40px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
+
+        footer p {
+            color: #666;
+            font-size: 1em;
+        }
+
+        .creator-name {
+            color: #667eea;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+            }
+
+            .subtitle {
+                font-size: 1em;
+            }
+
+            .framework-overview {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎬 Professional Media over IP (PMoIP)</h1>
+            <p class="subtitle">Deterministic, Time-Synchronized Transport of Professional Audio, Video, and Data over Ethernet</p>
+        </header>
+
+        <div class="intro">
+            <p><strong>PMoIP</strong> represents the convergence of three critical standards that together enable real-time, professional-grade media transport over standard IP networks. This unified framework ensures <span class="highlight">deterministic delivery</span>, <span class="highlight">precise synchronization</span>, and <span class="highlight">seamless interoperability</span> for broadcast, live production, and professional media applications.</p>
+            <p>By combining <strong>SMPTE ST 2110</strong> (media essence transport), <strong>AES67</strong> (audio interoperability), and <strong>IEEE TSN</strong> (network-level determinism), PMoIP creates a comprehensive solution for modern media workflows.</p>
+        </div>
+
+        <div class="framework-overview">
+            <div class="card" onclick="highlightCard(this)">
+                <h2>📺 SMPTE ST 2110</h2>
+                <p><strong>Media Essence Transport</strong></p>
+                <p>Defines the transport of uncompressed video, audio, and ancillary data as separate elementary streams over managed IP networks.</p>
+                <p><strong>Key Components:</strong></p>
+                <ul>
+                    <li>ST 2110-10: System Timing & Synchronization</li>
+                    <li>ST 2110-20: Uncompressed Video</li>
+                    <li>ST 2110-30: PCM Audio (based on AES67)</li>
+                    <li>ST 2110-40: Ancillary Data</li>
+                    <li>ST 2110-41: Fast Metadata Framework</li>
+                </ul>
+                <span class="standard-tag">SMPTE Standard</span>
+            </div>
+
+            <div class="card" onclick="highlightCard(this)">
+                <h2>🎵 AES67</h2>
+                <p><strong>Audio Interoperability</strong></p>
+                <p>High-performance streaming audio-over-IP interoperability standard that ensures different audio-over-IP systems can work together seamlessly.</p>
+                <p><strong>Key Features:</strong></p>
+                <ul>
+                    <li>Low-latency PCM audio transport</li>
+                    <li>RTP-based streaming protocol</li>
+                    <li>PTP (IEEE 1588) synchronization</li>
+                    <li>SDP session description</li>
+                    <li>Multicast & unicast support</li>
+                </ul>
+                <span class="standard-tag">AES Standard</span>
+            </div>
+
+            <div class="card" onclick="highlightCard(this)">
+                <h2>⚡ IEEE TSN</h2>
+                <p><strong>Network-Level Determinism</strong></p>
+                <p>Time-Sensitive Networking provides Layer 2 deterministic capabilities to standard Ethernet, ensuring precise, reliable, low-latency communication.</p>
+                <p><strong>Key Standards:</strong></p>
+                <ul>
+                    <li>IEEE 802.1AS: Timing & Synchronization (gPTP)</li>
+                    <li>IEEE 802.1Qbv: Scheduled Traffic</li>
+                    <li>IEEE 802.1Qbu: Frame Preemption</li>
+                    <li>IEEE 802.1Qcc: Stream Reservation Protocol</li>
+                    <li>IEEE 802.1CB: Frame Replication & Elimination</li>
+                </ul>
+                <span class="standard-tag">IEEE Standard</span>
+            </div>
+        </div>
+
+        <div class="interactive-section">
+            <h2>📊 PMoIP Protocol Stack</h2>
+            <div class="stack-diagram">
+                <div class="stack-layer" style="animation-delay: 0.1s;">Application Layer: Media Production Systems</div>
+                <div class="stack-layer" style="animation-delay: 0.2s;">SMPTE ST 2110: Video, Audio, Data Essence Streams</div>
+                <div class="stack-layer" style="animation-delay: 0.3s;">AES67: Audio Interoperability Layer</div>
+                <div class="stack-layer" style="animation-delay: 0.4s;">RTP/UDP: Real-Time Transport Protocol</div>
+                <div class="stack-layer" style="animation-delay: 0.5s;">IEEE TSN: Time-Sensitive Networking (802.1AS, 802.1Qbv)</div>
+                <div class="stack-layer" style="animation-delay: 0.6s;">Layer 2: Ethernet (IEEE 802.3)</div>
+                <div class="stack-layer" style="animation-delay: 0.7s;">Physical Layer: 1G/10G/25G/100G Ethernet</div>
+            </div>
+        </div>
+
+        <div class="interactive-section">
+            <h2>🔍 Deep Dive: Components Explained</h2>
+
+            <div class="accordion">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <span>SMPTE ST 2110 Details</span>
+                    <span class="accordion-icon">+</span>
+                </div>
+                <div class="accordion-content">
+                    <div class="accordion-content-inner">
+                        <h3>Professional Media Over Managed IP Networks</h3>
+                        <p><strong>ST 2110-10: System Timing & Synchronization</strong></p>
+                        <ul>
+                            <li>Uses Precision Time Protocol (PTP) per SMPTE ST 2059-2</li>
+                            <li>Ensures all streams are precisely aligned</li>
+                            <li>Microsecond-level accuracy across all network devices</li>
+                        </ul>
+
+                        <p><strong>ST 2110-20: Uncompressed Video</strong></p>
+                        <ul>
+                            <li>Transports raw video as RTP streams</li>
+                            <li>Supports multiple color spaces (BT.709, BT.2020, etc.)</li>
+                            <li>Flexible sampling structures (4:2:2, 4:4:4)</li>
+                            <li>Bit depths from 8 to 12 bits</li>
+                            <li>Supports SD, HD, UHD, and 4K formats</li>
+                        </ul>
+
+                        <p><strong>ST 2110-30: PCM Audio</strong></p>
+                        <ul>
+                            <li>Built on AES67 specification</li>
+                            <li>Subset of AES67 with stricter constraints</li>
+                            <li>Requires SMPTE ST 2059-2 PTP profile</li>
+                            <li>Zero offset between media and RTP clock</li>
+                            <li>Supports up to 64 channels per stream</li>
+                        </ul>
+
+                        <p><strong>ST 2110-40: Ancillary Data</strong></p>
+                        <ul>
+                            <li>Carries closed captions, subtitles, timecode</li>
+                            <li>Metadata and control information</li>
+                            <li>Synchronized with video and audio streams</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <span>AES67 Audio Interoperability</span>
+                    <span class="accordion-icon">+</span>
+                </div>
+                <div class="accordion-content">
+                    <div class="accordion-content-inner">
+                        <h3>High-Performance Streaming Audio-over-IP</h3>
+                        <p><strong>Core Principles:</strong></p>
+                        <ul>
+                            <li>Layer 3 (IP) audio transport using RTP</li>
+                            <li>Uncompressed linear PCM audio</li>
+                            <li>Sample rates: 44.1, 48, 88.2, 96 kHz</li>
+                            <li>Bit depths: 16 or 24 bits</li>
+                            <li>Low latency: typically <5ms</li>
+                        </ul>
+
+                        <p><strong>Synchronization:</strong></p>
+                        <ul>
+                            <li>IEEE 1588-2008 PTP for clock synchronization</li>
+                            <li>Ensures sample-accurate playback across devices</li>
+                            <li>Network-wide media clock distribution</li>
+                        </ul>
+
+                        <p><strong>Session Management:</strong></p>
+                        <ul>
+                            <li>SDP (Session Description Protocol) for stream description</li>
+                            <li>SAP (Session Announcement Protocol) for discovery</li>
+                            <li>Multicast (IGMPv3) and unicast support</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <span>IEEE TSN Network Determinism</span>
+                    <span class="accordion-icon">+</span>
+                </div>
+                <div class="accordion-content">
+                    <div class="accordion-content-inner">
+                        <h3>Time-Sensitive Networking for Professional Media</h3>
+                        <p><strong>IEEE 802.1AS (gPTP):</strong></p>
+                        <ul>
+                            <li>Generalized Precision Time Protocol</li>
+                            <li>Microsecond-level synchronization across network</li>
+                            <li>Evolution of IEEE 1588 for Ethernet</li>
+                            <li>Eliminates timing drift and jitter</li>
+                        </ul>
+
+                        <p><strong>IEEE 802.1Qbv (Time-Aware Shaper):</strong></p>
+                        <ul>
+                            <li>Schedule-based traffic shaping</li>
+                            <li>Guarantees bandwidth for time-critical streams</li>
+                            <li>Prevents network congestion</li>
+                            <li>Enables deterministic latency</li>
+                        </ul>
+
+                        <p><strong>IEEE 802.1Qbu (Frame Preemption):</strong></p>
+                        <ul>
+                            <li>Allows high-priority frames to interrupt lower-priority traffic</li>
+                            <li>Reduces worst-case latency</li>
+                            <li>Critical for real-time media streams</li>
+                        </ul>
+
+                        <p><strong>IEEE 802.1CB (Redundancy):</strong></p>
+                        <ul>
+                            <li>Frame replication and elimination</li>
+                            <li>Seamless redundancy for mission-critical applications</li>
+                            <li>Zero packet loss during failures</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <span>Integration: How They Work Together</span>
+                    <span class="accordion-icon">+</span>
+                </div>
+                <div class="accordion-content">
+                    <div class="accordion-content-inner">
+                        <h3>Unified PMoIP Framework</h3>
+                        <p><strong>Synchronization Layer:</strong></p>
+                        <ul>
+                            <li>IEEE 802.1AS (TSN) provides network-wide time synchronization</li>
+                            <li>SMPTE ST 2059-2 adapts PTP for broadcast applications</li>
+                            <li>All streams (video, audio, data) locked to common clock</li>
+                            <li>Sub-microsecond accuracy ensures lip-sync and phase coherence</li>
+                        </ul>
+
+                        <p><strong>Transport Layer:</strong></p>
+                        <ul>
+                            <li>SMPTE ST 2110 separates essence into independent streams</li>
+                            <li>AES67 ensures audio interoperability across vendors</li>
+                            <li>RTP/UDP provides real-time transport with minimal overhead</li>
+                            <li>Each stream can be routed independently</li>
+                        </ul>
+
+                        <p><strong>Quality of Service (QoS):</strong></p>
+                        <ul>
+                            <li>TSN traffic shaping (802.1Qbv) reserves bandwidth</li>
+                            <li>Frame preemption (802.1Qbu) prioritizes media streams</li>
+                            <li>Guaranteed latency and jitter performance</li>
+                            <li>Eliminates packet loss for critical streams</li>
+                        </ul>
+
+                        <p><strong>Resilience & Redundancy:</strong></p>
+                        <ul>
+                            <li>TSN frame replication (802.1CB) provides seamless failover</li>
+                            <li>Dual-network architectures for high availability</li>
+                            <li>Hot-standby configurations</li>
+                            <li>Zero downtime during network failures</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="interactive-section">
+            <h2>✨ Key Benefits of PMoIP</h2>
+            <div class="benefits-grid">
+                <div class="benefit-item">
+                    <div class="benefit-icon">🎯</div>
+                    <h3>Deterministic</h3>
+                    <p>Guaranteed latency and bandwidth for time-critical media streams</p>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-icon">⏱️</div>
+                    <h3>Synchronized</h3>
+                    <p>Microsecond-accurate timing across all network devices and streams</p>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-icon">🔄</div>
+                    <h3>Flexible</h3>
+                    <p>Route video, audio, and data independently—no more bundled signals</p>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-icon">📈</div>
+                    <h3>Scalable</h3>
+                    <p>Easily expand from small studios to large broadcast facilities</p>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-icon">💰</div>
+                    <h3>Cost-Effective</h3>
+                    <p>Use standard Ethernet infrastructure—no proprietary cabling</p>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-icon">🔌</div>
+                    <h3>Interoperable</h3>
+                    <p>Multi-vendor compatibility through open standards</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="interactive-section">
+            <h2>🎪 Real-World Applications</h2>
+            <div class="accordion">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <span>Broadcast Studios & Production Facilities</span>
+                    <span class="accordion-icon">+</span>
+                </div>
+                <div class="accordion-content">
+                    <div class="accordion-content-inner">
+                        <ul>
+                            <li>Live sports production with multiple camera feeds</li>
+                            <li>News studios with real-time graphics and video walls</li>
+                            <li>Remote production (REMI) workflows</li>
+                            <li>Post-production and editing suites</li>
+                            <li>Master control and playout systems</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <span>Live Events & Entertainment</span>
+                    <span class="accordion-icon">+</span>
+                </div>
+                <div class="accordion-content">
+                    <div class="accordion-content-inner">
+                        <ul>
+                            <li>Concert touring systems</li>
+                            <li>Theater and performing arts venues</li>
+                            <li>Esports arenas and streaming facilities</li>
+                            <li>Houses of worship</li>
+                            <li>Corporate events and conferences</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <span>Enterprise & Education</span>
+                    <span class="accordion-icon">+</span>
+                </div>
+                <div class="accordion-content">
+                    <div class="accordion-content-inner">
+                        <ul>
+                            <li>Corporate video production</li>
+                            <li>Distance learning and lecture capture</li>
+                            <li>Medical imaging and telemedicine</li>
+                            <li>Courtroom recording systems</li>
+                            <li>Government and military applications</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>Website created by <span class="creator-name">Jay Cee Straley</span></p>
+            <p style="margin-top: 10px; font-size: 0.9em; color: #999;">© 2025 | Professional Media over IP Educational Resource</p>
+        </footer>
+    </div>
+
+    <script>
+        function toggleAccordion(header) {
+            const content = header.nextElementSibling;
+            const icon = header.querySelector('.accordion-icon');
+
+            // Close all other accordions
+            document.querySelectorAll('.accordion-content').forEach(item => {
+                if (item !== content) {
+                    item.classList.remove('active');
+                    item.previousElementSibling.querySelector('.accordion-icon').textContent = '+';
+                }
+            });
+
+            // Toggle current accordion
+            content.classList.toggle('active');
+            icon.textContent = content.classList.contains('active') ? '−' : '+';
+        }
+
+        function highlightCard(card) {
+            // Remove highlight from all cards
+            document.querySelectorAll('.card').forEach(c => {
+                c.style.border = 'none';
+            });
+
+            // Add highlight to clicked card
+            card.style.border = '3px solid #667eea';
+            card.style.boxShadow = '0 15px 40px rgba(102, 126, 234, 0.5)';
+
+            // Remove highlight after 2 seconds
+            setTimeout(() => {
+                card.style.border = 'none';
+                card.style.boxShadow = '0 5px 20px rgba(0,0,0,0.2)';
+            }, 2000);
+        }
+
+        // Add smooth scroll behavior
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all cards and sections
+        document.querySelectorAll('.card, .interactive-section').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
