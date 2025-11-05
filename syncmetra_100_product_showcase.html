@@ -1,0 +1,1108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SyncMetra® 100 - 1.2 Tbps Modular Network Solution | Canoga Perkins</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-blue: #284796;
+      --light-blue: #79a8d8;
+      --accent-blue: #a8cdff;
+      --dark-navy: #1a2d5a;
+      --accent-orange: #ff6b35;
+      --bg-light: #f8f9fd;
+      --bg-white: #ffffff;
+      --text-dark: #1e293b;
+      --text-medium: #475569;
+      --text-light: #64748b;
+      --success-green: #10b981;
+      --shadow-sm: 0 1px 3px rgba(40, 71, 150, 0.08);
+      --shadow-md: 0 4px 12px rgba(40, 71, 150, 0.12);
+      --shadow-lg: 0 10px 40px rgba(40, 71, 150, 0.15);
+      --gradient-primary: linear-gradient(135deg, #284796 0%, #1a2d5a 100%);
+      --gradient-light: linear-gradient(135deg, #79a8d8 0%, #a8cdff 100%);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, system-ui, sans-serif;
+      background: var(--bg-light);
+      color: var(--text-dark);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Header */
+    header {
+      background: var(--gradient-primary);
+      color: #fff;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 5%;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .logo {
+      font-size: 28px;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    nav {
+      display: flex;
+      gap: 32px;
+    }
+
+    nav a {
+      color: rgba(255, 255, 255, 0.9);
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s;
+      position: relative;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent-blue);
+      transition: width 0.3s;
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    /* Hero Section */
+    .hero {
+      background: var(--gradient-primary);
+      color: #fff;
+      padding: 80px 5% 100px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 800px;
+      height: 800px;
+      background: radial-gradient(circle, rgba(121, 168, 216, 0.15) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+
+    .hero-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .hero-text h1 {
+      font-size: clamp(36px, 5vw, 64px);
+      font-weight: 800;
+      margin-bottom: 16px;
+      letter-spacing: -1px;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.2);
+      padding: 8px 20px;
+      border-radius: 50px;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 24px;
+      backdrop-filter: blur(10px);
+    }
+
+    .hero-subtitle {
+      font-size: 24px;
+      font-weight: 300;
+      margin-bottom: 12px;
+      opacity: 0.95;
+    }
+
+    .hero-description {
+      font-size: 18px;
+      line-height: 1.8;
+      opacity: 0.9;
+      margin-bottom: 32px;
+    }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 32px;
+      border-radius: 16px;
+      backdrop-filter: blur(10px);
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat-value {
+      font-size: 36px;
+      font-weight: 700;
+      display: block;
+      margin-bottom: 8px;
+      color: var(--accent-blue);
+    }
+
+    .stat-label {
+      font-size: 14px;
+      opacity: 0.9;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 16px;
+      margin-top: 32px;
+    }
+
+    .btn {
+      padding: 16px 32px;
+      border-radius: 50px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s;
+      font-size: 16px;
+      display: inline-block;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-primary {
+      background: #fff;
+      color: var(--primary-blue);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 25px rgba(0, 0, 0, 0.2);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: #fff;
+      border: 2px solid #fff;
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    /* Section Styles */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 5%;
+    }
+
+    section {
+      padding: 80px 0;
+    }
+
+    .section-title {
+      font-size: clamp(32px, 4vw, 48px);
+      font-weight: 700;
+      color: var(--primary-blue);
+      margin-bottom: 16px;
+      text-align: center;
+    }
+
+    .section-subtitle {
+      font-size: 20px;
+      color: var(--text-medium);
+      text-align: center;
+      margin-bottom: 48px;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Benefits Grid */
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 32px;
+      margin-top: 48px;
+    }
+
+    .benefit-card {
+      background: var(--bg-white);
+      padding: 32px;
+      border-radius: 16px;
+      box-shadow: var(--shadow-md);
+      transition: all 0.3s;
+      border-left: 4px solid var(--primary-blue);
+    }
+
+    .benefit-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .benefit-icon {
+      width: 56px;
+      height: 56px;
+      background: var(--gradient-light);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      margin-bottom: 20px;
+    }
+
+    .benefit-card h3 {
+      font-size: 20px;
+      color: var(--primary-blue);
+      margin-bottom: 12px;
+      font-weight: 600;
+    }
+
+    .benefit-card p {
+      color: var(--text-medium);
+      line-height: 1.7;
+    }
+
+    /* Features Section */
+    .features-container {
+      background: var(--bg-white);
+      border-radius: 24px;
+      padding: 48px;
+      box-shadow: var(--shadow-md);
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 32px;
+      margin-top: 32px;
+    }
+
+    .feature-item {
+      display: flex;
+      gap: 16px;
+    }
+
+    .feature-icon-small {
+      width: 48px;
+      height: 48px;
+      background: var(--gradient-primary);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 24px;
+      flex-shrink: 0;
+    }
+
+    .feature-content h4 {
+      font-size: 18px;
+      color: var(--primary-blue);
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+
+    .feature-content p {
+      color: var(--text-medium);
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    /* Applications Tabs */
+    .apps-section {
+      background: var(--bg-light);
+    }
+
+    .tabs {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      margin-bottom: 32px;
+      flex-wrap: wrap;
+    }
+
+    .tab {
+      padding: 12px 28px;
+      background: var(--bg-white);
+      border: 2px solid transparent;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-weight: 600;
+      color: var(--text-dark);
+    }
+
+    .tab:hover {
+      border-color: var(--light-blue);
+    }
+
+    .tab.active {
+      background: var(--gradient-primary);
+      color: #fff;
+      box-shadow: var(--shadow-md);
+    }
+
+    .tab-content {
+      display: none;
+      background: var(--bg-white);
+      padding: 48px;
+      border-radius: 20px;
+      box-shadow: var(--shadow-md);
+    }
+
+    .tab-content.active {
+      display: block;
+      animation: fadeIn 0.4s;
+    }
+
+    .tab-content h3 {
+      font-size: 28px;
+      color: var(--primary-blue);
+      margin-bottom: 20px;
+    }
+
+    .tab-content ul {
+      list-style: none;
+      padding: 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 16px;
+      margin-top: 24px;
+    }
+
+    .tab-content li {
+      padding-left: 32px;
+      position: relative;
+      line-height: 1.7;
+    }
+
+    .tab-content li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: var(--success-green);
+      font-weight: 700;
+      font-size: 20px;
+    }
+
+    /* Specifications */
+    .specs-section {
+      background: var(--gradient-primary);
+      color: #fff;
+    }
+
+    .specs-section .section-title {
+      color: #fff;
+    }
+
+    .specs-section .section-subtitle {
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .specs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+      margin-top: 48px;
+    }
+
+    .spec-card {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      padding: 28px;
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .spec-card h4 {
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      opacity: 0.9;
+      margin-bottom: 12px;
+      font-weight: 600;
+    }
+
+    .spec-card .spec-value {
+      font-size: 18px;
+      font-weight: 600;
+      line-height: 1.6;
+    }
+
+    .spec-card ul {
+      list-style: none;
+      padding: 0;
+      margin-top: 12px;
+    }
+
+    .spec-card li {
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .spec-card li:last-child {
+      border-bottom: none;
+    }
+
+    /* Interactive Architecture */
+    .architecture-section {
+      background: var(--bg-white);
+    }
+
+    .architecture-visual {
+      background: var(--bg-light);
+      padding: 48px;
+      border-radius: 20px;
+      text-align: center;
+      margin-top: 32px;
+    }
+
+    .architecture-diagram {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .arch-component {
+      background: var(--bg-white);
+      padding: 32px 24px;
+      border-radius: 16px;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+
+    .arch-component:hover {
+      transform: scale(1.05);
+      box-shadow: var(--shadow-md);
+    }
+
+    .arch-icon {
+      font-size: 48px;
+      margin-bottom: 16px;
+    }
+
+    .arch-component h4 {
+      font-size: 18px;
+      color: var(--primary-blue);
+      margin-bottom: 8px;
+    }
+
+    .arch-component p {
+      font-size: 14px;
+      color: var(--text-medium);
+    }
+
+    /* CTA Section */
+    .cta-section {
+      background: var(--gradient-primary);
+      color: #fff;
+      text-align: center;
+      padding: 100px 5%;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 60%);
+      animation: pulse 8s ease-in-out infinite;
+    }
+
+    .cta-content {
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .cta-section h2 {
+      font-size: clamp(32px, 4vw, 48px);
+      margin-bottom: 20px;
+      font-weight: 700;
+    }
+
+    .cta-section p {
+      font-size: 20px;
+      margin-bottom: 32px;
+      opacity: 0.95;
+    }
+
+    .contact-info {
+      display: flex;
+      justify-content: center;
+      gap: 48px;
+      margin-top: 48px;
+      flex-wrap: wrap;
+    }
+
+    .contact-item {
+      text-align: center;
+    }
+
+    .contact-item .icon {
+      font-size: 32px;
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .contact-item a {
+      color: var(--accent-blue);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 18px;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--dark-navy);
+      color: rgba(255, 255, 255, 0.8);
+      padding: 48px 5%;
+      text-align: center;
+    }
+
+    footer p {
+      margin: 8px 0;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1) rotate(0deg);
+      }
+      50% {
+        transform: scale(1.1) rotate(180deg);
+      }
+    }
+
+    /* Responsive */
+    @media (max-width: 968px) {
+      .hero-content {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+
+      .hero-stats {
+        grid-template-columns: 1fr;
+      }
+
+      nav {
+        display: none;
+      }
+
+      .benefits-grid,
+      .features-grid,
+      .specs-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .architecture-diagram {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .cta-buttons {
+        flex-direction: column;
+      }
+
+      .tabs {
+        flex-direction: column;
+      }
+
+      .tab {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="header-top">
+      <div class="logo">SyncMetra® 100</div>
+      <nav>
+        <a href="#overview">Overview</a>
+        <a href="#benefits">Benefits</a>
+        <a href="#applications">Applications</a>
+        <a href="#specs">Specifications</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero" id="overview">
+    <div class="hero-content">
+      <div class="hero-text">
+        <div class="hero-badge">TSN | AnyHaul | 5G | P5G | Wireline</div>
+        <h1>SyncMetra® 100</h1>
+        <p class="hero-subtitle">1.2 Tbps Modular Network Solution</p>
+        <p class="hero-description">
+          Purpose-built for networks requiring deterministic latency, high reliability, and guaranteed SLA compliance. 
+          The only solution for deterministic networks—optimal for emerging Edge AI implementations.
+        </p>
+        <div class="cta-buttons">
+          <a href="#contact" class="btn btn-primary">Request Quote</a>
+          <a href="#specs" class="btn btn-secondary">View Specifications</a>
+        </div>
+      </div>
+      <div class="hero-stats">
+        <div class="stat">
+          <span class="stat-value">1.2Tbps</span>
+          <span class="stat-label">Total Throughput</span>
+        </div>
+        <div class="stat">
+          <span class="stat-value">400Gbps</span>
+          <span class="stat-label">Per Line Card</span>
+        </div>
+        <div class="stat">
+          <span class="stat-value">URLLC</span>
+          <span class="stat-label">Ultra-Reliable Low Latency</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Key Benefits Section -->
+  <section id="benefits">
+    <div class="container">
+      <h2 class="section-title">Key Product Benefits</h2>
+      <p class="section-subtitle">
+        Enterprise-grade features designed for mission-critical applications
+      </p>
+
+      <div class="benefits-grid">
+        <div class="benefit-card">
+          <div class="benefit-icon">⏱️</div>
+          <h3>Precision Timing</h3>
+          <p>PTP-aware Ethernet switch delivers highly accurate time synchronization, ensuring seamless operation for mission-critical applications.</p>
+        </div>
+
+        <div class="benefit-card">
+          <div class="benefit-icon">⚡</div>
+          <h3>Software Defined Switch</h3>
+          <p>Drive SLA-driven performance with ultra-low latency and customizable SLA policies to meet stringent network requirements including time-sensitive applications.</p>
+        </div>
+
+        <div class="benefit-card">
+          <div class="benefit-icon">🔧</div>
+          <h3>Adaptive Architecture</h3>
+          <p>Modular form factor ensures seamless integration today with scalability for future growth. 2U chassis with 3 modular line cards.</p>
+        </div>
+
+        <div class="benefit-card">
+          <div class="benefit-icon">❄️</div>
+          <h3>Optimized for Data Centers</h3>
+          <p>Front-to-back airflow ensures efficient cooling in high-performance environments, reducing operational overhead.</p>
+        </div>
+
+        <div class="benefit-card">
+          <div class="benefit-icon">🌡️</div>
+          <h3>Versatile Deployment</h3>
+          <p>Wide operating temperature range (Commercial: 0°C to 50°C, Industrial: -40°C to +65°C) makes it ideal for diverse environments.</p>
+        </div>
+
+        <div class="benefit-card">
+          <div class="benefit-icon">🔋</div>
+          <h3>Energy-Efficient Design</h3>
+          <p>High-efficiency CRPS-compliant power supplies reduce energy waste, lower operational costs, and minimize cooling demands.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Key Features Section -->
+  <section style="background: var(--bg-light);">
+    <div class="container">
+      <h2 class="section-title">Key Features</h2>
+      <div class="features-container">
+        <div class="features-grid">
+          <div class="feature-item">
+            <div class="feature-icon-small">🏗️</div>
+            <div class="feature-content">
+              <h4>High-Performance Architecture</h4>
+              <p>2U chassis with 3 modular line cards, 1.2Tbps total throughput (400Gbps per line card)</p>
+            </div>
+          </div>
+
+          <div class="feature-item">
+            <div class="feature-icon-small">🔌</div>
+            <div class="feature-content">
+              <h4>Flexible Ethernet Interfaces</h4>
+              <p>10G, 25G, and 100G connections for diverse networking needs (16x 10G/25G SFP28, 4x 100G QSFP28)</p>
+            </div>
+          </div>
+
+          <div class="feature-item">
+            <div class="feature-icon-small">🛰️</div>
+            <div class="feature-content">
+              <h4>Integrated GNSS Timing</h4>
+              <p>Optional built-in GNSS receiver provides precise time synchronization, seamless distribution, and extended holdover</p>
+            </div>
+          </div>
+
+          <div class="feature-item">
+            <div class="feature-icon-small">♻️</div>
+            <div class="feature-content">
+              <h4>High Availability & Redundancy</h4>
+              <p>Hot-swappable modules, dual power supplies, and redundant fans ensure continuous operation</p>
+            </div>
+          </div>
+
+          <div class="feature-item">
+            <div class="feature-icon-small">🤖</div>
+            <div class="feature-content">
+              <h4>AI-Driven Network Optimization</h4>
+              <p>Integrated SyncMetra Manager enhances network efficiency and reduces operational costs</p>
+            </div>
+          </div>
+
+          <div class="feature-item">
+            <div class="feature-icon-small">🔒</div>
+            <div class="feature-content">
+              <h4>Guaranteed Packet Delivery</h4>
+              <p>Frame Replication and Elimination for Reliability (FRER) ensures mission-critical data delivery</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Applications Section -->
+  <section id="applications" class="apps-section">
+    <div class="container">
+      <h2 class="section-title">Applications and Verticals</h2>
+      <p class="section-subtitle">
+        SyncMetra® 100 powers critical infrastructure across multiple industries
+      </p>
+
+      <div class="tabs">
+        <button class="tab active" onclick="showTab('5g')">5G Networks</button>
+        <button class="tab" onclick="showTab('edge')">Edge AI & Data Centers</button>
+        <button class="tab" onclick="showTab('manufacturing')">Manufacturing</button>
+        <button class="tab" onclick="showTab('emerging')">Emerging Applications</button>
+      </div>
+
+      <div id="5g" class="tab-content active">
+        <h3>5G Networks</h3>
+        <p>SyncMetra® 100 delivers carrier-grade performance for next-generation wireless networks.</p>
+        <ul>
+          <li>Private 5G Networks</li>
+          <li>Public 5G Infrastructure</li>
+          <li>O-RAN Deployments</li>
+          <li>AI-RAN (AI-enabled Radio Access Networks)</li>
+          <li>Network Slicing</li>
+          <li>Edge Computing Integration</li>
+        </ul>
+      </div>
+
+      <div id="edge" class="tab-content">
+        <h3>Enterprise Edge AI & Data Centers</h3>
+        <p>Optimize for emerging Edge AI implementations with deterministic networking.</p>
+        <ul>
+          <li>Enterprise Edge AI Deployments</li>
+          <li>Edge Data Centers</li>
+          <li>Data Center Interconnect (DCI)</li>
+          <li>On-Premises Inference</li>
+          <li>Real-Time Analytics</li>
+          <li>Low-Latency Cloud Services</li>
+        </ul>
+      </div>
+
+      <div id="manufacturing" class="tab-content">
+        <h3>Manufacturing & Industrial Automation</h3>
+        <p>Industry 4.0-ready solution for smart manufacturing and automation.</p>
+        <ul>
+          <li>Manufacturing Automation</li>
+          <li>Industry 4.0 Applications</li>
+          <li>Virtual PLC (vPLC)</li>
+          <li>IEC/IEEE 60802 TSN Profile</li>
+          <li>Deterministic Ethernet</li>
+          <li>Time-Synchronized Operations</li>
+        </ul>
+      </div>
+
+      <div id="emerging" class="tab-content">
+        <h3>Emerging & Specialized Applications</h3>
+        <p>Support for cutting-edge technologies and specialized use cases.</p>
+        <ul>
+          <li>AR/VR Experiences</li>
+          <li>Digital Twins</li>
+          <li>Autonomous Operations</li>
+          <li>Broadcast and Media Networks</li>
+          <li>Government & First Responder</li>
+          <li>Defense Communications</li>
+          <li>Financial Trading Platforms</li>
+          <li>Gaming & Gambling Infrastructure</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Architecture Section -->
+  <section class="architecture-section">
+    <div class="container">
+      <h2 class="section-title">System Architecture</h2>
+      <p class="section-subtitle">Modular design for maximum flexibility and scalability</p>
+
+      <div class="architecture-visual">
+        <div class="architecture-diagram">
+          <div class="arch-component">
+            <div class="arch-icon">📡</div>
+            <h4>Network Interfaces</h4>
+            <p>16x SFP28 (10G/25G)<br>4x QSFP28 (100G)</p>
+          </div>
+          <div class="arch-component">
+            <div class="arch-icon">⚙️</div>
+            <h4>Line Cards</h4>
+            <p>3 Modular Cards<br>400Gbps Each</p>
+          </div>
+          <div class="arch-component">
+            <div class="arch-icon">☁️</div>
+            <h4>Management</h4>
+            <p>SyncMetra Manager<br>Cloud Orchestration</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Technical Specifications -->
+  <section id="specs" class="specs-section">
+    <div class="container">
+      <h2 class="section-title">Technical Specifications</h2>
+      <p class="section-subtitle">Enterprise-grade performance and reliability</p>
+
+      <div class="specs-grid">
+        <div class="spec-card">
+          <h4>Physical Specifications</h4>
+          <div class="spec-value">
+            <strong>Dimensions:</strong> 3.5"H x 14"D x 17.5"W<br>
+            <strong>Form Factor:</strong> 2U Chassis<br>
+            <strong>Mounting:</strong> Rack-mountable
+          </div>
+        </div>
+
+        <div class="spec-card">
+          <h4>Operating Environment</h4>
+          <ul>
+            <li><strong>Commercial:</strong> 0°C to 50°C</li>
+            <li><strong>Industrial:</strong> -40°C to +65°C</li>
+            <li><strong>Cooling:</strong> Front-to-back airflow</li>
+          </ul>
+        </div>
+
+        <div class="spec-card">
+          <h4>Timing & Synchronization</h4>
+          <ul>
+            <li>SyncE</li>
+            <li>PTP (IEEE 1588)</li>
+            <li>1PPS, 10MHz, ToD</li>
+            <li>Internal GNSS (Class C/D)</li>
+          </ul>
+        </div>
+
+        <div class="spec-card">
+          <h4>Power Specifications</h4>
+          <div class="spec-value">
+            <strong>AC:</strong> 550W, 90-264 VAC<br>
+            <strong>DC:</strong> 800W, -36V to -72VDC<br>
+            <strong>Redundancy:</strong> 2x Hot-Swappable
+          </div>
+        </div>
+
+        <div class="spec-card">
+          <h4>Layer 2 Protocols</h4>
+          <ul>
+            <li>802.1ad QinQ</li>
+            <li>MPLS, SR-MPLS</li>
+            <li>BGP, OSPF</li>
+            <li>SRV6</li>
+          </ul>
+        </div>
+
+        <div class="spec-card">
+          <h4>Quality of Service</h4>
+          <ul>
+            <li>Multiple QoS profiles</li>
+            <li>Traffic policing</li>
+            <li>LAG on all ports</li>
+            <li>SLA-driven performance</li>
+          </ul>
+        </div>
+
+        <div class="spec-card">
+          <h4>Security Features</h4>
+          <ul>
+            <li>Secure Boot</li>
+            <li>TPM (Trusted Platform Module)</li>
+            <li>RADIUS / TACACS</li>
+            <li>Network access authentication</li>
+          </ul>
+        </div>
+
+        <div class="spec-card">
+          <h4>Management Interfaces</h4>
+          <ul>
+            <li>CLI / NETCONF / REST / YANG</li>
+            <li>SSH / Console</li>
+            <li>In-Band & Out-of-Band</li>
+            <li>Remote upgrades</li>
+          </ul>
+        </div>
+
+        <div class="spec-card">
+          <h4>Standards Compliance</h4>
+          <ul>
+            <li>IEC/IEEE 60802 (TSN)</li>
+            <li>IEEE 1588 (PTP)</li>
+            <li>802.1AS-2020 (gPTP)</li>
+            <li>G.8271.1, G.8273.1/2, G.8275.1</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section id="contact" class="cta-section">
+    <div class="cta-content">
+      <h2>Ready to Transform Your Network?</h2>
+      <p>Contact our team to discuss how SyncMetra® 100 can meet your specific requirements</p>
+      <div class="cta-buttons">
+        <a href="mailto:SyncMetra@canogaperkins.net" class="btn btn-primary">Request Information</a>
+        <a href="tel:818-718-6300" class="btn btn-secondary">Call Sales</a>
+      </div>
+
+      <div class="contact-info">
+        <div class="contact-item">
+          <span class="icon">📞</span>
+          <a href="tel:818-718-6300">818-718-6300</a>
+        </div>
+        <div class="contact-item">
+          <span class="icon">📧</span>
+          <a href="mailto:SyncMetra@canogaperkins.net">SyncMetra@canogaperkins.net</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p><strong>&copy; 2024 Canoga Perkins Corporation. All rights reserved.</strong></p>
+    <p>Specifications are subject to change without notice.</p>
+    <p style="margin-top: 16px; font-size: 14px;">
+      All Trademarks, service marks and logos are the property of their respective owners.
+    </p>
+  </footer>
+
+  <script>
+    function showTab(tabName) {
+      // Hide all tab contents
+      document.querySelectorAll('.tab-content').forEach(content => {
+        content.classList.remove('active');
+      });
+
+      // Remove active class from all tabs
+      document.querySelectorAll('.tab').forEach(tab => {
+        tab.classList.remove('active');
+      });
+
+      // Show selected tab content
+      document.getElementById(tabName).classList.add('active');
+
+      // Add active class to clicked tab
+      event.target.classList.add('active');
+    }
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+
+    // Intersection Observer for scroll animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -100px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.animation = 'fadeIn 0.6s ease forwards';
+        }
+      });
+    }, observerOptions);
+
+    // Observe benefit cards and feature items
+    document.querySelectorAll('.benefit-card, .feature-item, .spec-card').forEach(el => {
+      observer.observe(el);
+    });
+  </script>
+</body>
+</html>
