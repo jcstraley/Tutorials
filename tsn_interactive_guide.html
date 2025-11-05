@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Time-Sensitive Networking (TSN) - Interactive Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .tabs {
+            display: flex;
+            background: #f5f5f5;
+            border-bottom: 3px solid #667eea;
+            overflow-x: auto;
+        }
+
+        .tab {
+            flex: 1;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            background: transparent;
+            font-size: 16px;
+            font-weight: 600;
+            color: #666;
+            min-width: 150px;
+        }
+
+        .tab:hover {
+            background: #e0e0e0;
+        }
+
+        .tab.active {
+            background: white;
+            color: #667eea;
+            border-bottom: 4px solid #667eea;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 2em;
+        }
+
+        h3 {
+            color: #764ba2;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .feature-card {
+            background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
+            padding: 25px;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+        }
+
+        .feature-card h4 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+
+        .demo-container {
+            background: #f9f9f9;
+            padding: 30px;
+            border-radius: 10px;
+            margin: 30px 0;
+        }
+
+        .network-demo {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin: 30px 0;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .device {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-align: center;
+            min-width: 120px;
+            position: relative;
+        }
+
+        .device-icon {
+            font-size: 3em;
+            margin-bottom: 10px;
+        }
+
+        .packet {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 100%;
+            transform: translateY(-50%);
+            animation: movePacket 3s infinite;
+        }
+
+        .packet.priority-high {
+            background: #e74c3c;
+        }
+
+        .packet.priority-low {
+            background: #95a5a6;
+        }
+
+        @keyframes movePacket {
+            0%, 100% { left: 100%; opacity: 1; }
+            50% { left: 200%; opacity: 0.5; }
+        }
+
+        .standard-list {
+            background: white;
+            border: 2px solid #667eea;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .standard-item {
+            padding: 15px;
+            margin: 10px 0;
+            background: #f5f5f5;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .standard-item:hover {
+            background: #667eea15;
+            transform: translateX(10px);
+        }
+
+        .standard-item strong {
+            color: #667eea;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .comparison-table th, .comparison-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .comparison-table th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            font-weight: 600;
+        }
+
+        .comparison-table tr:hover {
+            background: #f5f5f5;
+        }
+
+        .yes { color: #27ae60; font-weight: bold; }
+        .no { color: #e74c3c; font-weight: bold; }
+
+        .interactive-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 10px;
+        }
+
+        .interactive-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .timeline {
+            position: relative;
+            padding: 20px 0;
+        }
+
+        .timeline-item {
+            display: flex;
+            margin: 20px 0;
+            position: relative;
+        }
+
+        .timeline-marker {
+            width: 20px;
+            height: 20px;
+            background: #667eea;
+            border-radius: 50%;
+            margin-right: 20px;
+            flex-shrink: 0;
+            margin-top: 5px;
+        }
+
+        .timeline-content {
+            flex: 1;
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .application-card {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 25px;
+            margin: 15px 0;
+            transition: all 0.3s ease;
+        }
+
+        .application-card:hover {
+            border-color: #667eea;
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.2);
+        }
+
+        .application-card h4 {
+            color: #764ba2;
+            margin-bottom: 10px;
+        }
+
+        .visualization {
+            background: #2c3e50;
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin: 30px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .network-line {
+            height: 4px;
+            background: #3498db;
+            margin: 50px 0;
+            position: relative;
+        }
+
+        .data-flow {
+            width: 40px;
+            height: 40px;
+            background: #e74c3c;
+            border-radius: 50%;
+            position: absolute;
+            top: -18px;
+            animation: flow 4s infinite linear;
+        }
+
+        @keyframes flow {
+            0% { left: 0%; }
+            100% { left: 100%; }
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 5px 15px;
+            background: #667eea;
+            color: white;
+            border-radius: 15px;
+            font-size: 0.9em;
+            margin: 5px;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8em;
+            }
+
+            .content {
+                padding: 20px;
+            }
+
+            .tabs {
+                flex-direction: column;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
+            border-left: 5px solid #667eea;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .benefit-icon {
+            font-size: 2.5em;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🌐 Time-Sensitive Networking (TSN)</h1>
+            <p>Making Ethernet Deterministic for Real-Time Industrial Applications</p>
+        </header>
+
+        <div class="tabs">
+            <button class="tab active" onclick="openTab(event, 'overview')">Overview</button>
+            <button class="tab" onclick="openTab(event, 'standards')">IEEE Standards</button>
+            <button class="tab" onclick="openTab(event, 'features')">Key Features</button>
+            <button class="tab" onclick="openTab(event, 'applications')">Applications</button>
+            <button class="tab" onclick="openTab(event, 'comparison')">TSN vs Standard Ethernet</button>
+            <button class="tab" onclick="openTab(event, 'demo')">Interactive Demo</button>
+        </div>
+
+        <div class="content">
+            <!-- Overview Tab -->
+            <div id="overview" class="tab-content active">
+                <h2>What is Time-Sensitive Networking?</h2>
+                <p>Time-Sensitive Networking (TSN) is a set of IEEE 802.1 standards that transforms standard Ethernet into a deterministic, real-time communication platform. TSN ensures <strong>guaranteed packet transport with bounded latency</strong>, low packet delay variation, and minimal packet loss.</p>
+
+                <div class="highlight-box">
+                    <h3>🎯 The Core Mission</h3>
+                    <p>TSN provides <strong>deterministic connectivity</strong> through IEEE 802 networks, enabling time-critical and best-effort traffic to coexist on the same infrastructure while meeting strict timing requirements.</p>
+                </div>
+
+                <h3>Why TSN Matters</h3>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="benefit-icon">⏱️</div>
+                        <h4>Deterministic Timing</h4>
+                        <p>Ensures data arrives exactly when needed with predictable latency and minimal jitter.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="benefit-icon">🔄</div>
+                        <h4>Network Convergence</h4>
+                        <p>Combines IT and OT traffic on a single network infrastructure, eliminating the need for separate networks.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="benefit-icon">🔧</div>
+                        <h4>Industrial Ready</h4>
+                        <p>Meets the rigorous requirements of industrial control systems, automotive, and audio/video applications.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="benefit-icon">🌐</div>
+                        <h4>Standards-Based</h4>
+                        <p>Built on IEEE 802 standards ensuring interoperability across vendors and platforms.</p>
+                    </div>
+                </div>
+
+                <h3>From AVB to TSN</h3>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-content">
+                            <strong>IEEE 802.1 Audio Video Bridging (AVB)</strong>
+                            <p>Original work focused on residential Ethernet for audio/video streaming applications.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-content">
+                            <strong>November 2012 - Task Group Renamed</strong>
+                            <p>AVB Task Group renamed to Time-Sensitive Networking (TSN) to reflect expanded scope beyond audio/video.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-content">
+                            <strong>Today - Industrial Focus</strong>
+                            <p>TSN standards address industrial automation, automotive, telecommunications, and mission-critical applications requiring deterministic Ethernet.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Standards Tab -->
+            <div id="standards" class="tab-content">
+                <h2>IEEE 802.1 TSN Standards</h2>
+                <p>TSN is not a single protocol but a collection of IEEE 802.1 standards that work together to provide deterministic communication. Here are the key standards:</p>
+
+                <div class="standard-list">
+                    <div class="standard-item">
+                        <strong>IEEE 802.1Q-2022</strong>
+                        <p>Bridges and Bridged Networks - The foundational standard defining virtual LANs and network switches with TSN extensions.</p>
+                    </div>
+                    <div class="standard-item">
+                        <strong>IEEE 802.1AS-2020</strong>
+                        <p>Timing and Synchronization for Time-Sensitive Applications - Provides time synchronization ensuring all devices share the same sense of time, which is fundamental for determinism.</p>
+                    </div>
+                    <div class="standard-item">
+                        <strong>IEEE 802.1Qbv</strong>
+                        <p>Enhancements for Scheduled Traffic - Defines "time-aware shapers" that assign specific time slots to different traffic types based on priority.</p>
+                    </div>
+                    <div class="standard-item">
+                        <strong>IEEE 802.1Qbu</strong>
+                        <p>Frame Preemption - Allows high-priority frames to interrupt lower-priority frame transmission, reducing latency for critical data.</p>
+                    </div>
+                    <div class="standard-item">
+                        <strong>IEEE 802.1CB-2017</strong>
+                        <p>Frame Replication and Elimination for Reliability - Enhances network reliability by replicating frames and eliminating duplicates.</p>
+                    </div>
+                    <div class="standard-item">
+                        <strong>IEEE 802.1Qca</strong>
+                        <p>Path Control and Reservation - Manages network paths and reserves bandwidth for specific traffic streams.</p>
+                    </div>
+                    <div class="standard-item">
+                        <strong>IEEE 802.1Qcc</strong>
+                        <p>Stream Reservation Protocol (SRP) Enhancements - Improves stream reservation and performance for better resource management.</p>
+                    </div>
+                    <div class="standard-item">
+                        <strong>IEEE 802.1Qch</strong>
+                        <p>Cyclic Queuing and Forwarding - Enables deterministic forwarding of frames through cyclic scheduling.</p>
+                    </div>
+                    <div class="standard-item">
+                        <strong>IEEE 802.1Qci</strong>
+                        <p>Per-Stream Filtering and Policing - Provides security and quality control by filtering and policing individual data streams.</p>
+                    </div>
+                    <div class="standard-item">
+                        <strong>IEEE 802.3br</strong>
+                        <p>Interspersing Express Traffic - Physical layer support for frame preemption at the MAC layer.</p>
+                    </div>
+                </div>
+
+                <div class="highlight-box">
+                    <h3>📚 Base Standards</h3>
+                    <p>TSN builds upon several foundational IEEE standards including 802.1AB (LLDP), 802.1AS (Timing), 802.1AX (Link Aggregation), and 802.1CS (Link-local Registration Protocol).</p>
+                </div>
+            </div>
+
+            <!-- Features Tab -->
+            <div id="features" class="tab-content">
+                <h2>Key Features of TSN</h2>
+
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h4>🕐 Time Synchronization</h4>
+                        <p>All network devices share a common sense of time with nanosecond precision, enabling coordinated operations and deterministic behavior.</p>
+                        <span class="badge">IEEE 802.1AS</span>
+                    </div>
+                    <div class="feature-card">
+                        <h4>📅 Scheduled Traffic</h4>
+                        <p>Time-aware shapers allocate specific time slots for different traffic classes, ensuring critical data gets through without delays.</p>
+                        <span class="badge">IEEE 802.1Qbv</span>
+                    </div>
+                    <div class="feature-card">
+                        <h4>⚡ Frame Preemption</h4>
+                        <p>High-priority frames can interrupt lower-priority transmissions, dramatically reducing worst-case latency.</p>
+                        <span class="badge">IEEE 802.1Qbu</span>
+                    </div>
+                    <div class="feature-card">
+                        <h4>🔁 Reliability</h4>
+                        <p>Frame replication and seamless redundancy eliminate single points of failure for mission-critical applications.</p>
+                        <span class="badge">IEEE 802.1CB</span>
+                    </div>
+                    <div class="feature-card">
+                        <h4>🛣️ Traffic Shaping</h4>
+                        <p>Advanced traffic shaping and policing mechanisms control data flow to maintain quality of service.</p>
+                        <span class="badge">Multiple Standards</span>
+                    </div>
+                    <div class="feature-card">
+                        <h4>🔒 Stream Management</h4>
+                        <p>Per-stream filtering and bandwidth reservation ensure resources are allocated appropriately.</p>
+                        <span class="badge">IEEE 802.1Qci/Qcc</span>
+                    </div>
+                </div>
+
+                <h3>How These Features Work Together</h3>
+                <div class="visualization">
+                    <h4 style="text-align: center; margin-bottom: 30px;">TSN Data Flow</h4>
+                    <div class="network-line">
+                        <div class="data-flow" style="animation-delay: 0s;"></div>
+                        <div class="data-flow" style="animation-delay: 1s; background: #f39c12;"></div>
+                        <div class="data-flow" style="animation-delay: 2s; background: #2ecc71;"></div>
+                    </div>
+                    <p style="text-align: center; margin-top: 20px;">
+                        <span style="color: #e74c3c;">●</span> Critical Control Data |
+                        <span style="color: #f39c12;">●</span> Sensor Data |
+                        <span style="color: #2ecc71;">●</span> Best-Effort Traffic
+                    </p>
+                </div>
+
+                <div class="highlight-box">
+                    <h3>🎯 Deterministic Performance</h3>
+                    <p><strong>Bounded Latency:</strong> TSN guarantees maximum latency, typically in microseconds or milliseconds depending on application needs.</p>
+                    <p><strong>Low Jitter:</strong> Packet delay variation is minimized, ensuring consistent timing for control loops.</p>
+                    <p><strong>Guaranteed Delivery:</strong> Critical traffic receives bandwidth reservation and protection from congestion.</p>
+                </div>
+            </div>
+
+            <!-- Applications Tab -->
+            <div id="applications" class="tab-content">
+                <h2>TSN Applications</h2>
+                <p>TSN enables deterministic communication across diverse industries and use cases:</p>
+
+                <div class="application-card">
+                    <h4>🏭 Industrial Automation & Control</h4>
+                    <p><strong>Use Cases:</strong> Machine control, closed-loop control systems, robotics, programmable logic controllers (PLCs)</p>
+                    <p><strong>Benefits:</strong> Convergence of IT and OT networks, real-time control with microsecond precision, reduced wiring complexity, multi-vendor interoperability</p>
+                    <p><strong>Industry Players:</strong> Siemens, Rockwell Automation, Schneider Electric, B&R Automation, Phoenix Contact</p>
+                </div>
+
+                <div class="application-card">
+                    <h4>🚗 Automotive</h4>
+                    <p><strong>Use Cases:</strong> In-vehicle networking, autonomous driving systems, advanced driver assistance systems (ADAS), infotainment</p>
+                    <p><strong>Benefits:</strong> Replaces proprietary automotive networks, supports safety-critical applications, enables software-defined vehicles</p>
+                </div>
+
+                <div class="application-card">
+                    <h4>🎵 Professional Audio/Video</h4>
+                    <p><strong>Use Cases:</strong> Live sound systems, broadcast studios, concert venues, digital audio workstations</p>
+                    <p><strong>Benefits:</strong> Low-latency audio streaming, synchronized multi-channel audio, integration with protocols like DANTE and AVB</p>
+                </div>
+
+                <div class="application-card">
+                    <h4>⚡ Energy & Utilities</h4>
+                    <p><strong>Use Cases:</strong> Smart grid, substation automation, protection relays, SCADA systems</p>
+                    <p><strong>Benefits:</strong> IEC 61850 integration, time-critical power system monitoring and control</p>
+                </div>
+
+                <div class="application-card">
+                    <h4>📡 Telecommunications</h4>
+                    <p><strong>Use Cases:</strong> 5G fronthaul networks, private 5G, radio access networks (RAN)</p>
+                    <p><strong>Benefits:</strong> Deterministic transport for time-sensitive telecom protocols, reduced cost compared to dedicated fronthaul</p>
+                    <span class="badge">IEEE 802.1CM</span>
+                </div>
+
+                <div class="application-card">
+                    <h4>✈️ Aerospace & Defense</h4>
+                    <p><strong>Use Cases:</strong> Avionics systems, flight control, military communications</p>
+                    <p><strong>Benefits:</strong> Safety-critical deterministic networking, reduced weight compared to legacy systems</p>
+                </div>
+
+                <div class="application-card">
+                    <h4>🏥 Healthcare</h4>
+                    <p><strong>Use Cases:</strong> Medical imaging, surgical robotics, patient monitoring systems</p>
+                    <p><strong>Benefits:</strong> Real-time synchronization of medical devices, reliable data delivery for life-critical applications</p>
+                </div>
+
+                <h3>Industry Adoption</h3>
+                <div class="highlight-box">
+                    <p>Major organizations driving TSN adoption include:</p>
+                    <p><strong>Standards Bodies:</strong> IEEE 802.1 TSN Task Group, IEC TC65</p>
+                    <p><strong>Industry Alliances:</strong> Avnu Alliance, Industrial Internet Consortium (IIC), OPC Foundation</p>
+                    <p><strong>Technology Leaders:</strong> Cisco, Intel, National Instruments, Analog Devices, TTTech, Hirschmann/Belden</p>
+                </div>
+            </div>
+
+            <!-- Comparison Tab -->
+            <div id="comparison" class="tab-content">
+                <h2>TSN vs Standard Ethernet</h2>
+
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>Standard Ethernet</th>
+                            <th>TSN Ethernet</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Determinism</strong></td>
+                            <td><span class="no">❌ Best-effort only</span></td>
+                            <td><span class="yes">✅ Guaranteed deterministic behavior</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Latency</strong></td>
+                            <td><span class="no">❌ Variable, unpredictable</span></td>
+                            <td><span class="yes">✅ Bounded, predictable</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Jitter</strong></td>
+                            <td><span class="no">❌ High variance</span></td>
+                            <td><span class="yes">✅ Minimal, controlled</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Time Synchronization</strong></td>
+                            <td><span class="no">❌ Not inherent (NTP available)</span></td>
+                            <td><span class="yes">✅ Nanosecond precision (IEEE 802.1AS)</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Traffic Prioritization</strong></td>
+                            <td>⚠️ Basic QoS, no time-awareness</td>
+                            <td><span class="yes">✅ Time-aware scheduling</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Frame Preemption</strong></td>
+                            <td><span class="no">❌ Not supported</span></td>
+                            <td><span class="yes">✅ Supported (IEEE 802.1Qbu)</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Bandwidth Reservation</strong></td>
+                            <td><span class="no">❌ No guaranteed reservation</span></td>
+                            <td><span class="yes">✅ Stream reservation protocol</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Real-time Control</strong></td>
+                            <td><span class="no">❌ Not suitable for hard real-time</span></td>
+                            <td><span class="yes">✅ Suitable for hard real-time</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>IT/OT Convergence</strong></td>
+                            <td>⚠️ Typically requires separate networks</td>
+                            <td><span class="yes">✅ Single converged network</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Redundancy</strong></td>
+                            <td>⚠️ Protocol-dependent (STP, etc.)</td>
+                            <td><span class="yes">✅ Frame replication built-in</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>When to Use TSN</h3>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h4>✅ Use TSN When:</h4>
+                        <ul style="margin-top: 15px; margin-left: 20px;">
+                            <li>Deterministic latency is critical</li>
+                            <li>Real-time control loops are required</li>
+                            <li>IT and OT convergence is needed</li>
+                            <li>Multi-vendor interoperability is essential</li>
+                            <li>Safety-critical applications demand reliability</li>
+                        </ul>
+                    </div>
+                    <div class="feature-card">
+                        <h4>⚠️ Standard Ethernet May Suffice When:</h4>
+                        <ul style="margin-top: 15px; margin-left: 20px;">
+                            <li>Best-effort delivery is acceptable</li>
+                            <li>Timing requirements are relaxed</li>
+                            <li>Cost is the primary driver</li>
+                            <li>Legacy systems don't support TSN</li>
+                            <li>Simple office/enterprise networking</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="highlight-box">
+                    <h3>🚀 The Future: TSN as the Foundation</h3>
+                    <p>TSN is increasingly viewed as the foundational Layer 2 technology for Industry 4.0, enabling higher-layer protocols like OPC UA, PROFINET, EtherNet/IP, and others to operate over a standardized, deterministic Ethernet infrastructure.</p>
+                </div>
+            </div>
+
+            <!-- Interactive Demo Tab -->
+            <div id="demo" class="tab-content">
+                <h2>Interactive TSN Demonstration</h2>
+                <p>Explore how TSN manages different types of traffic on the same network.</p>
+
+                <div class="demo-container">
+                    <h3>Network Traffic Simulator</h3>
+                    <p>Click the buttons to see how TSN handles different traffic priorities:</p>
+
+                    <div style="text-align: center; margin: 30px 0;">
+                        <button class="interactive-button" onclick="sendPacket('critical')">Send Critical Control Data</button>
+                        <button class="interactive-button" onclick="sendPacket('sensor')">Send Sensor Data</button>
+                        <button class="interactive-button" onclick="sendPacket('normal')">Send Best-Effort Data</button>
+                        <button class="interactive-button" onclick="resetDemo()">Reset</button>
+                    </div>
+
+                    <div id="traffic-display" style="background: #2c3e50; color: white; padding: 30px; border-radius: 10px; min-height: 200px;">
+                        <h4 style="color: white; text-align: center;">Network Status: Ready</h4>
+                        <div id="packet-log" style="margin-top: 20px; font-family: monospace; font-size: 14px;"></div>
+                    </div>
+
+                    <div style="margin-top: 30px;">
+                        <h4>Traffic Statistics</h4>
+                        <div class="feature-grid">
+                            <div class="feature-card" style="text-align: center;">
+                                <h4 style="color: #e74c3c;">Critical Packets</h4>
+                                <div id="critical-count" style="font-size: 2em; font-weight: bold;">0</div>
+                                <p>Latency: <span id="critical-latency">< 1ms</span></p>
+                            </div>
+                            <div class="feature-card" style="text-align: center;">
+                                <h4 style="color: #f39c12;">Sensor Packets</h4>
+                                <div id="sensor-count" style="font-size: 2em; font-weight: bold;">0</div>
+                                <p>Latency: <span id="sensor-latency">< 5ms</span></p>
+                            </div>
+                            <div class="feature-card" style="text-align: center;">
+                                <h4 style="color: #3498db;">Best-Effort Packets</h4>
+                                <div id="normal-count" style="font-size: 2em; font-weight: bold;">0</div>
+                                <p>Latency: <span id="normal-latency">Variable</span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>Time Synchronization Visualization</h3>
+                <div class="demo-container">
+                    <p>All devices in a TSN network maintain synchronized clocks with nanosecond precision:</p>
+                    <div style="display: flex; justify-content: space-around; flex-wrap: wrap; margin: 30px 0;">
+                        <div class="device">
+                            <div class="device-icon">🖥️</div>
+                            <strong>PLC</strong>
+                            <div id="clock1" style="margin-top: 10px; font-family: monospace; color: #667eea;">00:00:00.000</div>
+                        </div>
+                        <div class="device">
+                            <div class="device-icon">🤖</div>
+                            <strong>Robot</strong>
+                            <div id="clock2" style="margin-top: 10px; font-family: monospace; color: #667eea;">00:00:00.000</div>
+                        </div>
+                        <div class="device">
+                            <div class="device-icon">📡</div>
+                            <strong>Sensor</strong>
+                            <div id="clock3" style="margin-top: 10px; font-family: monospace; color: #667eea;">00:00:00.000</div>
+                        </div>
+                        <div class="device">
+                            <div class="device-icon">💾</div>
+                            <strong>Gateway</strong>
+                            <div id="clock4" style="margin-top: 10px; font-family: monospace; color: #667eea;">00:00:00.000</div>
+                        </div>
+                    </div>
+                    <div style="text-align: center;">
+                        <button class="interactive-button" onclick="toggleClock()">
+                            <span id="clock-button-text">Start Synchronization</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="highlight-box">
+                    <h3>💡 Key Takeaways</h3>
+                    <ul style="margin-left: 20px; margin-top: 15px;">
+                        <li><strong>Priority Management:</strong> Critical traffic always gets through first</li>
+                        <li><strong>Predictable Timing:</strong> Each traffic class has guaranteed latency bounds</li>
+                        <li><strong>Synchronized Operations:</strong> All devices operate on the same time base</li>
+                        <li><strong>Network Efficiency:</strong> Multiple traffic types coexist without interference</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tab switching functionality
+        function openTab(evt, tabName) {
+            var i, tabContent, tabs;
+
+            tabContent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabContent.length; i++) {
+                tabContent[i].classList.remove("active");
+            }
+
+            tabs = document.getElementsByClassName("tab");
+            for (i = 0; i < tabs.length; i++) {
+                tabs[i].classList.remove("active");
+            }
+
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+
+        // Demo functionality
+        let packetCounts = {
+            critical: 0,
+            sensor: 0,
+            normal: 0
+        };
+
+        let packetQueue = [];
+
+        function sendPacket(type) {
+            const log = document.getElementById('packet-log');
+            const timestamp = new Date().toLocaleTimeString();
+
+            let message, color, latency, priority;
+
+            switch(type) {
+                case 'critical':
+                    packetCounts.critical++;
+                    message = `[${timestamp}] 🔴 CRITICAL: Emergency stop signal transmitted`;
+                    color = '#e74c3c';
+                    latency = '0.8ms';
+                    priority = 1;
+                    break;
+                case 'sensor':
+                    packetCounts.sensor++;
+                    message = `[${timestamp}] 🟠 SENSOR: Temperature reading transmitted`;
+                    color = '#f39c12';
+                    latency = '3.2ms';
+                    priority = 2;
+                    break;
+                case 'normal':
+                    packetCounts.normal++;
+                    message = `[${timestamp}] 🔵 NORMAL: Status update transmitted`;
+                    color = '#3498db';
+                    latency = '12.5ms';
+                    priority = 3;
+                    break;
+            }
+
+            // Add to queue and sort by priority
+            packetQueue.push({message, color, latency, priority, timestamp});
+            packetQueue.sort((a, b) => a.priority - b.priority);
+
+            // Display packets in priority order
+            log.innerHTML = '';
+            packetQueue.slice(-10).reverse().forEach(packet => {
+                log.innerHTML += `<div style="color: ${packet.color}; margin: 8px 0; padding: 8px; background: rgba(255,255,255,0.1); border-radius: 5px;">
+                    ${packet.message} | Latency: ${packet.latency}
+                </div>`;
+            });
+
+            // Update counters
+            document.getElementById('critical-count').textContent = packetCounts.critical;
+            document.getElementById('sensor-count').textContent = packetCounts.sensor;
+            document.getElementById('normal-count').textContent = packetCounts.normal;
+        }
+
+        function resetDemo() {
+            packetCounts = { critical: 0, sensor: 0, normal: 0 };
+            packetQueue = [];
+            document.getElementById('packet-log').innerHTML = '<div style="text-align: center; color: #95a5a6;">No packets transmitted yet. Click the buttons above to send data.</div>';
+            document.getElementById('critical-count').textContent = '0';
+            document.getElementById('sensor-count').textContent = '0';
+            document.getElementById('normal-count').textContent = '0';
+        }
+
+        // Clock synchronization demo
+        let clockInterval;
+        let clockRunning = false;
+        let milliseconds = 0;
+
+        function toggleClock() {
+            if (!clockRunning) {
+                clockRunning = true;
+                document.getElementById('clock-button-text').textContent = 'Stop Synchronization';
+                clockInterval = setInterval(updateClocks, 10);
+            } else {
+                clockRunning = false;
+                document.getElementById('clock-button-text').textContent = 'Start Synchronization';
+                clearInterval(clockInterval);
+            }
+        }
+
+        function updateClocks() {
+            milliseconds += 10;
+            const totalSeconds = Math.floor(milliseconds / 1000);
+            const hours = Math.floor(totalSeconds / 3600);
+            const minutes = Math.floor((totalSeconds % 3600) / 60);
+            const seconds = totalSeconds % 60;
+            const ms = milliseconds % 1000;
+
+            const timeString = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}.${String(ms).padStart(3, '0')}`;
+
+            document.getElementById('clock1').textContent = timeString;
+            document.getElementById('clock2').textContent = timeString;
+            document.getElementById('clock3').textContent = timeString;
+            document.getElementById('clock4').textContent = timeString;
+        }
+
+        // Initialize demo
+        resetDemo();
+    </script>
+</body>
+</html>
