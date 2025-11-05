@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SyncMetra® Interactive Showcase | Canoga Perkins</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      margin: 0;
+      background: #f4f6fa;
+      color: #222;
+    }
+    header {
+      background: #284796;
+      color: #fff;
+      padding: 32px 0 8px 0;
+      text-align: center;
+    }
+    header img {
+      max-width: 180px;
+      height: auto;
+      margin-bottom: 12px;
+    }
+    nav a {
+      color: #a8cdff;
+      text-decoration: none;
+      margin: 0 16px;
+      font-weight: 500;
+    }
+    nav {
+      margin-bottom: 16px;
+    }
+    h1, h2, h3 {
+      color: #284796;
+    }
+    .section {
+      background: #fff;
+      margin: 24px auto;
+      border-radius: 12px;
+      max-width: 800px;
+      box-shadow: 0 2px 16px rgba(40,71,150,0.04);
+      padding: 32px;
+    }
+    .cta {
+      background: #284796;
+      color: #fff;
+      padding: 16px;
+      border-radius: 8px;
+      text-align: center;
+      font-size: 20px;
+      margin-bottom: 24px;
+    }
+    .cta a {
+      color: #fff;
+      background: #79a8d8;
+      padding: 8px 20px;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: bold;
+      margin-left: 12px;
+    }
+    .feature-tabs {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+    .feature-tabs button {
+      flex: 1;
+      padding: 12px;
+      background: #e9eef3;
+      border: none;
+      border-radius: 6px;
+      font-size: 18px;
+      color: #284796;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    .feature-tabs .active {
+      background: #284796;
+      color: #fff;
+      box-shadow: 0 2px 6px rgba(40,71,150,0.15);
+    }
+    .feature-content {
+      background: #f4f6fa;
+      border-radius: 8px;
+      padding: 24px;
+      margin-top: 10px;
+      font-size: 17px;
+      color: #222;
+      min-height: 100px;
+    }
+    footer {
+      text-align: center;
+      padding: 16px;
+      background: #284796;
+      color: #fff;
+      font-size: 15px;
+      margin-top: 36px;
+    }
+    @media (max-width: 600px) {
+      .section { padding: 10px; }
+      .feature-tabs button { font-size: 16px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="https://www.canogaperkins.net/images/Canoga%20Perkins%20Logo%205a8cc9%20PNG%20(NO%20WHITE%20IN%20BETWEEN).png" alt="Canoga Perkins Logo" />
+    <nav>
+      <a href="#">About</a>
+      <a href="#">Products</a>
+      <a href="#">Industries</a>
+      <a href="#">Learning Hub</a>
+      <a href="#">Contact</a>
+    </nav>
+    <h1>SyncMetra® Interactive Showcase</h1>
+    <div>
+      <em>Breakthrough, Software-Defined Transport for Private 5G & Data Centers</em>
+    </div>
+  </header>
+
+  <section class="section">
+    <h2>Ultra-Low Latency TSN Powered 5G Transport</h2>
+    <p>
+      SyncMetra® brings Time Sensitive Networking (TSN) to modern wireless and data center communications with ultra-reliable, software-defined 5G solutions.
+      <br>
+      Experience <b>deterministic, low-latency wireless connectivity</b> for demanding industrial, AI, and AR/VR networks.
+    </p>
+    <div class="cta">
+      Interested in a live demo? <a href="https://www.canogaperkins.net/contact-2" target="_blank">Schedule a Demo</a>
+    </div>
+    <div class="feature-tabs" id="featureTabs">
+      <button class="active" onclick="showFeature('arvr')">AR/VR</button>
+      <button onclick="showFeature('ai')">Enterprise AI</button>
+      <button onclick="showFeature('industrial')">Industrial Automation</button>
+    </div>
+    <div class="feature-content" id="featureContent">
+      <b>SyncMetra® for AR/VR</b> <br>
+      Deliver synchronized, content-rich, free-to-roam experiences across multiple users. Provides engineered latency and reliability far exceeding Wi-Fi, supporting next-gen immersive applications for training and simulation.
+    </div>
+    <script>
+      function showFeature(feature) {
+        document.querySelectorAll('.feature-tabs button').forEach(btn => btn.classList.remove('active'));
+        document.querySelector('.feature-tabs button[onclick*="'+feature+'"]').classList.add('active');
+        let content = '';
+        if (feature === 'arvr') {
+          content = '<b>SyncMetra® for AR/VR</b> <br>Deliver synchronized, content-rich, free-to-roam experiences across multiple users. Provides engineered latency and reliability far exceeding Wi-Fi, supporting next-gen immersive applications for training and simulation.';
+        } else if (feature === 'ai') {
+          content = '<b>SyncMetra® for Enterprise AI</b> <br>Unlock scalable inference-at-the-edge for security, retail, predictive maintenance. Enables on-premises AI deployments with guaranteed timing and performance for data-intensive use cases.';
+        } else if (feature === 'industrial') {
+          content = '<b>SyncMetra® for Industrial Automation</b> <br>Enable precision manufacturing, automated vehicles, and digital twins using programmable 5G + TSN. Achieve deterministic wireless connectivity as robust as wired networks for mission-critical automation.';
+        }
+        document.getElementById('featureContent').innerHTML = content;
+      }
+    </script>
+  </section>
+
+  <section class="section">
+    <h2>SyncMetra® Manager (SMM)</h2>
+    <p>
+      Cloud-managed orchestration software for centralized configuration, monitoring, and auto-provisioning. Supports north-bound/south-bound API integration for full network and application management. <br />
+      <a href="https://www.canogaperkins.net/contact-2" target="_blank">Book Demo</a>
+    </p>
+  </section>
+
+  <section class="section">
+    <h2>Ready To Get Started?</h2>
+    <form style="max-width: 400px; margin: 0 auto;">
+      <label for="email">Subscribe for news & updates:</label><br>
+      <input type="email" id="email" name="email" placeholder="Your email" required style="width: 80%; padding: 8px; margin-top:8px; border-radius:6px;border:1px solid #c5d0e9;"><br>
+      <input type="checkbox" id="subscribe" name="subscribe" style="margin-top:16px;">
+      <label for="subscribe">Yes, subscribe me to your newsletter.</label><br>
+      <button type="submit" style="margin-top:18px; background:#284796; color:#fff; padding:10px 24px; border:none; border-radius:6px; font-weight:bold; font-size:16px;">Subscribe</button>
+    </form>
+  </section>
+
+  <footer>
+    &copy; 2025 Canoga Perkins | SyncMetra®<br>
+    20600 Prairie Street, Chatsworth CA 91311 | <a href="mailto:sales@canogaperkins.net" style="color:#a8cdff;">sales@canogaperkins.net</a>
+  </footer>
+</body>
+</html>
