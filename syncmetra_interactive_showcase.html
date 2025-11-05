@@ -1,0 +1,1339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SyncMetra® - Revolutionary Private 5G Transport Solution | Canoga Perkins</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #0066cc;
+            --secondary-color: #00b4d8;
+            --accent-color: #ff6b35;
+            --dark: #1a1a2e;
+            --light: #f8f9fa;
+            --success: #28a745;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header & Navigation */
+        header {
+            background: linear-gradient(135deg, var(--dark) 0%, #2d3561 100%);
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--secondary-color);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            color: var(--secondary-color);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 100px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+
+        .btn {
+            padding: 15px 40px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: var(--accent-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #ff5722;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(255, 107, 53, 0.4);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--dark);
+        }
+
+        .btn-secondary:hover {
+            background: var(--light);
+            transform: translateY(-2px);
+        }
+
+        /* Sections */
+        section {
+            padding: 80px 0;
+        }
+
+        section:nth-child(even) {
+            background-color: var(--light);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--dark);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 4px;
+            background: var(--secondary-color);
+            margin: 1rem auto;
+        }
+
+        /* Problem/Solution */
+        .problem-solution {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+        }
+
+        .card.problem {
+            border-left: 5px solid var(--accent-color);
+        }
+
+        .card.solution {
+            border-left: 5px solid var(--success);
+        }
+
+        /* Features Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        /* Use Cases Tabs */
+        .tabs {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            padding: 12px 30px;
+            background: white;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+        }
+
+        .tab-btn:hover, .tab-btn.active {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .tab-content {
+            display: none;
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            animation: fadeIn 0.5s;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Qualification Tool */
+        .qualification-tool {
+            background: white;
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            max-width: 800px;
+            margin: 2rem auto;
+        }
+
+        .question {
+            margin-bottom: 2rem;
+        }
+
+        .question label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+            color: var(--dark);
+        }
+
+        .question select, .question input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        .result {
+            display: none;
+            padding: 2rem;
+            border-radius: 10px;
+            margin-top: 2rem;
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .result.excellent {
+            background: #d4edda;
+            color: #155724;
+            border: 2px solid #28a745;
+        }
+
+        .result.good {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 2px solid #17a2b8;
+        }
+
+        .result.potential {
+            background: #fff3cd;
+            color: #856404;
+            border: 2px solid #ffc107;
+        }
+
+        /* Interactive Demo */
+        .demo-container {
+            background: white;
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .latency-demo {
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .network-comparison {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 2rem;
+            gap: 2rem;
+        }
+
+        .network-item {
+            flex: 1;
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .network-item.syncmetra {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .network-item.wifi {
+            background: #f8f9fa;
+            border: 2px solid #ddd;
+        }
+
+        .network-item.traditional-5g {
+            background: #f8f9fa;
+            border: 2px solid #ddd;
+        }
+
+        .latency-value {
+            font-size: 3rem;
+            font-weight: bold;
+            margin: 1rem 0;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 30px;
+            background: #e0e0e0;
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 1rem 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--success), var(--secondary-color));
+            transition: width 2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 10px;
+            color: white;
+            font-weight: bold;
+        }
+
+        /* ROI Calculator */
+        .roi-calculator {
+            background: white;
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .roi-inputs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .roi-result {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .roi-result h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .roi-value {
+            font-size: 3rem;
+            font-weight: bold;
+        }
+
+        /* Specifications */
+        .specs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .spec-item {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            border-left: 4px solid var(--secondary-color);
+        }
+
+        .spec-label {
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .spec-value {
+            font-size: 1.1rem;
+            color: #555;
+        }
+
+        /* Partner Benefits */
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .benefit-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .benefit-card:hover {
+            transform: scale(1.05);
+        }
+
+        .benefit-card .icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background: linear-gradient(135deg, var(--dark) 0%, #2d3561 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 2rem auto;
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+            font-weight: bold;
+        }
+
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1.2rem;
+            }
+
+            .problem-solution {
+                grid-template-columns: 1fr;
+            }
+
+            .network-comparison {
+                flex-direction: column;
+            }
+
+            .roi-inputs {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+
+        .floating-cta {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 999;
+        }
+
+        .floating-cta .btn {
+            box-shadow: 0 5px 25px rgba(0,0,0,0.3);
+        }
+
+        /* Accordion */
+        .accordion {
+            margin-top: 2rem;
+        }
+
+        .accordion-item {
+            background: white;
+            margin-bottom: 1rem;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .accordion-header {
+            padding: 1.5rem;
+            background: var(--primary-color);
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.3s;
+        }
+
+        .accordion-header:hover {
+            background: #0052a3;
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            padding: 0 1.5rem;
+        }
+
+        .accordion-content.active {
+            padding: 1.5rem;
+            max-height: 500px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <header>
+        <nav class="container">
+            <div class="logo">SyncMetra® by Canoga Perkins</div>
+            <ul class="nav-links">
+                <li><a href="#features">Features</a></li>
+                <li><a href="#use-cases">Use Cases</a></li>
+                <li><a href="#demo">Demo</a></li>
+                <li><a href="#qualify">Qualify</a></li>
+                <li><a href="#partners">Partners</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content container">
+            <h1>SyncMetra®</h1>
+            <p>Breakthrough Software-Defined Private 5G Transport with TSN</p>
+            <p style="font-size: 1.2rem; opacity: 0.9;">Deploy Private 5G as Simply as Wi-Fi | Ultra-Low Latency | Deterministic Performance</p>
+            <div class="cta-buttons">
+                <a href="#demo" class="btn btn-primary">See Live Demo</a>
+                <a href="#qualify" class="btn btn-secondary">Qualify Your Use Case</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem/Solution Section -->
+    <section id="overview">
+        <div class="container">
+            <h2 class="section-title">The Market Challenge & Solution</h2>
+            <div class="problem-solution">
+                <div class="card problem">
+                    <h3>🚨 The Problem</h3>
+                    <p>As AI, IoT, and automation accelerate, organizations face critical challenges:</p>
+                    <ul style="margin-top: 1rem; line-height: 2;">
+                        <li>❌ Wi-Fi and current 5G cannot guarantee low latency for demanding industrial use cases</li>
+                        <li>❌ Traditional networks require extensive telco expertise</li>
+                        <li>❌ Cost-prohibitive hardware and complex deployment</li>
+                        <li>❌ Inability to segregate mission-critical from routine traffic</li>
+                        <li>❌ Limited visibility and control over network performance</li>
+                    </ul>
+                </div>
+
+                <div class="card solution">
+                    <h3>✅ The SyncMetra® Solution</h3>
+                    <p>The ONLY software-defined transport solution delivering:</p>
+                    <ul style="margin-top: 1rem; line-height: 2;">
+                        <li>✓ <strong>Deterministic Transport</strong> - Guaranteed ultra-low latency & packet delivery</li>
+                        <li>✓ <strong>IT-Operated</strong> - Deploy as simply as Wi-Fi, no telco expertise needed</li>
+                        <li>✓ <strong>Software-Defined</strong> - Programmable, visible, measurable</li>
+                        <li>✓ <strong>Cost-Effective</strong> - 70%+ faster deployment, lower TCO</li>
+                        <li>✓ <strong>TSN-Enabled</strong> - Time-Sensitive Networking for industrial automation</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features">
+        <div class="container">
+            <h2 class="section-title">Revolutionary Capabilities</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Ultra-Low Latency</h3>
+                    <p>Deterministic, bounded latency under 5ms for time-critical applications. Powered by AMD Virtex™ UltraScale+™ FPGAs for guaranteed performance.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3>URLLC & QoS</h3>
+                    <p>Ultra Reliable Low Latency Communication with engineered Quality of Service. Segregate mission-critical traffic from best-effort traffic.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🔧</div>
+                    <h3>Software-Programmable</h3>
+                    <p>Configure, deploy, measure, and iterate without hardware changes. Full visibility into network performance and resource allocation.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">📈</div>
+                    <h3>Expandable Architecture</h3>
+                    <p>Set coverage density, distribute compute, and scale on-demand. Buy only what you need—no rip-and-replace required.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🏭</div>
+                    <h3>TSN Integration</h3>
+                    <p>Native Time-Sensitive Networking support for industrial automation, robotics, and OT convergence.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🤖</div>
+                    <h3>Enterprise Edge AI</h3>
+                    <p>Enable AI inference at the edge with consolidated sensor feeds, on-premise processing, and reduced latency for real-time decision-making.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Use Cases Section -->
+    <section id="use-cases">
+        <div class="container">
+            <h2 class="section-title">Target Applications & Industries</h2>
+            <div class="tabs">
+                <button class="tab-btn active" onclick="openTab(event, 'industrial')">🏭 Industrial Automation</button>
+                <button class="tab-btn" onclick="openTab(event, 'enterprise')">🏢 Enterprise AI</button>
+                <button class="tab-btn" onclick="openTab(event, 'arvr')">🥽 AR/VR</button>
+                <button class="tab-btn" onclick="openTab(event, 'manufacturing')">⚙️ Smart Manufacturing</button>
+            </div>
+
+            <div id="industrial" class="tab-content active">
+                <h3>Industrial Automation & IIoT</h3>
+                <p><strong>Perfect for:</strong> Factory floors, process automation, robotics, AGVs, industrial IoT</p>
+                <p><strong>Key Benefits:</strong></p>
+                <ul style="margin-top: 1rem; line-height: 2;">
+                    <li>Deterministic wireless communication for time-critical control systems</li>
+                    <li>TSN support for seamless OT/IT convergence</li>
+                    <li>Support for IEC 61499 and IEC 61131 automation standards</li>
+                    <li>Multi-vendor radio and core compatibility</li>
+                    <li>Reduced downtime with reliable, low-latency connectivity</li>
+                </ul>
+                <p style="margin-top: 1rem;"><strong>ROI Impact:</strong> 70%+ faster deployment, reduced operational costs, improved production efficiency</p>
+            </div>
+
+            <div id="enterprise" class="tab-content">
+                <h3>Enterprise Edge AI</h3>
+                <p><strong>Perfect for:</strong> Physical security, retail analytics, quality assurance, predictive maintenance</p>
+                <p><strong>Key Benefits:</strong></p>
+                <ul style="margin-top: 1rem; line-height: 2;">
+                    <li>On-premise AI inference with ultra-low latency</li>
+                    <li>Consolidated multi-sensor feeds for real-time analytics</li>
+                    <li>Reduced cloud dependency and data transfer costs</li>
+                    <li>Enhanced privacy and security for sensitive data</li>
+                    <li>Scalable deployment across multiple locations</li>
+                </ul>
+                <p style="margin-top: 1rem;"><strong>Use Cases:</strong> Video analytics, defect detection, occupancy monitoring, asset tracking</p>
+            </div>
+
+            <div id="arvr" class="tab-content">
+                <h3>Augmented & Virtual Reality</h3>
+                <p><strong>Perfect for:</strong> Training, remote assistance, digital twins, immersive experiences</p>
+                <p><strong>Key Benefits:</strong></p>
+                <ul style="margin-top: 1rem; line-height: 2;">
+                    <li>Sub-5ms latency for responsive, immersive experiences</li>
+                    <li>Guaranteed bandwidth for high-quality video streams</li>
+                    <li>Support for multiple concurrent users</li>
+                    <li>Seamless mobility across coverage areas</li>
+                    <li>Enhanced collaboration for remote teams</li>
+                </ul>
+                <p style="margin-top: 1rem;"><strong>Applications:</strong> Worker training, remote maintenance, design review, virtual collaboration</p>
+            </div>
+
+            <div id="manufacturing" class="tab-content">
+                <h3>Smart Manufacturing & Industry 4.0</h3>
+                <p><strong>Perfect for:</strong> Connected factories, supply chain visibility, digital transformation</p>
+                <p><strong>Key Benefits:</strong></p>
+                <ul style="margin-top: 1rem; line-height: 2;">
+                    <li>Real-time production monitoring and optimization</li>
+                    <li>Predictive maintenance to minimize downtime</li>
+                    <li>Digital twin integration for process simulation</li>
+                    <li>Flexible, reconfigurable production lines</li>
+                    <li>Enhanced safety through connected systems</li>
+                </ul>
+                <p style="margin-top: 1rem;"><strong>Proven Results:</strong> 70%+ deployment acceleration for Private 5G-as-a-Service offerings</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Demo Section -->
+    <section id="demo" style="background: var(--light);">
+        <div class="container">
+            <h2 class="section-title">Interactive Performance Demo</h2>
+            <div class="demo-container">
+                <h3 style="text-align: center; margin-bottom: 2rem;">Network Latency Comparison</h3>
+                <div class="network-comparison">
+                    <div class="network-item syncmetra">
+                        <h4>SyncMetra®</h4>
+                        <div class="latency-value">&lt;5ms</div>
+                        <p>Deterministic, Bounded</p>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 20%;">Optimal</div>
+                        </div>
+                    </div>
+
+                    <div class="network-item traditional-5g">
+                        <h4>Traditional 5G</h4>
+                        <div class="latency-value">15-30ms</div>
+                        <p>Variable, Best Effort</p>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 60%; background: #ffc107;">Moderate</div>
+                        </div>
+                    </div>
+
+                    <div class="network-item wifi">
+                        <h4>Wi-Fi 6</h4>
+                        <div class="latency-value">30-100ms</div>
+                        <p>Unpredictable</p>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 90%; background: #dc3545;">High</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 3rem; text-align: center;">
+                    <button class="btn btn-primary" onclick="animateDemo()">Run Comparison ▶</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Qualification Tool -->
+    <section id="qualify">
+        <div class="container">
+            <h2 class="section-title">Is SyncMetra® Right for You?</h2>
+            <p style="text-align: center; margin-bottom: 2rem; font-size: 1.1rem;">Answer a few questions to determine if your use case is ideal for SyncMetra®</p>
+
+            <div class="qualification-tool">
+                <div class="question">
+                    <label>1. What is your primary application?</label>
+                    <select id="q1">
+                        <option value="">Select...</option>
+                        <option value="5">Industrial Automation / IIoT</option>
+                        <option value="5">Enterprise AI at Edge</option>
+                        <option value="4">AR/VR Applications</option>
+                        <option value="4">Smart Manufacturing</option>
+                        <option value="3">Robotics & AGVs</option>
+                        <option value="3">Video Analytics</option>
+                        <option value="2">General IoT</option>
+                        <option value="2">Other</option>
+                    </select>
+                </div>
+
+                <div class="question">
+                    <label>2. What latency requirements do you have?</label>
+                    <select id="q2">
+                        <option value="">Select...</option>
+                        <option value="5">Ultra-low latency required (&lt;5ms)</option>
+                        <option value="4">Low latency needed (&lt;10ms)</option>
+                        <option value="3">Moderate latency acceptable (&lt;30ms)</option>
+                        <option value="2">Latency not critical</option>
+                    </select>
+                </div>
+
+                <div class="question">
+                    <label>3. Do you need deterministic, guaranteed performance?</label>
+                    <select id="q3">
+                        <option value="">Select...</option>
+                        <option value="5">Absolutely critical - mission critical operations</option>
+                        <option value="4">Very important - impacts business outcomes</option>
+                        <option value="3">Somewhat important</option>
+                        <option value="2">Not essential - best effort acceptable</option>
+                    </select>
+                </div>
+
+                <div class="question">
+                    <label>4. Current IT/Network team capabilities?</label>
+                    <select id="q4">
+                        <option value="">Select...</option>
+                        <option value="5">IT team without telco expertise</option>
+                        <option value="4">Mixed IT/telco skills</option>
+                        <option value="3">Strong telco expertise</option>
+                        <option value="2">Outsourced network management</option>
+                    </select>
+                </div>
+
+                <div class="question">
+                    <label>5. What's your deployment timeline?</label>
+                    <select id="q5">
+                        <option value="">Select...</option>
+                        <option value="5">Need fast deployment (weeks)</option>
+                        <option value="4">Moderate timeline (1-3 months)</option>
+                        <option value="3">Flexible timeline (3-6 months)</option>
+                        <option value="2">Long-term planning (6+ months)</option>
+                    </select>
+                </div>
+
+                <div class="question">
+                    <label>6. Budget considerations?</label>
+                    <select id="q6">
+                        <option value="">Select...</option>
+                        <option value="5">Need to minimize TCO and CAPEX</option>
+                        <option value="4">Looking for cost-effective solution</option>
+                        <option value="3">Standard budget available</option>
+                        <option value="2">Premium budget, cost not primary concern</option>
+                    </select>
+                </div>
+
+                <button class="btn btn-primary" onclick="calculateQualification()" style="width: 100%; margin-top: 1rem;">Assess Qualification</button>
+
+                <div id="qualificationResult" class="result"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ROI Calculator -->
+    <section style="background: var(--light);">
+        <div class="container">
+            <h2 class="section-title">ROI Calculator</h2>
+            <div class="roi-calculator">
+                <h3 style="margin-bottom: 1.5rem;">Calculate Your Potential Savings</h3>
+                <div class="roi-inputs">
+                    <div class="form-group">
+                        <label>Current Network Deployment Time (weeks)</label>
+                        <input type="number" id="deploymentTime" value="12" min="1">
+                    </div>
+                    <div class="form-group">
+                        <label>Current Annual Network Costs ($)</label>
+                        <input type="number" id="annualCost" value="150000" min="0">
+                    </div>
+                    <div class="form-group">
+                        <label>Number of Sites/Facilities</label>
+                        <input type="number" id="numSites" value="3" min="1">
+                    </div>
+                    <div class="form-group">
+                        <label>Annual Downtime Cost per Hour ($)</label>
+                        <input type="number" id="downtimeCost" value="5000" min="0">
+                    </div>
+                </div>
+                <button class="btn btn-primary" onclick="calculateROI()" style="width: 100%;">Calculate Potential ROI</button>
+
+                <div id="roiResult" class="roi-result" style="display: none;">
+                    <h3>Estimated 3-Year Savings</h3>
+                    <div class="roi-value" id="roiValue">$0</div>
+                    <p style="margin-top: 1rem;" id="roiDetails"></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technical Specifications -->
+    <section id="specs">
+        <div class="container">
+            <h2 class="section-title">Technical Specifications</h2>
+            <div class="specs-grid">
+                <div class="spec-item">
+                    <div class="spec-label">Latency</div>
+                    <div class="spec-value">< 5ms (Deterministic)</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">Technology</div>
+                    <div class="spec-value">Private 5G with TSN</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">Processing</div>
+                    <div class="spec-value">AMD Virtex™ UltraScale+™ FPGAs</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">Management</div>
+                    <div class="spec-value">Cloud-Managed Orchestrator</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">QoS</div>
+                    <div class="spec-value">Engineered & Bounded</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">Compatibility</div>
+                    <div class="spec-value">Multiple Radio & Core Vendors</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">Deployment</div>
+                    <div class="spec-value">70%+ Faster than Traditional</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">Architecture</div>
+                    <div class="spec-value">Software-Defined, Expandable</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Partner Benefits -->
+    <section id="partners" style="background: var(--light);">
+        <div class="container">
+            <h2 class="section-title">Partner & Reseller Opportunities</h2>
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="icon">💼</div>
+                    <h3>New Revenue Streams</h3>
+                    <p>Unlock high-margin opportunities in private 5G and industrial automation markets with proven 70%+ deployment acceleration.</p>
+                </div>
+
+                <div class="benefit-card">
+                    <div class="icon">🎓</div>
+                    <h3>No Telco Expertise Required</h3>
+                    <p>Your existing IT teams can deploy and manage SyncMetra® without extensive telecommunications training or certifications.</p>
+                </div>
+
+                <div class="benefit-card">
+                    <div class="icon">🤝</div>
+                    <h3>Co-Marketing Support</h3>
+                    <p>Access marketing materials, demo units, technical documentation, and joint go-to-market resources.</p>
+                </div>
+
+                <div class="benefit-card">
+                    <div class="icon">📊</div>
+                    <h3>Competitive Advantage</h3>
+                    <p>Differentiate with the ONLY deterministic, software-defined private 5G transport solution on the market.</p>
+                </div>
+
+                <div class="benefit-card">
+                    <div class="icon">🔧</div>
+                    <h3>System Integrator Ready</h3>
+                    <p>Flexible deployment models designed specifically for SIs, VARs, and network specialists.</p>
+                </div>
+
+                <div class="benefit-card">
+                    <div class="icon">💰</div>
+                    <h3>Attractive Margins</h3>
+                    <p>Enhanced TCO and CAPEX benefits create compelling value propositions and healthy partner margins.</p>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 3rem;">
+                <h3 style="margin-bottom: 1.5rem;">Partner Program Tiers</h3>
+                <div class="accordion">
+                    <div class="accordion-item">
+                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                            <span>🥉 Authorized Reseller</span>
+                            <span>+</span>
+                        </div>
+                        <div class="accordion-content">
+                            <p><strong>Requirements:</strong> Complete basic training, commit to minimum annual sales</p>
+                            <p><strong>Benefits:</strong> Standard margins, marketing materials, technical support, demo access</p>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                            <span>🥈 Silver Partner</span>
+                            <span>+</span>
+                        </div>
+                        <div class="accordion-content">
+                            <p><strong>Requirements:</strong> Advanced certification, higher sales commitment, customer references</p>
+                            <p><strong>Benefits:</strong> Enhanced margins, co-marketing funds, priority support, evaluation units</p>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                            <span>🥇 Gold Partner</span>
+                            <span>+</span>
+                        </div>
+                        <div class="accordion-content">
+                            <p><strong>Requirements:</strong> Expert-level certification, significant sales volume, proof of concept capabilities</p>
+                            <p><strong>Benefits:</strong> Premium margins, dedicated support, custom solutions, exclusive territories, roadmap input</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <h2 class="section-title" style="color: white;">Let's Get Started</h2>
+            <p style="font-size: 1.2rem; margin-bottom: 2rem;">Schedule a personalized demo or discuss partnership opportunities</p>
+
+            <div class="contact-form">
+                <form onsubmit="handleSubmit(event)">
+                    <div class="form-group">
+                        <label>Full Name *</label>
+                        <input type="text" required placeholder="John Smith">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Company *</label>
+                        <input type="text" required placeholder="Your Company Name">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Email *</label>
+                        <input type="email" required placeholder="john.smith@company.com">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Phone</label>
+                        <input type="tel" placeholder="+1 (555) 123-4567">
+                    </div>
+
+                    <div class="form-group">
+                        <label>I'm interested in: *</label>
+                        <select required>
+                            <option value="">Select...</option>
+                            <option value="demo">Scheduling a Demo</option>
+                            <option value="partner">Becoming a Partner/Reseller</option>
+                            <option value="purchase">Purchasing Information</option>
+                            <option value="technical">Technical Discussion</option>
+                            <option value="evaluation">Evaluation Unit Request</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Industry</label>
+                        <select>
+                            <option value="">Select...</option>
+                            <option value="manufacturing">Manufacturing</option>
+                            <option value="automation">Industrial Automation</option>
+                            <option value="logistics">Logistics & Warehousing</option>
+                            <option value="enterprise">Enterprise</option>
+                            <option value="healthcare">Healthcare</option>
+                            <option value="retail">Retail</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Message</label>
+                        <textarea placeholder="Tell us about your use case or requirements..."></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Submit Request</button>
+                </form>
+            </div>
+
+            <div style="margin-top: 3rem; color: white;">
+                <p style="font-size: 1.1rem;"><strong>Canoga Perkins Corporation</strong></p>
+                <p>Chatsworth, California</p>
+                <p style="margin-top: 1rem;">Visit us at <strong>Mobile World Congress</strong> (Hall 7 Stand 7C3Ex) and <strong>Hannover Messe</strong></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Floating CTA -->
+    <div class="floating-cta">
+        <a href="#contact" class="btn btn-primary pulse">Schedule Demo</a>
+    </div>
+
+    <script>
+        // Tab functionality
+        function openTab(evt, tabName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].classList.remove("active");
+            }
+            tablinks = document.getElementsByClassName("tab-btn");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].classList.remove("active");
+            }
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+
+        // Accordion functionality
+        function toggleAccordion(header) {
+            const content = header.nextElementSibling;
+            const allContents = document.querySelectorAll('.accordion-content');
+            const allHeaders = document.querySelectorAll('.accordion-header');
+
+            allContents.forEach(c => {
+                if (c !== content) {
+                    c.classList.remove('active');
+                }
+            });
+
+            content.classList.toggle('active');
+        }
+
+        // Qualification Calculator
+        function calculateQualification() {
+            const q1 = parseInt(document.getElementById('q1').value) || 0;
+            const q2 = parseInt(document.getElementById('q2').value) || 0;
+            const q3 = parseInt(document.getElementById('q3').value) || 0;
+            const q4 = parseInt(document.getElementById('q4').value) || 0;
+            const q5 = parseInt(document.getElementById('q5').value) || 0;
+            const q6 = parseInt(document.getElementById('q6').value) || 0;
+
+            if (q1 === 0 || q2 === 0 || q3 === 0 || q4 === 0 || q5 === 0 || q6 === 0) {
+                alert('Please answer all questions to assess qualification.');
+                return;
+            }
+
+            const total = q1 + q2 + q3 + q4 + q5 + q6;
+            const resultDiv = document.getElementById('qualificationResult');
+
+            resultDiv.style.display = 'block';
+
+            if (total >= 25) {
+                resultDiv.className = 'result excellent';
+                resultDiv.innerHTML = `
+                    <div>🎯 EXCELLENT FIT - Score: ${total}/30</div>
+                    <p style="margin-top: 1rem; font-size: 1rem; font-weight: normal;">
+                        SyncMetra® is ideally suited for your requirements! Your use case aligns perfectly with our core capabilities:
+                        ultra-low latency, deterministic performance, and simplified deployment. Let's schedule a demo to show you exactly how SyncMetra® can transform your operations.
+                    </p>
+                    <button class="btn btn-primary" onclick="document.location='#contact'" style="margin-top: 1rem;">Schedule Your Demo Now</button>
+                `;
+            } else if (total >= 18) {
+                resultDiv.className = 'result good';
+                resultDiv.innerHTML = `
+                    <div>✅ STRONG FIT - Score: ${total}/30</div>
+                    <p style="margin-top: 1rem; font-size: 1rem; font-weight: normal;">
+                        SyncMetra® is well-suited for your needs! While some aspects may require discussion, our solution
+                        can deliver significant value. Let's explore how we can customize SyncMetra® for your specific requirements.
+                    </p>
+                    <button class="btn btn-primary" onclick="document.location='#contact'" style="margin-top: 1rem;">Discuss Your Use Case</button>
+                `;
+            } else {
+                resultDiv.className = 'result potential';
+                resultDiv.innerHTML = `
+                    <div>💡 POTENTIAL FIT - Score: ${total}/30</div>
+                    <p style="margin-top: 1rem; font-size: 1rem; font-weight: normal;">
+                        SyncMetra® may work for your use case depending on specific requirements. We recommend a technical
+                        consultation to understand your needs better and determine if our solution is the right fit.
+                    </p>
+                    <button class="btn btn-secondary" onclick="document.location='#contact'" style="margin-top: 1rem;">Request Technical Consultation</button>
+                `;
+            }
+        }
+
+        // ROI Calculator
+        function calculateROI() {
+            const deploymentTime = parseFloat(document.getElementById('deploymentTime').value) || 12;
+            const annualCost = parseFloat(document.getElementById('annualCost').value) || 150000;
+            const numSites = parseInt(document.getElementById('numSites').value) || 3;
+            const downtimeCost = parseFloat(document.getElementById('downtimeCost').value) || 5000;
+
+            // Calculate savings
+            const deploymentSavings = (deploymentTime * 0.7) * (downtimeCost * 24 * 7) * numSites; // 70% faster deployment
+            const annualCostSavings = (annualCost * 0.3) * 3 * numSites; // 30% cost reduction over 3 years
+            const downtimeReduction = (downtimeCost * 100) * 3; // ~100 hours reduced downtime over 3 years
+
+            const totalSavings = deploymentSavings + annualCostSavings + downtimeReduction;
+
+            const resultDiv = document.getElementById('roiResult');
+            const valueDiv = document.getElementById('roiValue');
+            const detailsDiv = document.getElementById('roiDetails');
+
+            resultDiv.style.display = 'block';
+            valueDiv.textContent = '$' + totalSavings.toLocaleString('en-US', {maximumFractionDigits: 0});
+            detailsDiv.innerHTML = `
+                <strong>Breakdown:</strong><br>
+                Faster Deployment: $${deploymentSavings.toLocaleString('en-US', {maximumFractionDigits: 0})}<br>
+                Reduced Operating Costs: $${annualCostSavings.toLocaleString('en-US', {maximumFractionDigits: 0})}<br>
+                Downtime Prevention: $${downtimeReduction.toLocaleString('en-US', {maximumFractionDigits: 0})}
+            `;
+        }
+
+        // Demo Animation
+        function animateDemo() {
+            alert('Live demo animation would show real-time latency measurements, packet delivery guarantees, and network performance metrics. In a production environment, this would connect to actual SyncMetra® hardware or simulation.');
+        }
+
+        // Form Submission
+        function handleSubmit(event) {
+            event.preventDefault();
+            alert('Thank you for your interest! In a production environment, this form would submit to Canoga Perkins CRM (Microsoft Dynamics) and trigger immediate follow-up. A team member will contact you within 24 hours to schedule your personalized demo.');
+            return false;
+        }
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements for animation
+        document.querySelectorAll('.card, .feature-card, .benefit-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
