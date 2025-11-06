@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>French Travel Phrases - Interactive Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+
+        .category {
+            margin-bottom: 35px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 25px;
+            transition: transform 0.3s ease;
+        }
+
+        .category:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .category-title {
+            color: #2c3e50;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+        }
+
+        .phrase-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-left: 5px solid #3498db;
+        }
+
+        .phrase-card:hover {
+            background: #e8f4f8;
+            transform: translateX(10px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .phrase-card.active {
+            background: #fff3e0;
+            border-left-color: #f39c12;
+        }
+
+        .french {
+            font-size: 1.8em;
+            color: #2c3e50;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .pronunciation {
+            font-size: 1.3em;
+            color: #e74c3c;
+            background: #fff3e0;
+            padding: 5px 10px;
+            border-radius: 5px;
+            display: inline-block;
+            margin-bottom: 8px;
+            font-style: italic;
+        }
+
+        .english {
+            font-size: 1.2em;
+            color: #555;
+        }
+
+        .context {
+            font-size: 0.95em;
+            color: #999;
+            font-style: italic;
+            margin-top: 5px;
+        }
+
+        .info-box {
+            background: #e8f5e9;
+            border-left: 5px solid #4caf50;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+
+        .info-box h3 {
+            color: #2e7d32;
+            margin-bottom: 10px;
+        }
+
+        .info-box p {
+            color: #2e7d32;
+            line-height: 1.6;
+        }
+
+        .safety-box {
+            background: #ffebee;
+            border-left: 5px solid #e53935;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+
+        .safety-box h3 {
+            color: #c62828;
+            margin-bottom: 10px;
+        }
+
+        .safety-box p {
+            color: #c62828;
+            line-height: 1.6;
+        }
+
+        .filter-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover {
+            background: #2c3e50;
+            transform: scale(1.05);
+        }
+
+        .filter-btn.active {
+            background: #2c3e50;
+            box-shadow: 0 5px 15px rgba(44, 62, 80, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 1.8em;
+            }
+
+            .french {
+                font-size: 1.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🇫🇷 French Travel Phrases</h1>
+        <p class="subtitle">Click any phrase to highlight it • Essential phrases for women traveling in France</p>
+
+        <div class="info-box">
+            <h3>📖 Pronunciation Guide</h3>
+            <p><strong>Tips for Americans:</strong> French has nasal vowels (indicated by ~) and the "R" is guttural (from throat). Silent letters are common at word endings. "J" sounds like "zh" in "measure". Practice the "eu" sound (like "uh" with rounded lips).</p>
+        </div>
+
+        <div class="filter-buttons">
+            <button class="filter-btn active" onclick="filterCategory('all')">All Phrases</button>
+            <button class="filter-btn" onclick="filterCategory('greetings')">Greetings</button>
+            <button class="filter-btn" onclick="filterCategory('travel')">Travel</button>
+            <button class="filter-btn" onclick="filterCategory('dining')">Dining</button>
+            <button class="filter-btn" onclick="filterCategory('shopping')">Shopping</button>
+            <button class="filter-btn" onclick="filterCategory('safety')">Safety</button>
+        </div>
+
+        <div class="category" data-category="greetings">
+            <h2 class="category-title">👋 Greetings & Politeness</h2>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="french">Bonjour</div>
+                <div class="pronunciation">bo~-ZHOOR</div>
+                <div class="english">Hello / Good day</div>
+                <div class="context">Use during daytime; essential greeting before any interaction</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="french">Bonsoir</div>
+                <div class="pronunciation">bo~-SWAHR</div>
+                <div class="english">Good evening</div>
+                <div class="context">Use after 6pm</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="french">Au revoir</div>
+                <div class="pronunciation">oh ruh-VWAHR</div>
+                <div class="english">Goodbye</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="french">S'il vous plaît</div>
+                <div class="pronunciation">see voo PLEH</div>
+                <div class="english">Please (formal)</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="french">Merci</div>
+                <div class="pronunciation">mehr-SEE</div>
+                <div class="english">Thank you</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="french">Merci beaucoup</div>
+                <div class="pronunciation">mehr-SEE boh-KOO</div>
+                <div class="english">Thank you very much</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="french">De rien</div>
+                <div class="pronunciation">duh ree-A~</div>
+                <div class="english">You're welcome</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="french">Excusez-moi</div>
+                <div class="pronunciation">ex-kew-zay-MWAH</div>
+                <div class="english">Excuse me (formal)</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="french">Pardon</div>
+                <div class="pronunciation">pahr-DO~</div>
+                <div class="english">Sorry / Pardon me</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="french">Je suis désolée</div>
+                <div class="pronunciation">zhuh swee day-zo-LAY</div>
+                <div class="english">I'm sorry (female speaker)</div>
+            </div>
+        </div>
+
+        <div class="category" data-category="travel">
+            <h2 class="category-title">✈️ Travel & Accommodations</h2>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="french">Je ne parle pas français</div>
+                <div class="pronunciation">zhuh nuh pahrl pah fruh~-SEH</div>
+                <div class="english">I don't speak French</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="french">Parlez-vous anglais?</div>
+                <div class="pronunciation">pahr-lay-voo ah~-GLEH</div>
+                <div class="english">Do you speak English?</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="french">Je cherche mon hôtel</div>
+                <div class="pronunciation">zhuh shehrsh mo~ noh-TELL</div>
+                <div class="english">I'm looking for my hotel</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="french">J'ai une réservation</div>
+                <div class="pronunciation">zhay ewn ray-zehr-vah-SYO~</div>
+                <div class="english">I have a reservation</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="french">Où est...?</div>
+                <div class="pronunciation">oo eh</div>
+                <div class="english">Where is...?</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="french">Où sont les toilettes?</div>
+                <div class="pronunciation">oo so~ lay twah-LET</div>
+                <div class="english">Where is the bathroom?</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="french">La clé, s'il vous plaît</div>
+                <div class="pronunciation">lah CLAY, see voo PLEH</div>
+                <div class="english">The key, please</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="french">Quelle heure est-il?</div>
+                <div class="pronunciation">kell ehr eh-TEEL</div>
+                <div class="english">What time is it?</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="french">Où est la gare?</div>
+                <div class="pronunciation">oo eh lah GAHR</div>
+                <div class="english">Where is the train station?</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="french">Un billet pour Paris, s'il vous plaît</div>
+                <div class="pronunciation">uh~ bee-YEH poor pah-REE, see voo PLEH</div>
+                <div class="english">A ticket to Paris, please</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="french">Je suis perdue</div>
+                <div class="pronunciation">zhuh swee pehr-DEW</div>
+                <div class="english">I'm lost (female speaker)</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="french">Pouvez-vous m'aider?</div>
+                <div class="pronunciation">poo-vay-voo may-DAY</div>
+                <div class="english">Can you help me?</div>
+            </div>
+        </div>
+
+        <div class="category" data-category="dining">
+            <h2 class="category-title">🍷 Dining & Food</h2>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="french">Une table pour une personne, s'il vous plaît</div>
+                <div class="pronunciation">ewn TAH-bluh poor ewn pehr-SON, see voo PLEH</div>
+                <div class="english">A table for one person, please</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="french">Le menu, s'il vous plaît</div>
+                <div class="pronunciation">luh muh-NEW, see voo PLEH</div>
+                <div class="english">The menu, please</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="french">Qu'est-ce que vous recommandez?</div>
+                <div class="pronunciation">kess-kuh voo ruh-ko-mah~-DAY</div>
+                <div class="english">What do you recommend?</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="french">Je voudrais...</div>
+                <div class="pronunciation">zhuh voo-DREH</div>
+                <div class="english">I would like...</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="french">Un verre de vin rouge, s'il vous plaît</div>
+                <div class="pronunciation">uh~ vehr duh va~ ROOZH, see voo PLEH</div>
+                <div class="english">A glass of red wine, please</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="french">De l'eau, s'il vous plaît</div>
+                <div class="pronunciation">duh LOH, see voo PLEH</div>
+                <div class="english">Water, please</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="french">L'addition, s'il vous plaît</div>
+                <div class="pronunciation">lah-dee-SYO~, see voo PLEH</div>
+                <div class="english">The check/bill, please</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="french">C'était délicieux</div>
+                <div class="pronunciation">say-teh day-lee-SYUH</div>
+                <div class="english">It was delicious</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="french">Je suis végétarienne</div>
+                <div class="pronunciation">zhuh swee vay-zhay-tah-RYEN</div>
+                <div class="english">I'm vegetarian (female)</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="french">Sans gluten, s'il vous plaît</div>
+                <div class="pronunciation">sah~ glew-TEN, see voo PLEH</div>
+                <div class="english">Gluten-free, please</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="french">Je suis allergique à...</div>
+                <div class="pronunciation">zhuh swee zah-lehr-ZHEEK ah</div>
+                <div class="english">I'm allergic to...</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="french">Un café, s'il vous plaît</div>
+                <div class="pronunciation">uh~ kah-FAY, see voo PLEH</div>
+                <div class="english">A coffee, please</div>
+            </div>
+        </div>
+
+        <div class="category" data-category="shopping">
+            <h2 class="category-title">🛍️ Shopping</h2>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="french">Combien ça coûte?</div>
+                <div class="pronunciation">ko~-bya~ sah KOOT</div>
+                <div class="english">How much does this cost?</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="french">C'est trop cher</div>
+                <div class="pronunciation">seh troh SHEHR</div>
+                <div class="english">It's too expensive</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="french">Je regarde seulement</div>
+                <div class="pronunciation">zhuh ruh-GAHRD suhl-MAH~</div>
+                <div class="english">I'm just looking</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="french">Puis-je essayer?</div>
+                <div class="pronunciation">pweezh eh-say-YAY</div>
+                <div class="english">May I try it on?</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="french">Avez-vous une autre taille?</div>
+                <div class="pronunciation">ah-vay-voo ewn OH-truh TIE</div>
+                <div class="english">Do you have another size?</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="french">Je le prends</div>
+                <div class="pronunciation">zhuh luh PRAH~</div>
+                <div class="english">I'll take it</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="french">Acceptez-vous les cartes de crédit?</div>
+                <div class="pronunciation">ak-sep-tay-voo lay kahrt duh kray-DEE</div>
+                <div class="english">Do you accept credit cards?</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="french">Un sac, s'il vous plaît</div>
+                <div class="pronunciation">uh~ SAHK, see voo PLEH</div>
+                <div class="english">A bag, please</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="french">Où est la pharmacie?</div>
+                <div class="pronunciation">oo eh lah fahr-mah-SEE</div>
+                <div class="english">Where is the pharmacy?</div>
+            </div>
+        </div>
+
+        <div class="category" data-category="safety">
+            <h2 class="category-title">🚨 Safety & Emergencies</h2>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="french">Laissez-moi tranquille!</div>
+                <div class="pronunciation">leh-say-MWAH truh~-KEEL</div>
+                <div class="english">Leave me alone!</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="french">Arrêtez!</div>
+                <div class="pronunciation">ah-reh-TAY</div>
+                <div class="english">Stop!</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="french">Au secours!</div>
+                <div class="pronunciation">oh suh-KOOR</div>
+                <div class="english">Help!</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="french">Appelez la police!</div>
+                <div class="pronunciation">ah-play lah poh-LEES</div>
+                <div class="english">Call the police!</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="french">J'ai besoin d'un médecin</div>
+                <div class="pronunciation">zhay buh-ZWA~ duh~ mayd-SA~</div>
+                <div class="english">I need a doctor</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="french">Je suis malade</div>
+                <div class="pronunciation">zhuh swee mah-LAHD</div>
+                <div class="english">I'm sick</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="french">Où est l'hôpital?</div>
+                <div class="pronunciation">oo eh loh-pee-TAHL</div>
+                <div class="english">Where is the hospital?</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="french">J'ai perdu mon passeport</div>
+                <div class="pronunciation">zhay pehr-DEW mo~ pass-POHR</div>
+                <div class="english">I lost my passport</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="french">On m'a volé mon sac</div>
+                <div class="pronunciation">o~ mah voh-LAY mo~ SAHK</div>
+                <div class="english">My bag was stolen</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="french">Où est l'ambassade américaine?</div>
+                <div class="pronunciation">oo eh lah~-bah-SAHD ah-may-ree-KEN</div>
+                <div class="english">Where is the American embassy?</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="french">Non merci</div>
+                <div class="pronunciation">no~ mehr-SEE</div>
+                <div class="english">No thank you</div>
+                <div class="context">Firm but polite way to decline</div>
+            </div>
+        </div>
+
+        <div class="safety-box">
+            <h3>🛡️ Safety Tips for Women Travelers</h3>
+            <p><strong>Emergency Number:</strong> 112 (universal EU emergency number)<br>
+            <strong>Police:</strong> 17<br>
+            <strong>Medical Emergency:</strong> 15<br>
+            <strong>Key Phrase:</strong> "Laissez-moi tranquille!" (Leave me alone) - say firmly if needed<br>
+            <strong>Tip:</strong> Keep your hotel address written in French to show taxi drivers</p>
+        </div>
+
+        <div class="info-box">
+            <h3>🎯 Cultural & Pronunciation Tips</h3>
+            <p><strong>Always greet first:</strong> Say "Bonjour" before asking questions or making requests<br>
+            <strong>Formal vs Informal:</strong> Use "vous" (formal) with strangers, shopkeepers, and older people<br>
+            <strong>Silent letters:</strong> Final consonants are usually silent (Paris = pah-REE, not pah-REES)<br>
+            <strong>Nasal sounds (~):</strong> Let air flow through nose and mouth simultaneously<br>
+            <strong>R sound:</strong> Guttural, from the back of throat (not rolled like Spanish)</p>
+        </div>
+
+        <div class="info-box">
+            <h3>💡 Useful Words</h3>
+            <p><strong>Oui:</strong> (wee) Yes<br>
+            <strong>Non:</strong> (no~) No<br>
+            <strong>Peut-être:</strong> (puh-TETR) Maybe<br>
+            <strong>Maintenant:</strong> (ma~t-NAH~) Now<br>
+            <strong>Aujourd'hui:</strong> (oh-zhoor-DWEE) Today<br>
+            <strong>Demain:</strong> (duh-MA~) Tomorrow</p>
+        </div>
+    </div>
+
+    <script>
+        function toggleActive(element) {
+            element.classList.toggle('active');
+        }
+
+        function filterCategory(category) {
+            const categories = document.querySelectorAll('.category');
+            const buttons = document.querySelectorAll('.filter-btn');
+
+            // Update button states
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            // Filter categories
+            if (category === 'all') {
+                categories.forEach(cat => cat.style.display = 'block');
+            } else {
+                categories.forEach(cat => {
+                    if (cat.dataset.category === category) {
+                        cat.style.display = 'block';
+                    } else {
+                        cat.style.display = 'none';
+                    }
+                });
+            }
+        }
+    </script>
+</body>
+</html>
