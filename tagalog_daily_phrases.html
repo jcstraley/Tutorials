@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tagalog Daily Phrases - Interactive Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        h1 {
+            text-align: center;
+            color: #f5576c;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+
+        .category {
+            margin-bottom: 35px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 25px;
+            transition: transform 0.3s ease;
+        }
+
+        .category:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .category-title {
+            color: #d81b60;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #f5576c;
+            padding-bottom: 10px;
+        }
+
+        .phrase-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-left: 5px solid #f5576c;
+        }
+
+        .phrase-card:hover {
+            background: #fce4ec;
+            transform: translateX(10px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .phrase-card.active {
+            background: #fff3e0;
+            border-left-color: #ff9800;
+        }
+
+        .tagalog {
+            font-size: 1.8em;
+            color: #333;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .pronunciation {
+            font-size: 1.3em;
+            color: #e91e63;
+            background: #fff3e0;
+            padding: 5px 10px;
+            border-radius: 5px;
+            display: inline-block;
+            margin-bottom: 8px;
+            font-style: italic;
+        }
+
+        .english {
+            font-size: 1.2em;
+            color: #555;
+        }
+
+        .context {
+            font-size: 0.95em;
+            color: #999;
+            font-style: italic;
+            margin-top: 5px;
+        }
+
+        .info-box {
+            background: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+
+        .info-box h3 {
+            color: #856404;
+            margin-bottom: 10px;
+        }
+
+        .info-box p {
+            color: #856404;
+            line-height: 1.6;
+        }
+
+        .love-box {
+            background: #ffe0f0;
+            border-left: 5px solid #f5576c;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+
+        .love-box h3 {
+            color: #d81b60;
+            margin-bottom: 10px;
+        }
+
+        .love-box p {
+            color: #d81b60;
+            line-height: 1.6;
+        }
+
+        .filter-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: #f5576c;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover {
+            background: #d81b60;
+            transform: scale(1.05);
+        }
+
+        .filter-btn.active {
+            background: #d81b60;
+            box-shadow: 0 5px 15px rgba(216, 27, 96, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 1.8em;
+            }
+
+            .tagalog {
+                font-size: 1.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🇵🇭 Tagalog Daily Phrases</h1>
+        <p class="subtitle">Click any phrase to highlight it • Pronunciation guide for American English speakers</p>
+
+        <div class="info-box">
+            <h3>📖 Pronunciation Guide</h3>
+            <p><strong>Tips for Americans:</strong> Tagalog pronunciation is generally straightforward for English speakers. Vowels are pronounced as in Spanish: A (ah), E (eh), I (ee), O (oh), U (oo). The "ng" sound (as in "sing") is common and can start words. R's are lightly rolled or flapped.</p>
+        </div>
+
+        <div class="filter-buttons">
+            <button class="filter-btn active" onclick="filterCategory('all')">All Phrases</button>
+            <button class="filter-btn" onclick="filterCategory('greetings')">Greetings</button>
+            <button class="filter-btn" onclick="filterCategory('family')">Family & Love</button>
+            <button class="filter-btn" onclick="filterCategory('meals')">Meals</button>
+            <button class="filter-btn" onclick="filterCategory('daily')">Daily Life</button>
+        </div>
+
+        <div class="category" data-category="greetings">
+            <h2 class="category-title">👋 Greetings & Basic Phrases</h2>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="tagalog">Magandang umaga</div>
+                <div class="pronunciation">mah-gahn-dahng oo-MAH-gah</div>
+                <div class="english">Good morning</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="tagalog">Magandang hapon</div>
+                <div class="pronunciation">mah-gahn-dahng hah-POHN</div>
+                <div class="english">Good afternoon</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="tagalog">Magandang gabi</div>
+                <div class="pronunciation">mah-gahn-dahng gah-BEE</div>
+                <div class="english">Good evening</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="tagalog">Kumusta ka?</div>
+                <div class="pronunciation">koo-MOOS-tah kah</div>
+                <div class="english">How are you?</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="tagalog">Mabuti naman</div>
+                <div class="pronunciation">mah-boo-TEE nah-MAHN</div>
+                <div class="english">I'm fine / Doing well</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="tagalog">Paalam</div>
+                <div class="pronunciation">pah-AH-lahm</div>
+                <div class="english">Goodbye</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="tagalog">Ingat ka</div>
+                <div class="pronunciation">ee-NGAHT kah</div>
+                <div class="english">Take care (to one person)</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="tagalog">Ingat kayo</div>
+                <div class="pronunciation">ee-NGAHT kah-YOH</div>
+                <div class="english">Take care (to multiple people/formal)</div>
+            </div>
+        </div>
+
+        <div class="category" data-category="family">
+            <h2 class="category-title">❤️ Family, Love & Care</h2>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="tagalog">Mahal kita</div>
+                <div class="pronunciation">mah-HAHL kee-TAH</div>
+                <div class="english">I love you</div>
+                <div class="context">Most common and direct way to say "I love you"</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="tagalog">Mahal na mahal kita</div>
+                <div class="pronunciation">mah-HAHL nah mah-HAHL kee-TAH</div>
+                <div class="english">I love you very much</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="tagalog">Mahal ko ang asawa ko</div>
+                <div class="pronunciation">mah-HAHL koh ahng ah-SAH-wah koh</div>
+                <div class="english">I love my wife</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="tagalog">Ikaw ang mundo ko</div>
+                <div class="pronunciation">ee-KOW ahng moon-DOH koh</div>
+                <div class="english">You are my world</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="tagalog">Mahal ko ang pamilya ko</div>
+                <div class="pronunciation">mah-HAHL koh ahng pah-MEEL-yah koh</div>
+                <div class="english">I love my family</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="tagalog">Salamat sa lahat</div>
+                <div class="pronunciation">sah-LAH-maht sah lah-HAHT</div>
+                <div class="english">Thank you for everything</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="tagalog">Salamat sa pagmamahal mo</div>
+                <div class="pronunciation">sah-LAH-maht sah pahg-mah-mah-HAHL moh</div>
+                <div class="english">Thank you for your love</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="tagalog">Nandito ako para sa'yo</div>
+                <div class="pronunciation">nahn-dee-TOH ah-KOH pah-RAH sah-YOH</div>
+                <div class="english">I'm here for you</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="tagalog">Miss na miss kita</div>
+                <div class="pronunciation">MEES nah MEES kee-TAH</div>
+                <div class="english">I miss you so much</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="tagalog">Ingat ka lagi</div>
+                <div class="pronunciation">ee-NGAHT kah lah-GEE</div>
+                <div class="english">Always take care</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="tagalog">Pagpalain ka ng Diyos</div>
+                <div class="pronunciation">pahg-pah-lah-EEN kah nehng DEE-yos</div>
+                <div class="english">God bless you</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="tagalog">Napakaganda mo</div>
+                <div class="pronunciation">nah-pah-kah-gahn-DAH moh</div>
+                <div class="english">You're so beautiful (to a woman)</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="tagalog">Palagi kitang iniisip</div>
+                <div class="pronunciation">pah-lah-GEE kee-TAHNG ee-nee-EE-seep</div>
+                <div class="english">I always think of you</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="tagalog">Salamat sa'yo, mahal</div>
+                <div class="pronunciation">sah-LAH-maht sah-YOH, mah-HAHL</div>
+                <div class="english">Thank you, my love</div>
+                <div class="context">"Mahal" can mean both "love" and be used as term of endearment</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="tagalog">Proud ako sa'yo</div>
+                <div class="pronunciation">PROWD ah-KOH sah-YOH</div>
+                <div class="english">I'm proud of you</div>
+            </div>
+        </div>
+
+        <div class="category" data-category="meals">
+            <h2 class="category-title">🍜 Meals & Food</h2>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="tagalog">Kain na tayo</div>
+                <div class="pronunciation">kah-EEN nah TAH-yoh</div>
+                <div class="english">Let's eat</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="tagalog">Kain na</div>
+                <div class="pronunciation">kah-EEN nah</div>
+                <div class="english">Eat now / Come eat</div>
+                <div class="context">Common invitation to start eating</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="tagalog">Masarap!</div>
+                <div class="pronunciation">mah-sah-RAHP</div>
+                <div class="english">Delicious!</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="tagalog">Gutom na ako</div>
+                <div class="pronunciation">goo-TOHM nah ah-KOH</div>
+                <div class="english">I'm hungry</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="tagalog">Busog na ako</div>
+                <div class="pronunciation">boo-SOHG nah ah-KOH</div>
+                <div class="english">I'm full</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="tagalog">Uhaw ako</div>
+                <div class="pronunciation">oo-HOW ah-KOH</div>
+                <div class="english">I'm thirsty</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="tagalog">Tubig, pakisuyo</div>
+                <div class="pronunciation">TOO-beeg, pah-kee-soo-YOH</div>
+                <div class="english">Water, please</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="tagalog">Sarap ng luto mo!</div>
+                <div class="pronunciation">sah-RAHP nehng loo-TOH moh</div>
+                <div class="english">Your cooking is delicious!</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="tagalog">Salamat sa pagkain</div>
+                <div class="pronunciation">sah-LAH-maht sah pahg-kah-EEN</div>
+                <div class="english">Thank you for the food</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="tagalog">Pa-takeout na lang</div>
+                <div class="pronunciation">pah-TAKE-owt nah lahng</div>
+                <div class="english">Just takeout / Let's get takeout</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="tagalog">Ano'ng gusto mong kainin?</div>
+                <div class="pronunciation">ah-NOHNG goos-TOH mohng kah-ee-NEEN</div>
+                <div class="english">What do you want to eat?</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="tagalog">Saan tayo kakain?</div>
+                <div class="pronunciation">sah-AHN tah-YOH kah-kah-EEN</div>
+                <div class="english">Where should we eat?</div>
+            </div>
+        </div>
+
+        <div class="category" data-category="daily">
+            <h2 class="category-title">💬 Daily Conversation</h2>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="tagalog">Oo</div>
+                <div class="pronunciation">OH-oh</div>
+                <div class="english">Yes</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="tagalog">Hindi</div>
+                <div class="pronunciation">hin-DEE</div>
+                <div class="english">No</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="tagalog">Salamat</div>
+                <div class="pronunciation">sah-LAH-maht</div>
+                <div class="english">Thank you</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="tagalog">Maraming salamat</div>
+                <div class="pronunciation">mah-rah-MEENG sah-LAH-maht</div>
+                <div class="english">Thank you very much</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="tagalog">Walang anuman</div>
+                <div class="pronunciation">wah-LAHNG ah-noo-MAHN</div>
+                <div class="english">You're welcome</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="tagalog">Pasensya na</div>
+                <div class="pronunciation">pah-sehn-SYAH nah</div>
+                <div class="english">Sorry / Excuse me</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="tagalog">Patawad</div>
+                <div class="pronunciation">pah-tah-WAHD</div>
+                <div class="english">Forgive me / I'm sorry</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="tagalog">Okay lang</div>
+                <div class="pronunciation">oh-KAY lahng</div>
+                <div class="english">It's okay / No problem</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="tagalog">Hindi ko alam</div>
+                <div class="pronunciation">hin-DEE koh ah-LAHM</div>
+                <div class="english">I don't know</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="tagalog">Naiintindihan ko</div>
+                <div class="pronunciation">nah-ee-een-teen-dee-HAHn koh</div>
+                <div class="english">I understand</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="tagalog">Saan ang banyo?</div>
+                <div class="pronunciation">sah-AHN ahng bahn-YOH</div>
+                <div class="english">Where is the bathroom?</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="tagalog">Magkano ito?</div>
+                <div class="pronunciation">mahg-KAH-noh ee-TOH</div>
+                <div class="english">How much is this?</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="tagalog">Tulungan mo ako</div>
+                <div class="pronunciation">too-loo-NGAHN moh ah-KOH</div>
+                <div class="english">Help me</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="tagalog">Sandali lang</div>
+                <div class="pronunciation">sahn-dah-LEE lahng</div>
+                <div class="english">Just a moment / Wait</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="tagalog">Tara na</div>
+                <div class="pronunciation">TAH-rah nah</div>
+                <div class="english">Let's go</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="tagalog">Sige</div>
+                <div class="pronunciation">SEE-geh</div>
+                <div class="english">Okay / Sure / Go ahead</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="tagalog">Mabuti</div>
+                <div class="pronunciation">mah-boo-TEE</div>
+                <div class="english">Good / Fine</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="tagalog">Ano ba yan?</div>
+                <div class="pronunciation">ah-NOH bah yahn</div>
+                <div class="english">What's that? / What is that?</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="tagalog">Nasaan ka?</div>
+                <div class="pronunciation">nah-sah-AHN kah</div>
+                <div class="english">Where are you?</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="tagalog">Pauwi na ako</div>
+                <div class="pronunciation">pah-oo-WEE nah ah-KOH</div>
+                <div class="english">I'm going home / On my way home</div>
+            </div>
+        </div>
+
+        <div class="love-box">
+            <h3>💝 Terms of Endearment</h3>
+            <p><strong>Mahal:</strong> Love/Dear (most common)<br>
+            <strong>Aking mahal:</strong> My love<br>
+            <strong>Sweetheart:</strong> Often used as-is in Tagalog<br>
+            <strong>Hon/Honey:</strong> Also commonly used<br>
+            <strong>Babe/Baby:</strong> Popular among younger couples</p>
+        </div>
+
+        <div class="info-box">
+            <h3>🎯 Quick Pronunciation Tips</h3>
+            <p><strong>NG:</strong> Like "ng" in "sing" - can start words (e.g., ngayon)<br>
+            <strong>R:</strong> Lighter than English R, almost like a light tap<br>
+            <strong>Stress:</strong> Usually on the last or second-to-last syllable<br>
+            <strong>Vowels:</strong> A=ah, E=eh, I=ee, O=oh, U=oo (like Spanish)<br>
+            <strong>':</strong> Apostrophe indicates dropped letters (e.g., sa'yo = sa iyo)</p>
+        </div>
+    </div>
+
+    <script>
+        function toggleActive(element) {
+            element.classList.toggle('active');
+        }
+
+        function filterCategory(category) {
+            const categories = document.querySelectorAll('.category');
+            const buttons = document.querySelectorAll('.filter-btn');
+
+            // Update button states
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            // Filter categories
+            if (category === 'all') {
+                categories.forEach(cat => cat.style.display = 'block');
+            } else {
+                categories.forEach(cat => {
+                    if (cat.dataset.category === category) {
+                        cat.style.display = 'block';
+                    } else {
+                        cat.style.display = 'none';
+                    }
+                });
+            }
+        }
+    </script>
+</body>
+</html>
