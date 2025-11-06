@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I Love You in Many Languages</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #ff6b9d 0%, #c06c84 50%, #6c5b7b 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        h1 {
+            text-align: center;
+            color: #c06c84;
+            margin-bottom: 10px;
+            font-size: 2.8em;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 20px;
+            font-size: 1.1em;
+        }
+
+        .search-box {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .search-input {
+            width: 100%;
+            max-width: 500px;
+            padding: 12px 20px;
+            font-size: 1.1em;
+            border: 2px solid #c06c84;
+            border-radius: 25px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            border-color: #ff6b9d;
+            box-shadow: 0 0 10px rgba(255, 107, 157, 0.3);
+        }
+
+        .stats {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+            color: #6c5b7b;
+            font-weight: bold;
+        }
+
+        .region-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .region-btn {
+            background: #c06c84;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 0.95em;
+            transition: all 0.3s ease;
+        }
+
+        .region-btn:hover {
+            background: #ff6b9d;
+            transform: scale(1.05);
+        }
+
+        .region-btn.active {
+            background: #6c5b7b;
+            box-shadow: 0 5px 15px rgba(108, 91, 123, 0.4);
+        }
+
+        .languages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .language-card {
+            background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 100%);
+            border-radius: 15px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .language-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            border-color: #ff6b9d;
+        }
+
+        .language-card.active {
+            background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+            border-color: #ff9800;
+        }
+
+        .language-name {
+            font-size: 1.3em;
+            color: #6c5b7b;
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .language-flag {
+            font-size: 1.5em;
+        }
+
+        .phrase-native {
+            font-size: 1.6em;
+            color: #c06c84;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .phrase-pronunciation {
+            font-size: 1.1em;
+            color: #d84315;
+            font-style: italic;
+            margin-bottom: 8px;
+            background: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+
+        .phrase-english {
+            font-size: 1em;
+            color: #555;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 40px;
+            color: #999;
+            font-size: 1.2em;
+            display: none;
+        }
+
+        .info-box {
+            background: #e1f5fe;
+            border-left: 5px solid #0277bd;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+        }
+
+        .info-box p {
+            color: #01579b;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            .languages-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>❤️ I Love You in 50+ Languages ❤️</h1>
+        <p class="subtitle">Express your love around the world • Click any card to highlight</p>
+
+        <div class="info-box">
+            <p>💝 <strong>Note:</strong> These phrases use masculine speaker forms where grammatically required. Pronunciation guides are designed for American English speakers.</p>
+        </div>
+
+        <div class="search-box">
+            <input type="text" class="search-input" id="searchInput" placeholder="🔍 Search by language name..." onkeyup="searchLanguages()">
+        </div>
+
+        <div class="stats" id="statsDisplay">Showing 55 languages</div>
+
+        <div class="region-buttons">
+            <button class="region-btn active" onclick="filterRegion('all')">All Languages</button>
+            <button class="region-btn" onclick="filterRegion('europe')">Europe</button>
+            <button class="region-btn" onclick="filterRegion('asia')">Asia</button>
+            <button class="region-btn" onclick="filterRegion('africa')">Africa</button>
+            <button class="region-btn" onclick="filterRegion('americas')">Americas</button>
+            <button class="region-btn" onclick="filterRegion('middleeast')">Middle East</button>
+        </div>
+
+        <div class="languages-grid" id="languagesGrid">
+            <!-- European Languages -->
+            <div class="language-card" data-region="europe" onclick="toggleActive(this)">
+                <div class="language-name">Spanish <span class="language-flag">🇪🇸</span></div>
+                <div class="phrase-native">Te amo</div>
+                <div class="phrase-pronunciation">teh AH-moh</div>
+                <div class="phrase-english">I love you</div>
+            </div>
+
+            <div class="language-card" data-region="europe" onclick="toggleActive(this)">
+                <div class="language-name">French <span class="language-flag">🇫🇷</span></div>
+                <div class="phrase-native">Je t'aime</div>
+                <div class="phrase-pronunciation">zhuh TEM</div>
+                <div class="phrase-english">I love you</div>
+            </div>
+
+            <div class="language-card" data-region="europe" onclick="toggleActive(this)">
+                <div class="language-name">Italian <span class="language-flag">🇮🇹</span></div>
+                <div class="phrase-native">Ti amo</div>
+                <div class="phrase-pronunciation">tee AH-moh</div>
+                <div class="phrase-english">I love you</div>
+            </div>
+
+            <div class="language-card" data-region="europe" onclick="toggleActive(this)">
+                <div class="language-name">Portuguese <span class="language-flag">🇵🇹</span></div>
+                <div class="phrase-native">Eu te amo</div>
+                <div class="phrase-pronunciation">eh-oo chee AH-moo</div>
+                <div class="phrase-english">I love you</div>
+            </div>
+
+            <div class="language-card" data-region="europe" onclick="toggleActive(this)">
+                <div class="language-name">German <span class="language-flag">🇩🇪</span></div>
+                <div class="phrase-native">Ich liebe dich</div>
+                <div class="phrase-pronunciation">ikh LEE-buh deekh</div>
+                <div class="phrase-english">I love you</div>
+            </div>
+
+            <div class="language-card" data-region="europe" onclick="toggleActive(this)">
+                <div class="language-name">Dutch <span class="language-flag">🇳🇱</span></div>
+                <div class="phrase-native">Ik hou van jou</div>
+                <div class="phrase-pronunciation">ik how fahn yow</div>
+                <div class="phrase-english">I love you</div>
+            </div>
+
+            <div class="language-card" data-region="europe" onclick="toggleActive(this)">
+                <div class="language-name">Russian <span class="language-flag">🇷🇺</span></div>
+                <div class="phrase-native">Я тебя люблю</div>
+                <div class="phrase-pronunciation">yah tee-BYAH lyoo-BLYOO</div>
+                <div class="phrase-english">I love you</div>
+            </div>
+
+            <div class="language-card" data-region="europe" onclick="toggleActive(this)">
+                <div class="language-name">Polish <span class="language-flag">🇵🇱</span></div>
+                <div class="phrase-native">Kocham cię</div>
+                <div class="phrase-pronunciation">KOH-kham cheh</div>
+                <div class="phrase-english">I love you</div>
+            </div>
+
+            <div class="language-card" data-region="europe" onclick="toggleActive(this)">
+                <div class="language-name">Greek <span class="language-flag">🇬🇷</span></div>
+                <div class="phrase-native">Σ'αγαπώ</div>
+                <div class="phrase-pronunciation">sah-gah-POH</div>
+                <div class="phrase-english">I love you</div>
+            </div>
+
+            <div class="language-card" data-region="europe" onclick="toggleActive(this)">
+                <div class="language-name">Swedish <span class="language-flag">🇸🇪</span></div>
+                <div class="phrase-native">Jag älskar dig</div>
+                <div class="phrase-pronunciation">yah EL-skar day</div>
+                <div class="phrase-english">I love you</div>
+            </div>
+
+            <div class="language-card" data-region="europe" onclick="toggleActive(this)">
+                <div class="language-name">Norwegian <span class="language-flag">🇳🇴</span></div>
+                <div class="phrase-native">Jeg elsker deg</div>
+                <div class="phrase-pronunciation">yay EL-sker day</div>
+                <div class="phrase-english">I love you</div>
+            </div>
+
+            <div class="language-card" data-region="europe" onclick="toggleActive(this)">
+                <div class="language-name">Danish <span class="language-flag">🇩🇰</span></div>
+                <div class="phrase-native">Jeg elsker dig</div>
+                <div class="phrase-pronunciation">yai EL-sker die</div>
+                <div class="phrase-english">I love you</div>
+            </div>
+
+            <div class="language-card" data-region="europe" onclick="toggleActive(this)">
+                <div class="language-name">Finnish <span class="language-flag">🇫🇮</span></div>
+                <div class="phrase-native">Minä rakastan sinua</div>
+                <div class="phrase-pronunciation">mee-NAH RAH-kahs-tahn SEE-noo-ah</div>
+                <div class="phrase-english">I love you</div>
+            </div>
+
+            <div class="language-card" data-region="europe" onclick="toggleActive(this)">
+                <div class="language-name">Czech <span class="language-flag">🇨🇿</span></div>
+                <div class="phrase-native">Miluji tě</div>
+                <div class="phrase-pronunciation">mee-LOO-yee tyeh</div>
+                <div class="phrase-english">I love you</div>
+            </div>
+
+            <div class="language-card" data-region="europe" onclick="toggleActive(this)">
+                <div class="language-name">Romanian <span class="language-flag">🇷🇴</span></div>
+                <div class="phrase-native">Te iubesc</div>
+                <div class="phrase-pronunciation">teh yoo-BESK</div>
+                <div class="phrase-english">I love you</div>
+            </div>
+
+            <div class="language-card" data-region="europe" onclick="toggleActive(this)">
+                <div class="language-name">Hungarian <span class="language-flag">🇭🇺</span></div>
+                <div class="phrase-native">Szeretlek</div>
+                <div class="phrase-pronunciation">SEH-ret-lek</div>
+                <div class="phrase-english">I love you</div>
+            </div>
+
+            <!-- Asian Languages -->
+            <div class="language-card" data-region="asia" onclick="toggleActive(this)">
+                <div class="language-name">Mandarin Chinese <span class="language-flag">🇨🇳</span></div>
+                <div class="phrase-native">我爱你</div>
+                <div class="phrase-pronunciation">woh eye nee</div>
+                <div class="phrase-english">I love you</div>
+            </div>
+
+            <div class="language-card" data-region="asia" onclick="toggleActive(this)">
+                <div class="language-name">Japanese <span class="language-flag">🇯🇵</span></div>
+                <div class="phrase-native">愛してる</div>
+                <div class="phrase-pronunciation">eye-shee-teh-roo</div>
+                <div class="phrase-english">I love you</div>
+            </div>
+
+            <div class="language-card" data-region="asia" onclick="toggleActive(this)">
+                <div class="language-name">Korean <span class="language-flag">🇰🇷</span></div>
+                <div class="phrase-native">사랑해요</div>
+                <div class="phrase-pronunciation">sah-rahng-HEH-yo</div>
+                <div class="phrase-english">I love you</div>
+            </div>
+
+            <div class="language-card" data-region="asia" onclick="toggleActive(this)">
+                <div class="language-name">Hindi <span class="language-flag">🇮🇳</span></div>
+                <div class="phrase-native">मैं तुमसे प्यार करता हूँ</div>
+                <div class="phrase-pronunciation">may tum-seh pyar kar-TAH hoo</div>
+                <div class="phrase-english">I love you (male speaker)</div>
+            </div>
+
+            <div class="language-card" data-region="asia" onclick="toggleActive(this)">
+                <div class="language-name">Thai <span class="language-flag">🇹🇭</span></div>
+                <div class="phrase-native">ผม รัก คุณ</div>
+                <div class="phrase-pronunciation">pohm rak koon</div>
+                <div class="phrase-english">I love you (male speaker)</div>
+            </div>
+
+            <div class="language-card" data-region="asia" onclick="toggleActive(this)">
+                <div class="language-name">Vietnamese <span class="language-flag">🇻🇳</span></div>
+                <div class="phrase-native">Anh yêu em</div>
+                <div class="phrase-pronunciation">ahn yew em</div>
+                <div class="phrase-english">I love you (male to female)</div>
+            </div>
+
+            <div class="language-card" data-region="asia" onclick="toggleActive(this)">
+                <div class="language-name">Indonesian <span class="language-flag">🇮🇩</span></div>
+                <div class="phrase-native">Aku cinta kamu</div>
+                <div class="phrase-pronunciation">ah-koo CHEEN-tah KAH-moo</div>
+                <div class="phrase-english">I love you</div>
+            </div>
+
+            <div class="language-card" data-region="asia" onclick="toggleActive(this)">
+                <div class="language-name">Tagalog <span class="language-flag">🇵🇭</span></div>
+                <div class="phrase-native">Mahal kita</div>
+                <div class="phrase-pronunciation">mah-HAHL kee-TAH</div>
+                <div class="phrase-english">I love you</div>
+            </div>
+
+            <div class="language-card" data-region="asia" onclick="toggleActive(this)">
+                <div class="language-name">Malay <span class="language-flag">🇲🇾</span></div>
+                <div class="phrase-native">Saya cinta awak</div>
+                <div class="phrase-pronunciation">SAH-yah CHEEN-tah AH-wak</div>
+                <div class="phrase-english">I love you</div>
+            </div>
+
+            <div class="language-card" data-region="asia" onclick="toggleActive(this)">
+                <div class="language-name">Bengali <span class="language-flag">🇧🇩</span></div>
+                <div class="phrase-native">আমি তোমায় ভালোবাসি</div>
+                <div class="phrase-pronunciation">ah-mee toh-may VAH-loh-bah-shee</div>
+                <div class="phrase-english">I love you</div>
+            </div>
+
+            <div class="language-card" data-region="asia" onclick="toggleActive(this)">
+                <div class="language-name">Punjabi <span class="language-flag">🇮🇳</span></div>
+                <div class="phrase-native">ਮੈਂ ਤੁਹਾਨੂੰ ਪਿਆਰ ਕਰਦਾ ਹਾਂ</div>
+                <div class="phrase-pronunciation">may too-HAH-noo pyar kar-DAH hah</div>
+                <div class="phrase-english">I love you (male speaker)</div>
+            </div>
+
+            <div class="language-card" data-region="asia" onclick="toggleActive(this)">
+                <div class="language-name">Tamil <span class="language-flag">🇮🇳</span></div>
+                <div class="phrase-native">நான் உன்னை காதலிக்கிறேன்</div>
+                <div class="phrase-pronunciation">nahn oon-nai kah-tah-lee-KIRR-en</div>
+                <div class="phrase-english">I love you</div>
+            </div>
+
+            <!-- Middle Eastern Languages -->
+            <div class="language-card" data-region="middleeast" onclick="toggleActive(this)">
+                <div class="language-name">Arabic <span class="language-flag">🇸🇦</span></div>
+                <div class="phrase-native">أنا أحبك</div>
+                <div class="phrase-pronunciation">ah-nah oo-HIB-bik</div>
+                <div class="phrase-english">I love you (to a woman)</div>
+            </div>
+
+            <div class="language-card" data-region="middleeast" onclick="toggleActive(this)">
+                <div class="language-name">Hebrew <span class="language-flag">🇮🇱</span></div>
+                <div class="phrase-native">אני אוהב אותך</div>
+                <div class="phrase-pronunciation">ah-nee oh-HEV ot-AKH</div>
+                <div class="phrase-english">I love you (male to female)</div>
+            </div>
+
+            <div class="language-card" data-region="middleeast" onclick="toggleActive(this)">
+                <div class="language-name">Persian (Farsi) <span class="language-flag">🇮🇷</span></div>
+                <div class="phrase-native">من عاشق تو هستم</div>
+                <div class="phrase-pronunciation">man ah-SHEH-gheh toh HAS-tam</div>
+                <div class="phrase-english">I'm in love with you</div>
+            </div>
+
+            <div class="language-card" data-region="middleeast" onclick="toggleActive(this)">
+                <div class="language-name">Turkish <span class="language-flag">🇹🇷</span></div>
+                <div class="phrase-native">Seni seviyorum</div>
+                <div class="phrase-pronunciation">seh-NEE seh-vee-YOH-room</div>
+                <div class="phrase-english">I love you</div>
+            </div>
+
+            <!-- African Languages -->
+            <div class="language-card" data-region="africa" onclick="toggleActive(this)">
+                <div class="language-name">Swahili <span class="language-flag">🇰🇪</span></div>
+                <div class="phrase-native">Nakupenda</div>
+                <div class="phrase-pronunciation">nah-koo-PEN-dah</div>
+                <div class="phrase-english">I love you</div>
+            </div>
+
+            <div class="language-card" data-region="africa" onclick="toggleActive(this)">
+                <div class="language-name">Zulu <span class="language-flag">🇿🇦</span></div>
+                <div class="phrase-native">Ngiyakuthanda</div>
+                <div class="phrase-pronunciation">ngee-yah-koo-TAHN-dah</div>
+                <div class="phrase-english">I love you</div>
+            </div>
+
+            <div class="language-card" data-region="africa" onclick="toggleActive(this)">
+                <div class="language-name">Amharic <span class="language-flag">🇪🇹</span></div>
+                <div class="phrase-native">እወድሻለሁ</div>
+                <div class="phrase-pronunciation">eh-weh-dish-ah-LEH-hoo</div>
+                <div class="phrase-english">I love you (to a woman)</div>
+            </div>
+
+            <div class="language-card" data-region="africa" onclick="toggleActive(this)">
+                <div class="language-name">Yoruba <span class="language-flag">🇳🇬</span></div>
+                <div class="phrase-native">Mo nifẹ rẹ</div>
+                <div class="phrase-pronunciation">moh nee-FEH reh</div>
+                <div class="phrase-english">I love you</div>
+            </div>
+
+            <div class="language-card" data-region="africa" onclick="toggleActive(this)">
+                <div class="language-name">Hausa <span class="language-flag">🇳🇬</span></div>
+                <div class="phrase-native">Ina son ki</div>
+                <div class="phrase-pronunciation">ee-nah SOHN kee</div>
+                <div class="phrase-english">I love you (to a woman)</div>
+            </div>
+
+            <div class="language-card" data-region="africa" onclick="toggleActive(this)">
+                <div class="language-name">Somali <span class="language-flag">🇸🇴</span></div>
+                <div class="phrase-native">Waan ku jeclahay</div>
+                <div class="phrase-pronunciation">wahn koo jeh-KLAH-hay</div>
+                <div class="phrase-english">I love you</div>
+            </div>
+
+            <div class="language-card" data-region="africa" onclick="toggleActive(this)">
+                <div class="language-name">Afrikaans <span class="language-flag">🇿🇦</span></div>
+                <div class="phrase-native">Ek het jou lief</div>
+                <div class="phrase-pronunciation">ek het yow LEEF</div>
+                <div class="phrase-english">I love you</div>
+            </div>
+
+            <div class="language-card" data-region="africa" onclick="toggleActive(this)">
+                <div class="language-name">Luganda <span class="language-flag">🇺🇬</span></div>
+                <div class="phrase-native">Nkwagala nyo</div>
+                <div class="phrase-pronunciation">n-kwah-GAH-lah n-yoh</div>
+                <div class="phrase-english">I love you very much</div>
+            </div>
+
+            <!-- Americas Languages -->
+            <div class="language-card" data-region="americas" onclick="toggleActive(this)">
+                <div class="language-name">Brazilian Portuguese <span class="language-flag">🇧🇷</span></div>
+                <div class="phrase-native">Eu te amo</div>
+                <div class="phrase-pronunciation">eh-oo chee AH-moo</div>
+                <div class="phrase-english">I love you</div>
+            </div>
+
+            <div class="language-card" data-region="americas" onclick="toggleActive(this)">
+                <div class="language-name">Haitian Creole <span class="language-flag">🇭🇹</span></div>
+                <div class="phrase-native">Mwen renmen ou</div>
+                <div class="phrase-pronunciation">mwen ren-MEN oo</div>
+                <div class="phrase-english">I love you</div>
+            </div>
+
+            <div class="language-card" data-region="americas" onclick="toggleActive(this)">
+                <div class="language-name">Quechua <span class="language-flag">🇵🇪</span></div>
+                <div class="phrase-native">Munakuyki</div>
+                <div class="phrase-pronunciation">moo-nah-KOO-ee-kee</div>
+                <div class="phrase-english">I love you</div>
+            </div>
+
+            <div class="language-card" data-region="americas" onclick="toggleActive(this)">
+                <div class="language-name">Guarani <span class="language-flag">🇵🇾</span></div>
+                <div class="phrase-native">Rohayhu</div>
+                <div class="phrase-pronunciation">roh-hai-HOO</div>
+                <div class="phrase-english">I love you</div>
+            </div>
+
+            <!-- Additional European -->
+            <div class="language-card" data-region="europe" onclick="toggleActive(this)">
+                <div class="language-name">Irish Gaelic <span class="language-flag">🇮🇪</span></div>
+                <div class="phrase-native">Tá grá agam duit</div>
+                <div class="phrase-pronunciation">taw GRAW ah-gum ditch</div>
+                <div class="phrase-english">I love you</div>
+            </div>
+
+            <div class="language-card" data-region="europe" onclick="toggleActive(this)">
+                <div class="language-name">Welsh <span class="language-flag">🏴󠁧󠁢󠁷󠁬󠁳󠁿</span></div>
+                <div class="phrase-native">Rwy'n dy garu di</div>
+                <div class="phrase-pronunciation">roo-een duh GAH-ree dee</div>
+                <div class="phrase-english">I love you</div>
+            </div>
+
+            <div class="language-card" data-region="europe" onclick="toggleActive(this)">
+                <div class="language-name">Basque <span class="language-flag">🇪🇸</span></div>
+                <div class="phrase-native">Maite zaitut</div>
+                <div class="phrase-pronunciation">MY-teh ZAI-toot</div>
+                <div class="phrase-english">I love you</div>
+            </div>
+
+            <div class="language-card" data-region="europe" onclick="toggleActive(this)">
+                <div class="language-name">Catalan <span class="language-flag">🇪🇸</span></div>
+                <div class="phrase-native">T'estimo</div>
+                <div class="phrase-pronunciation">tess-TEE-moo</div>
+                <div class="phrase-english">I love you</div>
+            </div>
+
+            <div class="language-card" data-region="europe" onclick="toggleActive(this)">
+                <div class="language-name">Albanian <span class="language-flag">🇦🇱</span></div>
+                <div class="phrase-native">Të dua</div>
+                <div class="phrase-pronunciation">tuh DOO-ah</div>
+                <div class="phrase-english">I love you</div>
+            </div>
+
+            <div class="language-card" data-region="europe" onclick="toggleActive(this)">
+                <div class="language-name">Croatian <span class="language-flag">🇭🇷</span></div>
+                <div class="phrase-native">Volim te</div>
+                <div class="phrase-pronunciation">VOH-leem teh</div>
+                <div class="phrase-english">I love you</div>
+            </div>
+
+            <div class="language-card" data-region="europe" onclick="toggleActive(this)">
+                <div class="language-name">Serbian <span class="language-flag">🇷🇸</span></div>
+                <div class="phrase-native">Волим те</div>
+                <div class="phrase-pronunciation">VOH-leem teh</div>
+                <div class="phrase-english">I love you</div>
+            </div>
+
+            <div class="language-card" data-region="europe" onclick="toggleActive(this)">
+                <div class="language-name">Ukrainian <span class="language-flag">🇺🇦</span></div>
+                <div class="phrase-native">Я тебе кохаю</div>
+                <div class="phrase-pronunciation">yah teh-BEH koh-HAH-yoo</div>
+                <div class="phrase-english">I love you</div>
+            </div>
+
+            <div class="language-card" data-region="europe" onclick="toggleActive(this)">
+                <div class="language-name">Icelandic <span class="language-flag">🇮🇸</span></div>
+                <div class="phrase-native">Ég elska þig</div>
+                <div class="phrase-pronunciation">yekh EL-ska theeg</div>
+                <div class="phrase-english">I love you</div>
+            </div>
+
+            <!-- Additional Asian -->
+            <div class="language-card" data-region="asia" onclick="toggleActive(this)">
+                <div class="language-name">Nepali <span class="language-flag">🇳🇵</span></div>
+                <div class="phrase-native">म तिमीलाई माया गर्छु</div>
+                <div class="pronunciation">ma tee-mee-lai MAH-yah gar-CHU</div>
+                <div class="phrase-english">I love you</div>
+            </div>
+
+            <div class="language-card" data-region="asia" onclick="toggleActive(this)">
+                <div class="language-name">Mongolian <span class="language-flag">🇲🇳</span></div>
+                <div class="phrase-native">Би чамд хайртай</div>
+                <div class="phrase-pronunciation">bee chamd HAIR-tie</div>
+                <div class="phrase-english">I love you</div>
+            </div>
+        </div>
+
+        <div class="no-results" id="noResults">
+            No languages found matching your search.
+        </div>
+    </div>
+
+    <script>
+        let currentRegion = 'all';
+
+        function toggleActive(element) {
+            element.classList.toggle('active');
+        }
+
+        function filterRegion(region) {
+            currentRegion = region;
+            const cards = document.querySelectorAll('.language-card');
+            const buttons = document.querySelectorAll('.region-btn');
+
+            // Update button states
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            // Clear search
+            document.getElementById('searchInput').value = '';
+
+            // Filter cards
+            let visibleCount = 0;
+            if (region === 'all') {
+                cards.forEach(card => {
+                    card.style.display = 'block';
+                    visibleCount++;
+                });
+            } else {
+                cards.forEach(card => {
+                    if (card.dataset.region === region) {
+                        card.style.display = 'block';
+                        visibleCount++;
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            }
+
+            updateStats(visibleCount);
+        }
+
+        function searchLanguages() {
+            const input = document.getElementById('searchInput');
+            const filter = input.value.toLowerCase();
+            const cards = document.querySelectorAll('.language-card');
+
+            let visibleCount = 0;
+
+            cards.forEach(card => {
+                const languageName = card.querySelector('.language-name').textContent.toLowerCase();
+                const shouldShowRegion = currentRegion === 'all' || card.dataset.region === currentRegion;
+
+                if (languageName.includes(filter) && shouldShowRegion) {
+                    card.style.display = 'block';
+                    visibleCount++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            updateStats(visibleCount);
+
+            // Show/hide no results message
+            document.getElementById('noResults').style.display = visibleCount === 0 ? 'block' : 'none';
+        }
+
+        function updateStats(count) {
+            const statsDisplay = document.getElementById('statsDisplay');
+            statsDisplay.textContent = `Showing ${count} ${count === 1 ? 'language' : 'languages'}`;
+        }
+    </script>
+</body>
+</html>
