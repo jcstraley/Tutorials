@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Korean Daily Phrases - Interactive Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        h1 {
+            text-align: center;
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+
+        .category {
+            margin-bottom: 35px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 25px;
+            transition: transform 0.3s ease;
+        }
+
+        .category:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .category-title {
+            color: #764ba2;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        .phrase-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-left: 5px solid #667eea;
+        }
+
+        .phrase-card:hover {
+            background: #e8eaf6;
+            transform: translateX(10px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .phrase-card.active {
+            background: #e3f2fd;
+            border-left-color: #2196F3;
+        }
+
+        .korean {
+            font-size: 1.8em;
+            color: #333;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .romanization {
+            font-size: 1.3em;
+            color: #667eea;
+            font-style: italic;
+            margin-bottom: 8px;
+        }
+
+        .pronunciation {
+            font-size: 1.1em;
+            color: #e91e63;
+            background: #fff3e0;
+            padding: 5px 10px;
+            border-radius: 5px;
+            display: inline-block;
+            margin-bottom: 8px;
+        }
+
+        .english {
+            font-size: 1.2em;
+            color: #555;
+        }
+
+        .play-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9em;
+            margin-top: 10px;
+            transition: background 0.3s ease;
+        }
+
+        .play-btn:hover {
+            background: #764ba2;
+        }
+
+        .info-box {
+            background: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+
+        .info-box h3 {
+            color: #856404;
+            margin-bottom: 10px;
+        }
+
+        .info-box p {
+            color: #856404;
+            line-height: 1.6;
+        }
+
+        .filter-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover {
+            background: #764ba2;
+            transform: scale(1.05);
+        }
+
+        .filter-btn.active {
+            background: #764ba2;
+            box-shadow: 0 5px 15px rgba(118, 75, 162, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 1.8em;
+            }
+
+            .korean {
+                font-size: 1.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🇰🇷 Korean Daily Phrases</h1>
+        <p class="subtitle">Click any phrase to highlight it • Pronunciation guide for American English speakers</p>
+
+        <div class="info-box">
+            <h3>📖 Pronunciation Guide</h3>
+            <p><strong>Tips for Americans:</strong> Korean has sounds similar to English, but pay attention to the romanization and pronunciation guides. The "eo" sound is like "uh" in "duh", and double consonants (like "pp" or "kk") are pronounced with more tension.</p>
+        </div>
+
+        <div class="filter-buttons">
+            <button class="filter-btn active" onclick="filterCategory('all')">All Phrases</button>
+            <button class="filter-btn" onclick="filterCategory('greetings')">Greetings</button>
+            <button class="filter-btn" onclick="filterCategory('meals')">Meals</button>
+            <button class="filter-btn" onclick="filterCategory('daily')">Daily Life</button>
+            <button class="filter-btn" onclick="filterCategory('courtesy')">Courtesy</button>
+        </div>
+
+        <div class="category" data-category="greetings">
+            <h2 class="category-title">👋 Greetings & Basic Phrases</h2>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="korean">안녕하세요</div>
+                <div class="romanization">Annyeonghaseyo</div>
+                <div class="pronunciation">ah-nyawng-hah-SAY-yo</div>
+                <div class="english">Hello / How are you?</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="korean">안녕히 가세요</div>
+                <div class="romanization">Annyeonghi gaseyo</div>
+                <div class="pronunciation">ah-nyawng-hee gah-SAY-yo</div>
+                <div class="english">Goodbye (to person leaving)</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="korean">안녕히 계세요</div>
+                <div class="romanization">Annyeonghi gyeseyo</div>
+                <div class="pronunciation">ah-nyawng-hee gyeh-SAY-yo</div>
+                <div class="english">Goodbye (when you're leaving)</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="korean">잘 지냈어요?</div>
+                <div class="romanization">Jal jinaesseoyo?</div>
+                <div class="pronunciation">jahl jee-NESS-uh-yo</div>
+                <div class="english">Have you been well?</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="korean">만나서 반가워요</div>
+                <div class="romanization">Mannaseo bangawoyo</div>
+                <div class="pronunciation">mahn-nah-suh bahn-gah-WOH-yo</div>
+                <div class="english">Nice to meet you</div>
+            </div>
+        </div>
+
+        <div class="category" data-category="meals">
+            <h2 class="category-title">🍜 Meals & Food</h2>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="korean">잘 먹겠습니다</div>
+                <div class="romanization">Jal meokgesseumnida</div>
+                <div class="pronunciation">jahl muk-GEHT-seum-nee-dah</div>
+                <div class="english">I will eat well (said before eating)</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="korean">잘 먹었습니다</div>
+                <div class="romanization">Jal meogeosseumnida</div>
+                <div class="pronunciation">jahl muh-GUT-seum-nee-dah</div>
+                <div class="english">I ate well (said after eating)</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="korean">맛있어요</div>
+                <div class="romanization">Masisseoyo</div>
+                <div class="pronunciation">mah-SHEE-suh-yo</div>
+                <div class="english">It's delicious</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="korean">배고파요</div>
+                <div class="romanization">Baegopaeo</div>
+                <div class="pronunciation">beh-go-PAH-yo</div>
+                <div class="english">I'm hungry</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="korean">배불러요</div>
+                <div class="romanization">Baebulleoyo</div>
+                <div class="pronunciation">beh-bool-UH-yo</div>
+                <div class="english">I'm full</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="korean">물 주세요</div>
+                <div class="romanization">Mul juseyo</div>
+                <div class="pronunciation">mool joo-SAY-yo</div>
+                <div class="english">Water, please</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="korean">계산서 주세요</div>
+                <div class="romanization">Gyesanseo juseyo</div>
+                <div class="pronunciation">gyeh-sahn-suh joo-SAY-yo</div>
+                <div class="english">Check, please</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="korean">이거 주세요</div>
+                <div class="romanization">Igeo juseyo</div>
+                <div class="pronunciation">ee-guh joo-SAY-yo</div>
+                <div class="english">This one, please (when ordering)</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="korean">메뉴판 주세요</div>
+                <div class="romanization">Menyupan juseyo</div>
+                <div class="pronunciation">meh-nyoo-pahn joo-SAY-yo</div>
+                <div class="english">Menu, please</div>
+            </div>
+        </div>
+
+        <div class="category" data-category="courtesy">
+            <h2 class="category-title">🙏 Courtesy & Manners</h2>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="korean">감사합니다</div>
+                <div class="romanization">Gamsahamnida</div>
+                <div class="pronunciation">gahm-sah-HAHM-nee-dah</div>
+                <div class="english">Thank you (formal)</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="korean">고맙습니다</div>
+                <div class="romanization">Gomapseumnida</div>
+                <div class="pronunciation">go-MAHP-seum-nee-dah</div>
+                <div class="english">Thank you (formal, native Korean)</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="korean">죄송합니다</div>
+                <div class="romanization">Joesonghamnida</div>
+                <div class="pronunciation">jweh-song-HAHM-nee-dah</div>
+                <div class="english">I'm sorry (formal)</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="korean">미안해요</div>
+                <div class="romanization">Mianhaeyo</div>
+                <div class="pronunciation">mee-ahn-HEH-yo</div>
+                <div class="english">I'm sorry (casual)</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="korean">괜찮아요</div>
+                <div class="romanization">Gwaenchanayo</div>
+                <div class="pronunciation">gwen-chah-NAH-yo</div>
+                <div class="english">It's okay / No problem</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="korean">실례합니다</div>
+                <div class="romanization">Sillyehamnida</div>
+                <div class="pronunciation">sheel-leh-HAHM-nee-dah</div>
+                <div class="english">Excuse me</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="korean">천만에요</div>
+                <div class="romanization">Cheonmaneyo</div>
+                <div class="pronunciation">chun-mahn-EH-yo</div>
+                <div class="english">You're welcome</div>
+            </div>
+        </div>
+
+        <div class="category" data-category="daily">
+            <h2 class="category-title">💬 Daily Conversation</h2>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="korean">네</div>
+                <div class="romanization">Ne</div>
+                <div class="pronunciation">neh</div>
+                <div class="english">Yes</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="korean">아니요</div>
+                <div class="romanization">Aniyo</div>
+                <div class="pronunciation">ah-nee-YO</div>
+                <div class="english">No</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="korean">모르겠어요</div>
+                <div class="romanization">Moreugesseoyo</div>
+                <div class="pronunciation">mo-ruh-GEHT-suh-yo</div>
+                <div class="english">I don't know</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="korean">이해했어요</div>
+                <div class="romanization">Ihaehaesseoyo</div>
+                <div class="pronunciation">ee-heh-HEHT-suh-yo</div>
+                <div class="english">I understand</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="korean">한국말 못해요</div>
+                <div class="romanization">Hangukmal mothaeyo</div>
+                <div class="pronunciation">hahn-gook-mahl moht-HEH-yo</div>
+                <div class="english">I can't speak Korean</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="korean">영어 할 수 있어요?</div>
+                <div class="romanization">Yeongeo hal su isseoyo?</div>
+                <div class="pronunciation">yung-uh hahl soo ee-SUH-yo</div>
+                <div class="english">Can you speak English?</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="korean">천천히 말해 주세요</div>
+                <div class="romanization">Cheoncheonhi malhae juseyo</div>
+                <div class="pronunciation">chun-chun-hee mahl-heh joo-SAY-yo</div>
+                <div class="english">Please speak slowly</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="korean">다시 한번 말해 주세요</div>
+                <div class="romanization">Dasi hanbeon malhae juseyo</div>
+                <div class="pronunciation">dah-shee hahn-bun mahl-heh joo-SAY-yo</div>
+                <div class="english">Please say that again</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="korean">화장실이 어디예요?</div>
+                <div class="romanization">Hwajangsiri eodiyeyo?</div>
+                <div class="pronunciation">hwah-jahng-shee-ree uh-dee-YEH-yo</div>
+                <div class="english">Where is the bathroom?</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="korean">얼마예요?</div>
+                <div class="romanization">Eolmayeyo?</div>
+                <div class="pronunciation">uhl-mah-YEH-yo</div>
+                <div class="english">How much is it?</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="korean">도와주세요</div>
+                <div class="romanization">Dowajuseyo</div>
+                <div class="pronunciation">doh-wah-joo-SAY-yo</div>
+                <div class="english">Please help me</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="korean">잠깐만요</div>
+                <div class="romanization">Jamkkanmanyo</div>
+                <div class="pronunciation">jahm-kahn-MAHN-yo</div>
+                <div class="english">Wait a moment</div>
+            </div>
+        </div>
+
+        <div class="info-box">
+            <h3>🎯 Quick Tips for Korean Pronunciation</h3>
+            <p><strong>ㅓ (eo):</strong> Like "uh" in "duh" or "rough"<br>
+            <strong>ㅡ (eu):</strong> Like "oo" in "good" but with lips relaxed<br>
+            <strong>ㅐ (ae):</strong> Like "e" in "bed"<br>
+            <strong>ㅔ (e):</strong> Like "e" in "red"<br>
+            <strong>ㅣ (i):</strong> Like "ee" in "see"<br>
+            <strong>받침 (final consonants):</strong> Usually softer than initial consonants</p>
+        </div>
+    </div>
+
+    <script>
+        function toggleActive(element) {
+            element.classList.toggle('active');
+        }
+
+        function filterCategory(category) {
+            const categories = document.querySelectorAll('.category');
+            const buttons = document.querySelectorAll('.filter-btn');
+
+            // Update button states
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            // Filter categories
+            if (category === 'all') {
+                categories.forEach(cat => cat.style.display = 'block');
+            } else {
+                categories.forEach(cat => {
+                    if (cat.dataset.category === category) {
+                        cat.style.display = 'block';
+                    } else {
+                        cat.style.display = 'none';
+                    }
+                });
+            }
+        }
+    </script>
+</body>
+</html>
