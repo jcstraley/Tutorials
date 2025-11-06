@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>US Presidents - Interactive Gallery</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: #333;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        h1 {
+            text-align: center;
+            color: #1e3c72;
+            margin-bottom: 15px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+
+        .controls {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        #searchBox {
+            padding: 12px 20px;
+            font-size: 16px;
+            border: 2px solid #1e3c72;
+            border-radius: 25px;
+            width: 300px;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        #searchBox:focus {
+            border-color: #d4af37;
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+        }
+
+        .filter-btn {
+            padding: 12px 25px;
+            font-size: 16px;
+            border: 2px solid #1e3c72;
+            background: white;
+            color: #1e3c72;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: #1e3c72;
+            color: white;
+        }
+
+        .presidents-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .president-card {
+            background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .president-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+
+        .president-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #b22234 0%, #b22234 46%, #ffffff 46%, #ffffff 54%, #3c3b6e 54%, #3c3b6e 100%);
+        }
+
+        .president-number {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #1e3c72;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .president-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 20px auto;
+            display: block;
+            object-fit: cover;
+            border: 4px solid #d4af37;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .president-name {
+            text-align: center;
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #1e3c72;
+            margin: 15px 0 10px;
+        }
+
+        .president-years {
+            text-align: center;
+            color: #666;
+            font-size: 1em;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .president-party {
+            text-align: center;
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            margin: 10px auto;
+            width: fit-content;
+            font-weight: bold;
+        }
+
+        .party-republican {
+            background: #e81b23;
+            color: white;
+        }
+
+        .party-democratic {
+            background: #0015bc;
+            color: white;
+        }
+
+        .party-democratic-republican {
+            background: #4a7c59;
+            color: white;
+        }
+
+        .party-whig {
+            background: #f0c05a;
+            color: #333;
+        }
+
+        .party-federalist {
+            background: #d4af37;
+            color: #333;
+        }
+
+        .party-national-union {
+            background: #7c4dff;
+            color: white;
+        }
+
+        .party-none {
+            background: #757575;
+            color: white;
+        }
+
+        .president-details {
+            text-align: center;
+            font-size: 0.9em;
+            color: #555;
+            margin-top: 10px;
+            line-height: 1.6;
+        }
+
+        .vice-president {
+            font-style: italic;
+            margin-top: 8px;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8);
+            overflow-y: auto;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 50px auto;
+            padding: 40px;
+            border: 1px solid #888;
+            width: 90%;
+            max-width: 700px;
+            border-radius: 15px;
+            position: relative;
+            animation: slideIn 0.3s;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 35px;
+            font-weight: bold;
+            cursor: pointer;
+            line-height: 20px;
+        }
+
+        .close:hover {
+            color: #000;
+        }
+
+        .modal-image {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            margin: 20px auto;
+            display: block;
+            object-fit: cover;
+            border: 5px solid #d4af37;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 1.8em;
+            }
+
+            .presidents-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🇺🇸 Presidents of the United States 🇺🇸</h1>
+        <p class="subtitle">Interactive Gallery - In Reverse Chronological Order</p>
+
+        <div class="controls">
+            <input type="text" id="searchBox" placeholder="Search by name, year, or party...">
+            <button class="filter-btn active" onclick="filterParty('all')">All</button>
+            <button class="filter-btn" onclick="filterParty('Republican')">Republican</button>
+            <button class="filter-btn" onclick="filterParty('Democratic')">Democratic</button>
+            <button class="filter-btn" onclick="filterParty('Other')">Other Parties</button>
+        </div>
+
+        <div class="presidents-grid" id="presidentsGrid"></div>
+    </div>
+
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <div id="modalBody"></div>
+        </div>
+    </div>
+
+    <script>
+        const presidents = [
+            {
+                number: 47,
+                name: "Donald J. Trump",
+                years: "2025-Present",
+                party: "Republican",
+                vicePresident: "JD Vance",
+                born: "1946",
+                notes: "47th President (2nd term); Previously served as 45th President (2017-2021)",
+                image: "https://www.whitehouse.gov/wp-content/uploads/2021/01/47_donald_trump.jpg"
+            },
+            {
+                number: 46,
+                name: "Joseph R. Biden Jr.",
+                years: "2021-2025",
+                party: "Democratic",
+                vicePresident: "Kamala Harris",
+                born: "1942",
+                notes: "First president from Delaware; Previously served as Vice President (2009-2017)",
+                image: "https://www.whitehouse.gov/wp-content/uploads/2021/01/46_joe_biden.jpg"
+            },
+            {
+                number: 45,
+                name: "Donald J. Trump",
+                years: "2017-2021",
+                party: "Republican",
+                vicePresident: "Mike Pence",
+                born: "1946",
+                notes: "45th President (1st term); Businessman and television personality before presidency",
+                image: "https://www.whitehouse.gov/wp-content/uploads/2021/01/45_donald_trump.jpg"
+            },
+            {
+                number: 44,
+                name: "Barack Obama",
+                years: "2009-2017",
+                party: "Democratic",
+                vicePresident: "Joe Biden",
+                born: "1961",
+                notes: "First African American president; Nobel Peace Prize winner (2009)",
+                image: "https://www.whitehouse.gov/wp-content/uploads/2021/01/44_barack_obama.jpg"
+            },
+            {
+                number: 43,
+                name: "George W. Bush",
+                years: "2001-2009",
+                party: "Republican",
+                vicePresident: "Dick Cheney",
+                born: "1946",
+                notes: "Son of President George H.W. Bush; Served during 9/11 attacks",
+                image: "https://www.whitehouse.gov/wp-content/uploads/2021/01/43_george_w_bush.jpg"
+            },
+            {
+                number: 42,
+                name: "Bill Clinton",
+                years: "1993-2001",
+                party: "Democratic",
+                vicePresident: "Al Gore",
+                born: "1946",
+                notes: "Second president to be impeached; Presided over strong economic growth",
+                image: "https://www.whitehouse.gov/wp-content/uploads/2021/01/42_bill_clinton.jpg"
+            },
+            {
+                number: 41,
+                name: "George H. W. Bush",
+                years: "1989-1993",
+                party: "Republican",
+                vicePresident: "Dan Quayle",
+                born: "1924",
+                notes: "Previously served as Vice President under Reagan; Oversaw end of Cold War",
+                image: "https://www.whitehouse.gov/wp-content/uploads/2021/01/41_george_hw_bush.jpg"
+            },
+            {
+                number: 40,
+                name: "Ronald Reagan",
+                years: "1981-1989",
+                party: "Republican",
+                vicePresident: "George H. W. Bush",
+                born: "1911",
+                notes: "Former Hollywood actor; Known for economic policies ('Reaganomics')",
+                image: "https://www.whitehouse.gov/wp-content/uploads/2021/01/40_ronald_reagan.jpg"
+            },
+            {
+                number: 39,
+                name: "Jimmy Carter",
+                years: "1977-1981",
+                party: "Democratic",
+                vicePresident: "Walter Mondale",
+                born: "1924",
+                notes: "Nobel Peace Prize winner (2002); Extensive humanitarian work after presidency",
+                image: "https://www.whitehouse.gov/wp-content/uploads/2021/01/39_jimmy_carter.jpg"
+            },
+            {
+                number: 38,
+                name: "Gerald Ford",
+                years: "1974-1977",
+                party: "Republican",
+                vicePresident: "Nelson Rockefeller",
+                born: "1913",
+                notes: "Only president never elected as president or vice president; Pardoned Nixon",
+                image: "https://www.whitehouse.gov/wp-content/uploads/2021/01/38_gerald_ford.jpg"
+            },
+            {
+                number: 37,
+                name: "Richard Nixon",
+                years: "1969-1974",
+                party: "Republican",
+                vicePresident: "Spiro Agnew / Gerald Ford",
+                born: "1913",
+                notes: "Only president to resign from office; Watergate scandal",
+                image: "https://www.whitehouse.gov/wp-content/uploads/2021/01/37_richard_nixon.jpg"
+            },
+            {
+                number: 36,
+                name: "Lyndon B. Johnson",
+                years: "1963-1969",
+                party: "Democratic",
+                vicePresident: "Hubert Humphrey",
+                born: "1908",
+                notes: "Assumed office after JFK assassination; Great Society programs",
+                image: "https://www.whitehouse.gov/wp-content/uploads/2021/01/36_lyndon_johnson.jpg"
+            },
+            {
+                number: 35,
+                name: "John F. Kennedy",
+                years: "1961-1963",
+                party: "Democratic",
+                vicePresident: "Lyndon B. Johnson",
+                born: "1917",
+                notes: "Youngest elected president; Assassinated in Dallas, Texas (1963)",
+                image: "https://www.whitehouse.gov/wp-content/uploads/2021/01/35_john_kennedy.jpg"
+            },
+            {
+                number: 34,
+                name: "Dwight D. Eisenhower",
+                years: "1953-1961",
+                party: "Republican",
+                vicePresident: "Richard Nixon",
+                born: "1890",
+                notes: "Five-star general; Supreme Commander of Allied Forces in WWII",
+                image: "https://www.whitehouse.gov/wp-content/uploads/2021/01/34_dwight_eisenhower.jpg"
+            },
+            {
+                number: 33,
+                name: "Harry S. Truman",
+                years: "1945-1953",
+                party: "Democratic",
+                vicePresident: "Alben W. Barkley",
+                born: "1884",
+                notes: "Made decision to use atomic bombs; Implemented Marshall Plan",
+                image: "https://www.whitehouse.gov/wp-content/uploads/2021/01/33_harry_truman.jpg"
+            },
+            {
+                number: 32,
+                name: "Franklin D. Roosevelt",
+                years: "1933-1945",
+                party: "Democratic",
+                vicePresident: "John Nance Garner / Henry A. Wallace / Harry S. Truman",
+                born: "1882",
+                notes: "Only president elected to four terms; Led nation through Great Depression and WWII",
+                image: "https://www.whitehouse.gov/wp-content/uploads/2021/01/32_franklin_roosevelt.jpg"
+            },
+            {
+                number: 31,
+                name: "Herbert Hoover",
+                years: "1929-1933",
+                party: "Republican",
+                vicePresident: "Charles Curtis",
+                born: "1874",
+                notes: "President during onset of Great Depression",
+                image: "https://www.whitehouse.gov/wp-content/uploads/2021/01/31_herbert_hoover.jpg"
+            },
+            {
+                number: 30,
+                name: "Calvin Coolidge",
+                years: "1923-1929",
+                party: "Republican",
+                vicePresident: "Charles G. Dawes",
+                born: "1872",
+                notes: "Known for his quiet demeanor and pro-business policies",
+                image: "https://www.whitehouse.gov/wp-content/uploads/2021/01/30_calvin_coolidge.jpg"
+            },
+            {
+                number: 29,
+                name: "Warren G. Harding",
+                years: "1921-1923",
+                party: "Republican",
+                vicePresident: "Calvin Coolidge",
+                born: "1865",
+                notes: "Died in office; Administration marred by scandals",
+                image: "https://www.whitehouse.gov/wp-content/uploads/2021/01/29_warren_harding.jpg"
+            },
+            {
+                number: 28,
+                name: "Woodrow Wilson",
+                years: "1913-1921",
+                party: "Democratic",
+                vicePresident: "Thomas R. Marshall",
+                born: "1856",
+                notes: "Led nation through WWI; Advocated for League of Nations",
+                image: "https://www.whitehouse.gov/wp-content/uploads/2021/01/28_woodrow_wilson.jpg"
+            },
+            {
+                number: 27,
+                name: "William Howard Taft",
+                years: "1909-1913",
+                party: "Republican",
+                vicePresident: "James S. Sherman",
+                born: "1857",
+                notes: "Only person to serve as both President and Chief Justice of the United States",
+                image: "https://www.whitehouse.gov/wp-content/uploads/2021/01/27_william_taft.jpg"
+            },
+            {
+                number: 26,
+                name: "Theodore Roosevelt",
+                years: "1901-1909",
+                party: "Republican",
+                vicePresident: "Charles W. Fairbanks",
+                born: "1858",
+                notes: "Youngest president; Nobel Peace Prize winner; Known for conservation efforts",
+                image: "https://www.whitehouse.gov/wp-content/uploads/2021/01/26_theodore_roosevelt.jpg"
+            },
+            {
+                number: 25,
+                name: "William McKinley",
+                years: "1897-1901",
+                party: "Republican",
+                vicePresident: "Garret Hobart / Theodore Roosevelt",
+                born: "1843",
+                notes: "Assassinated in Buffalo, New York (1901); Led nation during Spanish-American War",
+                image: "https://www.whitehouse.gov/wp-content/uploads/2021/01/25_william_mckinley.jpg"
+            },
+            {
+                number: 24,
+                name: "Grover Cleveland",
+                years: "1893-1897",
+                party: "Democratic",
+                vicePresident: "Adlai E. Stevenson",
+                born: "1837",
+                notes: "Only president to serve two non-consecutive terms (22nd & 24th)",
+                image: "https://www.whitehouse.gov/wp-content/uploads/2021/01/24_grover_cleveland.jpg"
+            },
+            {
+                number: 23,
+                name: "Benjamin Harrison",
+                years: "1889-1893",
+                party: "Republican",
+                vicePresident: "Levi P. Morton",
+                born: "1833",
+                notes: "Grandson of President William Henry Harrison",
+                image: "https://www.whitehouse.gov/wp-content/uploads/2021/01/23_benjamin_harrison.jpg"
+            },
+            {
+                number: 22,
+                name: "Grover Cleveland",
+                years: "1885-1889",
+                party: "Democratic",
+                vicePresident: "Thomas A. Hendricks",
+                born: "1837",
+                notes: "Only president to serve two non-consecutive terms (22nd & 24th)",
+                image: "https://www.whitehouse.gov/wp-content/uploads/2021/01/22_grover_cleveland.jpg"
+            },
+            {
+                number: 21,
+                name: "Chester A. Arthur",
+                years: "1881-1885",
+                party: "Republican",
+                vicePresident: "None",
+                born: "1829",
+                notes: "Assumed office after Garfield assassination; Civil service reformer",
+                image: "https://www.whitehouse.gov/wp-content/uploads/2021/01/21_chester_arthur.jpg"
+            },
+            {
+                number: 20,
+                name: "James A. Garfield",
+                years: "1881",
+                party: "Republican",
+                vicePresident: "Chester A. Arthur",
+                born: "1831",
+                notes: "Assassinated after only 200 days in office",
+                image: "https://www.whitehouse.gov/wp-content/uploads/2021/01/20_james_garfield.jpg"
+            },
+            {
+                number: 19,
+                name: "Rutherford B. Hayes",
+                years: "1877-1881",
+                party: "Republican",
+                vicePresident: "William A. Wheeler",
+                born: "1822",
+                notes: "Won disputed election of 1876; Ended Reconstruction",
+                image: "https://www.whitehouse.gov/wp-content/uploads/2021/01/19_rutherford_hayes.jpg"
+            },
+            {
+                number: 18,
+                name: "Ulysses S. Grant",
+                years: "1869-1877",
+                party: "Republican",
+                vicePresident: "Schuyler Colfax / Henry Wilson",
+                born: "1822",
+                notes: "Commanding general of Union Army during Civil War",
+                image: "https://www.whitehouse.gov/wp-content/uploads/2021/01/18_ulysses_grant.jpg"
+            },
+            {
+                number: 17,
+                name: "Andrew Johnson",
+                years: "1865-1869",
+                party: "National Union",
+                vicePresident: "None",
+                born: "1808",
+                notes: "First president to be impeached; Assumed office after Lincoln assassination",
+                image: "https://www.whitehouse.gov/wp-content/uploads/2021/01/17_andrew_johnson.jpg"
+            },
+            {
+                number: 16,
+                name: "Abraham Lincoln",
+                years: "1861-1865",
+                party: "Republican",
+                vicePresident: "Hannibal Hamlin / Andrew Johnson",
+                born: "1809",
+                notes: "Led nation through Civil War; Issued Emancipation Proclamation; Assassinated (1865)",
+                image: "https://www.whitehouse.gov/wp-content/uploads/2021/01/16_abraham_lincoln.jpg"
+            },
+            {
+                number: 15,
+                name: "James Buchanan",
+                years: "1857-1861",
+                party: "Democratic",
+                vicePresident: "John C. Breckinridge",
+                born: "1791",
+                notes: "Only bachelor president; Served immediately before Civil War",
+                image: "https://www.whitehouse.gov/wp-content/uploads/2021/01/15_james_buchanan.jpg"
+            },
+            {
+                number: 14,
+                name: "Franklin Pierce",
+                years: "1853-1857",
+                party: "Democratic",
+                vicePresident: "William R. King",
+                born: "1804",
+                notes: "Signed Kansas-Nebraska Act",
+                image: "https://www.whitehouse.gov/wp-content/uploads/2021/01/14_franklin_pierce.jpg"
+            },
+            {
+                number: 13,
+                name: "Millard Fillmore",
+                years: "1850-1853",
+                party: "Whig",
+                vicePresident: "None",
+                born: "1800",
+                notes: "Last Whig president; Assumed office after Taylor's death",
+                image: "https://www.whitehouse.gov/wp-content/uploads/2021/01/13_millard_fillmore.jpg"
+            },
+            {
+                number: 12,
+                name: "Zachary Taylor",
+                years: "1849-1850",
+                party: "Whig",
+                vicePresident: "Millard Fillmore",
+                born: "1784",
+                notes: "Career military officer; Died in office after 16 months",
+                image: "https://www.whitehouse.gov/wp-content/uploads/2021/01/12_zachary_taylor.jpg"
+            },
+            {
+                number: 11,
+                name: "James K. Polk",
+                years: "1845-1849",
+                party: "Democratic",
+                vicePresident: "George M. Dallas",
+                born: "1795",
+                notes: "Expanded US territory significantly; Mexican-American War",
+                image: "https://www.whitehouse.gov/wp-content/uploads/2021/01/11_james_polk.jpg"
+            },
+            {
+                number: 10,
+                name: "John Tyler",
+                years: "1841-1845",
+                party: "Whig/None",
+                vicePresident: "None",
+                born: "1790",
+                notes: "First VP to assume presidency due to death; Annexed Texas",
+                image: "https://www.whitehouse.gov/wp-content/uploads/2021/01/10_john_tyler.jpg"
+            },
+            {
+                number: 9,
+                name: "William Henry Harrison",
+                years: "1841",
+                party: "Whig",
+                vicePresident: "John Tyler",
+                born: "1773",
+                notes: "Shortest presidency - died after 31 days in office",
+                image: "https://www.whitehouse.gov/wp-content/uploads/2021/01/09_william_harrison.jpg"
+            },
+            {
+                number: 8,
+                name: "Martin Van Buren",
+                years: "1837-1841",
+                party: "Democratic",
+                vicePresident: "Richard M. Johnson",
+                born: "1782",
+                notes: "First president born as US citizen; Panic of 1837",
+                image: "https://www.whitehouse.gov/wp-content/uploads/2021/01/08_martin_van_buren.jpg"
+            },
+            {
+                number: 7,
+                name: "Andrew Jackson",
+                years: "1829-1837",
+                party: "Democratic",
+                vicePresident: "John C. Calhoun / Martin Van Buren",
+                born: "1767",
+                notes: "Founded Democratic Party; War hero; Indian Removal Act",
+                image: "https://www.whitehouse.gov/wp-content/uploads/2021/01/07_andrew_jackson.jpg"
+            },
+            {
+                number: 6,
+                name: "John Quincy Adams",
+                years: "1825-1829",
+                party: "Democratic-Republican",
+                vicePresident: "John C. Calhoun",
+                born: "1767",
+                notes: "Son of President John Adams; Later served in Congress",
+                image: "https://www.whitehouse.gov/wp-content/uploads/2021/01/06_john_quincy_adams.jpg"
+            },
+            {
+                number: 5,
+                name: "James Monroe",
+                years: "1817-1825",
+                party: "Democratic-Republican",
+                vicePresident: "Daniel D. Tompkins",
+                born: "1758",
+                notes: "Monroe Doctrine; Era of Good Feelings",
+                image: "https://www.whitehouse.gov/wp-content/uploads/2021/01/05_james_monroe.jpg"
+            },
+            {
+                number: 4,
+                name: "James Madison",
+                years: "1809-1817",
+                party: "Democratic-Republican",
+                vicePresident: "George Clinton / Elbridge Gerry",
+                born: "1751",
+                notes: "'Father of the Constitution'; Led nation through War of 1812",
+                image: "https://www.whitehouse.gov/wp-content/uploads/2021/01/04_james_madison.jpg"
+            },
+            {
+                number: 3,
+                name: "Thomas Jefferson",
+                years: "1801-1809",
+                party: "Democratic-Republican",
+                vicePresident: "Aaron Burr / George Clinton",
+                born: "1743",
+                notes: "Principal author of Declaration of Independence; Louisiana Purchase",
+                image: "https://www.whitehouse.gov/wp-content/uploads/2021/01/03_thomas_jefferson.jpg"
+            },
+            {
+                number: 2,
+                name: "John Adams",
+                years: "1797-1801",
+                party: "Federalist",
+                vicePresident: "Thomas Jefferson",
+                born: "1735",
+                notes: "First president to live in White House; Founding Father",
+                image: "https://www.whitehouse.gov/wp-content/uploads/2021/01/02_john_adams.jpg"
+            },
+            {
+                number: 1,
+                name: "George Washington",
+                years: "1789-1797",
+                party: "None",
+                vicePresident: "John Adams",
+                born: "1732",
+                notes: "First President; 'Father of His Country'; Commander-in-Chief during Revolutionary War",
+                image: "https://www.whitehouse.gov/wp-content/uploads/2021/01/01_george_washington.jpg"
+            }
+        ];
+
+        let currentFilter = 'all';
+
+        function renderPresidents(filteredPresidents = presidents) {
+            const grid = document.getElementById('presidentsGrid');
+            grid.innerHTML = '';
+
+            filteredPresidents.forEach(president => {
+                const card = document.createElement('div');
+                card.className = 'president-card';
+                card.onclick = () => showModal(president);
+
+                let partyClass = '';
+                if (president.party.includes('Republican')) {
+                    partyClass = 'party-republican';
+                } else if (president.party.includes('Democratic') && !president.party.includes('Republican')) {
+                    partyClass = 'party-democratic';
+                } else if (president.party.includes('Federalist')) {
+                    partyClass = 'party-federalist';
+                } else if (president.party.includes('Whig')) {
+                    partyClass = 'party-whig';
+                } else if (president.party.includes('National Union')) {
+                    partyClass = 'party-national-union';
+                } else {
+                    partyClass = 'party-none';
+                }
+
+                card.innerHTML = `
+                    <div class="president-number">${president.number}</div>
+                    <img src="${president.image}" alt="${president.name}" class="president-image" 
+                         onerror="this.src='https://via.placeholder.com/150?text=${president.name.split(' ')[0]}'">
+                    <div class="president-name">${president.name}</div>
+                    <div class="president-years">${president.years}</div>
+                    <div class="president-party ${partyClass}">${president.party}</div>
+                    <div class="president-details">
+                        <div class="vice-president">VP: ${president.vicePresident}</div>
+                    </div>
+                `;
+
+                grid.appendChild(card);
+            });
+        }
+
+        function showModal(president) {
+            const modal = document.getElementById('modal');
+            const modalBody = document.getElementById('modalBody');
+
+            let partyClass = '';
+            if (president.party.includes('Republican')) {
+                partyClass = 'party-republican';
+            } else if (president.party.includes('Democratic') && !president.party.includes('Republican')) {
+                partyClass = 'party-democratic';
+            } else if (president.party.includes('Federalist')) {
+                partyClass = 'party-federalist';
+            } else if (president.party.includes('Whig')) {
+                partyClass = 'party-whig';
+            } else if (president.party.includes('National Union')) {
+                partyClass = 'party-national-union';
+            } else {
+                partyClass = 'party-none';
+            }
+
+            modalBody.innerHTML = `
+                <h2 style="text-align: center; color: #1e3c72; margin-bottom: 20px;">
+                    ${president.number}. ${president.name}
+                </h2>
+                <img src="${president.image}" alt="${president.name}" class="modal-image"
+                     onerror="this.src='https://via.placeholder.com/200?text=${president.name.split(' ')[0]}'">
+                <div style="text-align: center;">
+                    <p style="font-size: 1.2em; margin: 15px 0;"><strong>Years in Office:</strong> ${president.years}</p>
+                    <div class="president-party ${partyClass}" style="margin: 15px auto;">${president.party}</div>
+                    <p style="margin: 15px 0;"><strong>Vice President:</strong> ${president.vicePresident}</p>
+                    <p style="margin: 15px 0;"><strong>Born:</strong> ${president.born}</p>
+                    <p style="margin: 20px 0; line-height: 1.8; text-align: left;">${president.notes}</p>
+                </div>
+            `;
+
+            modal.style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('modal').style.display = 'none';
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('modal');
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
+
+        function filterParty(party) {
+            currentFilter = party;
+
+            // Update button states
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            let filtered = presidents;
+
+            if (party !== 'all') {
+                if (party === 'Other') {
+                    filtered = presidents.filter(p => 
+                        !p.party.includes('Republican') && 
+                        !p.party.includes('Democratic') ||
+                        p.party.includes('Democratic-Republican')
+                    );
+                } else {
+                    filtered = presidents.filter(p => p.party.includes(party));
+                }
+            }
+
+            // Apply search filter if there's a search term
+            const searchTerm = document.getElementById('searchBox').value.toLowerCase();
+            if (searchTerm) {
+                filtered = filtered.filter(p =>
+                    p.name.toLowerCase().includes(searchTerm) ||
+                    p.years.toLowerCase().includes(searchTerm) ||
+                    p.party.toLowerCase().includes(searchTerm) ||
+                    p.notes.toLowerCase().includes(searchTerm)
+                );
+            }
+
+            renderPresidents(filtered);
+        }
+
+        // Search functionality
+        document.getElementById('searchBox').addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+
+            let filtered = presidents;
+
+            // Apply party filter first
+            if (currentFilter !== 'all') {
+                if (currentFilter === 'Other') {
+                    filtered = presidents.filter(p => 
+                        !p.party.includes('Republican') && 
+                        !p.party.includes('Democratic') ||
+                        p.party.includes('Democratic-Republican')
+                    );
+                } else {
+                    filtered = presidents.filter(p => p.party.includes(currentFilter));
+                }
+            }
+
+            // Then apply search
+            if (searchTerm) {
+                filtered = filtered.filter(p =>
+                    p.name.toLowerCase().includes(searchTerm) ||
+                    p.years.toLowerCase().includes(searchTerm) ||
+                    p.party.toLowerCase().includes(searchTerm) ||
+                    p.notes.toLowerCase().includes(searchTerm) ||
+                    p.vicePresident.toLowerCase().includes(searchTerm)
+                );
+            }
+
+            renderPresidents(filtered);
+        });
+
+        // Initial render
+        renderPresidents();
+    </script>
+</body>
+</html>
