@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lusoga Daily Phrases - Interactive Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #43cea2 0%, #185a9d 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        h1 {
+            text-align: center;
+            color: #185a9d;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+
+        .category {
+            margin-bottom: 35px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 25px;
+            transition: transform 0.3s ease;
+        }
+
+        .category:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .category-title {
+            color: #185a9d;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #43cea2;
+            padding-bottom: 10px;
+        }
+
+        .phrase-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-left: 5px solid #43cea2;
+        }
+
+        .phrase-card:hover {
+            background: #e8f5e9;
+            transform: translateX(10px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .phrase-card.active {
+            background: #fff3e0;
+            border-left-color: #ff9800;
+        }
+
+        .lusoga {
+            font-size: 1.8em;
+            color: #185a9d;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .pronunciation {
+            font-size: 1.3em;
+            color: #d84315;
+            background: #fff3e0;
+            padding: 5px 10px;
+            border-radius: 5px;
+            display: inline-block;
+            margin-bottom: 8px;
+            font-style: italic;
+        }
+
+        .english {
+            font-size: 1.2em;
+            color: #555;
+        }
+
+        .context {
+            font-size: 0.95em;
+            color: #999;
+            font-style: italic;
+            margin-top: 5px;
+        }
+
+        .info-box {
+            background: #e1f5fe;
+            border-left: 5px solid #0277bd;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+
+        .info-box h3 {
+            color: #01579b;
+            margin-bottom: 10px;
+        }
+
+        .info-box p {
+            color: #01579b;
+            line-height: 1.6;
+        }
+
+        .care-box {
+            background: #f3e5f5;
+            border-left: 5px solid #7b1fa2;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+
+        .care-box h3 {
+            color: #6a1b9a;
+            margin-bottom: 10px;
+        }
+
+        .care-box p {
+            color: #6a1b9a;
+            line-height: 1.6;
+        }
+
+        .filter-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: #43cea2;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover {
+            background: #185a9d;
+            transform: scale(1.05);
+        }
+
+        .filter-btn.active {
+            background: #185a9d;
+            box-shadow: 0 5px 15px rgba(24, 90, 157, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 1.8em;
+            }
+
+            .lusoga {
+                font-size: 1.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🇺🇬 Lusoga Daily Phrases</h1>
+        <p class="subtitle">Click any phrase to highlight it • Phrases for daily life, healthcare & appreciation</p>
+
+        <div class="info-box">
+            <h3>📖 About Lusoga</h3>
+            <p><strong>Language Background:</strong> Lusoga is a Bantu language spoken by the Basoga people in eastern Uganda, particularly in the Busoga region. It's closely related to Luganda. Pronunciation is generally phonetic with vowels similar to Spanish: A (ah), E (eh), I (ee), O (oh), U (oo).</p>
+        </div>
+
+        <div class="filter-buttons">
+            <button class="filter-btn active" onclick="filterCategory('all')">All Phrases</button>
+            <button class="filter-btn" onclick="filterCategory('greetings')">Greetings</button>
+            <button class="filter-btn" onclick="filterCategory('healthcare')">Healthcare</button>
+            <button class="filter-btn" onclick="filterCategory('appreciation')">Appreciation</button>
+            <button class="filter-btn" onclick="filterCategory('daily')">Daily Life</button>
+        </div>
+
+        <div class="category" data-category="greetings">
+            <h2 class="category-title">👋 Greetings & Basic Phrases</h2>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="lusoga">Osiibire otya nno?</div>
+                <div class="pronunciation">oh-see-BEE-reh OH-tyah NOH</div>
+                <div class="english">Good morning, how are you?</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="lusoga">Osiibye otya?</div>
+                <div class="pronunciation">oh-see-BYEH OH-tyah</div>
+                <div class="english">Good afternoon, how are you?</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="lusoga">Osuzeire otya?</div>
+                <div class="pronunciation">oh-soo-ZEH-reh OH-tyah</div>
+                <div class="english">Good evening, how are you?</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="lusoga">Ndi bulungi</div>
+                <div class="pronunciation">n-DEE boo-LOON-gee</div>
+                <div class="english">I'm fine</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="lusoga">Weebale</div>
+                <div class="pronunciation">weh-BAH-leh</div>
+                <div class="english">Thank you</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="lusoga">Weebale nnyo</div>
+                <div class="pronunciation">weh-BAH-leh N-yoh</div>
+                <div class="english">Thank you very much</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="lusoga">Kale</div>
+                <div class="pronunciation">KAH-leh</div>
+                <div class="english">Okay / Goodbye (casual)</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="lusoga">Weraba</div>
+                <div class="pronunciation">weh-RAH-bah</div>
+                <div class="english">Goodbye</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="lusoga">Erinnya lyange ...</div>
+                <div class="pronunciation">eh-REE-nyah LYAHN-geh</div>
+                <div class="english">My name is...</div>
+            </div>
+        </div>
+
+        <div class="category" data-category="healthcare">
+            <h2 class="category-title">🏥 Healthcare & Speaking to Nurse</h2>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="lusoga">Omwana wange</div>
+                <div class="pronunciation">oh-MWAH-nah WAHN-geh</div>
+                <div class="english">My son / My child</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="lusoga">Omwana wange ali bulungi?</div>
+                <div class="pronunciation">oh-MWAH-nah WAHN-geh AH-lee boo-LOON-gee</div>
+                <div class="english">Is my child well/okay?</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="lusoga">Alwaire atya?</div>
+                <div class="pronunciation">ah-LWAH-reh AH-tyah</div>
+                <div class="english">How is he sick? / What's wrong?</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="lusoga">Omwana alina omusujja</div>
+                <div class="pronunciation">oh-MWAH-nah ah-LEE-nah oh-moo-SOO-jah</div>
+                <div class="english">The child has a fever</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="lusoga">Omwana ayagala amaizi</div>
+                <div class="pronunciation">oh-MWAH-nah ah-yah-GAH-lah ah-MAH-zee</div>
+                <div class="english">The child wants water</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="lusoga">Omwana ayagala okulya</div>
+                <div class="pronunciation">oh-MWAH-nah ah-yah-GAH-lah oh-koo-LYAH</div>
+                <div class="english">The child wants to eat</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="lusoga">Eddagala riri ludha?</div>
+                <div class="pronunciation">ed-DAH-gah-lah REE-ree LOO-dhah</div>
+                <div class="english">When is the medicine?</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="lusoga">Omwana agenda lwa?</div>
+                <div class="pronunciation">oh-MWAH-nah ah-GEN-dah LWAH</div>
+                <div class="english">When is the child going home?</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="lusoga">Yeebale okujjanjaba omwana wange</div>
+                <div class="pronunciation">yeh-BAH-leh oh-koo-JAHN-jah-bah oh-MWAH-nah WAHN-geh</div>
+                <div class="english">Thank you for taking care of my child</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="lusoga">Oli mulabirizi mulungi</div>
+                <div class="pronunciation">OH-lee moo-lah-bee-REE-zee moo-LOON-gee</div>
+                <div class="english">You are a good nurse/caregiver</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="lusoga">Omwana agenda kubeera bulungi?</div>
+                <div class="pronunciation">oh-MWAH-nah ah-GEN-dah koo-BEH-rah boo-LOON-gee</div>
+                <div class="english">Will the child be okay?</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="lusoga">Nkwegayiridde nnyo</div>
+                <div class="pronunciation">n-kweh-gah-yee-REED-deh N-yoh</div>
+                <div class="english">I appreciate you very much</div>
+            </div>
+        </div>
+
+        <div class="category" data-category="appreciation">
+            <h2 class="category-title">💝 Appreciation & Friendliness</h2>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="lusoga">Weebale kubeera wano</div>
+                <div class="pronunciation">weh-BAH-leh koo-BEH-rah WAH-noh</div>
+                <div class="english">Thank you for being here</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="lusoga">Weebale ku likolebwa lyo</div>
+                <div class="pronunciation">weh-BAH-leh koo lee-koh-LEH-bwah LYOH</div>
+                <div class="english">Thank you for your work</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="lusoga">Oli mulungi nnyo</div>
+                <div class="pronunciation">OH-lee moo-LOON-gee N-yoh</div>
+                <div class="english">You are very good/kind</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="lusoga">Oli mukwano mulungi</div>
+                <div class="pronunciation">OH-lee moo-KWAH-noh moo-LOON-gee</div>
+                <div class="english">You are a good friend</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="lusoga">Katonda akuwe omukisa</div>
+                <div class="pronunciation">kah-TON-dah ah-KOO-weh oh-moo-KEE-sah</div>
+                <div class="english">God bless you</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="lusoga">Nkusiime nnyo</div>
+                <div class="pronunciation">n-koo-SEE-meh N-yoh</div>
+                <div class="english">I thank you very much</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="lusoga">Oli wa mutima mulungi</div>
+                <div class="pronunciation">OH-lee wah moo-TEE-mah moo-LOON-gee</div>
+                <div class="english">You have a good heart</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="lusoga">Weebale okuyamba</div>
+                <div class="pronunciation">weh-BAH-leh oh-koo-YAHM-bah</div>
+                <div class="english">Thank you for helping</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="lusoga">Onkoze bulungi</div>
+                <div class="pronunciation">ohn-KOH-zeh boo-LOON-gee</div>
+                <div class="english">You've done well</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="lusoga">Nkwagala nnyo</div>
+                <div class="pronunciation">n-kwah-GAH-lah N-yoh</div>
+                <div class="english">I like/love you very much</div>
+                <div class="context">Can express appreciation and affection</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="lusoga">Oli mwetegefu nnyo</div>
+                <div class="pronunciation">OH-lee mweh-teh-GEH-foo N-yoh</div>
+                <div class="english">You are very helpful/supportive</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="lusoga">Katonda akusiime</div>
+                <div class="pronunciation">kah-TON-dah ah-koo-SEE-meh</div>
+                <div class="english">God thank you / May God reward you</div>
+            </div>
+        </div>
+
+        <div class="category" data-category="daily">
+            <h2 class="category-title">💬 Daily Conversation</h2>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="lusoga">Yee</div>
+                <div class="pronunciation">YEH</div>
+                <div class="english">Yes</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="lusoga">Nedda</div>
+                <div class="pronunciation">NED-dah</div>
+                <div class="english">No</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="lusoga">Simanyi</div>
+                <div class="pronunciation">see-MAH-nyee</div>
+                <div class="english">I don't know</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="lusoga">Ntegeera</div>
+                <div class="pronunciation">n-teh-GEH-rah</div>
+                <div class="english">I understand</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="lusoga">Sitegeera</div>
+                <div class="pronunciation">see-teh-GEH-rah</div>
+                <div class="english">I don't understand</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="lusoga">Nkuyambe?</div>
+                <div class="pronunciation">n-koo-YAHM-beh</div>
+                <div class="english">Can I help you?</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="lusoga">Oyambe</div>
+                <div class="pronunciation">oh-YAHM-beh</div>
+                <div class="english">Please help</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="lusoga">Ndya</div>
+                <div class="pronunciation">n-DYAH</div>
+                <div class="english">I'm eating / I want to eat</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="lusoga">Nywera</div>
+                <div class="pronunciation">n-YWEH-rah</div>
+                <div class="english">I'm drinking / I want to drink</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="lusoga">Emmere</div>
+                <div class="pronunciation">em-MEH-reh</div>
+                <div class="english">Food</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="lusoga">Amaizi</div>
+                <div class="pronunciation">ah-MAH-zee</div>
+                <div class="english">Water</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="lusoga">Rino lituufu?</div>
+                <div class="pronunciation">REE-noh lee-TOO-foo</div>
+                <div class="english">Is this correct?</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="lusoga">Kibi</div>
+                <div class="pronunciation">kee-BEE</div>
+                <div class="english">It's bad</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="lusoga">Kirungi</div>
+                <div class="pronunciation">kee-ROON-gee</div>
+                <div class="english">It's good</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="lusoga">Leka</div>
+                <div class="pronunciation">LEH-kah</div>
+                <div class="english">Stop / Leave it</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="lusoga">Ngenda</div>
+                <div class="pronunciation">n-GEN-dah</div>
+                <div class="english">I'm going</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="lusoga">Nja</div>
+                <div class="pronunciation">n-JAH</div>
+                <div class="english">I'm coming</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="lusoga">Lindila</div>
+                <div class="pronunciation">leen-DEE-lah</div>
+                <div class="english">Wait</div>
+            </div>
+        </div>
+
+        <div class="care-box">
+            <h3>💙 Speaking with Respect & Care</h3>
+            <p>In Ugandan culture, showing respect and appreciation is very important. Adding <strong>"nnyo"</strong> (very much) to thank you phrases shows deep appreciation. Saying <strong>"Katonda akuwe omukisa"</strong> (God bless you) is a meaningful way to show gratitude for someone's care and kindness.</p>
+        </div>
+
+        <div class="info-box">
+            <h3>🎯 Pronunciation Tips</h3>
+            <p><strong>Vowels:</strong> Always pronounced clearly - A (ah), E (eh), I (ee), O (oh), U (oo)<br>
+            <strong>Double consonants:</strong> Hold the sound slightly longer (e.g., "weebale")<br>
+            <strong>NY sound:</strong> Like "ny" in "canyon" or Spanish "ñ"<br>
+            <strong>Tone:</strong> Lusoga uses some tone, but context usually makes meaning clear<br>
+            <strong>"Nny":</strong> This sound is like "ny" but nasalized - practice saying "nyo" (N-yoh)</p>
+        </div>
+
+        <div class="info-box">
+            <h3>🏥 Cultural Notes for Healthcare</h3>
+            <p><strong>Respect:</strong> Healthcare workers are highly respected in Uganda<br>
+            <strong>Gratitude:</strong> Expressing thanks multiple times is appropriate and appreciated<br>
+            <strong>"Omwana":</strong> Means "child" - can refer to son or daughter<br>
+            <strong>Patience:</strong> Asking "Omwana ali bulungi?" (Is the child well?) shows care<br>
+            <strong>Blessing:</strong> "Katonda akuwe omukisa" is a powerful blessing to give</p>
+        </div>
+    </div>
+
+    <script>
+        function toggleActive(element) {
+            element.classList.toggle('active');
+        }
+
+        function filterCategory(category) {
+            const categories = document.querySelectorAll('.category');
+            const buttons = document.querySelectorAll('.filter-btn');
+
+            // Update button states
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            // Filter categories
+            if (category === 'all') {
+                categories.forEach(cat => cat.style.display = 'block');
+            } else {
+                categories.forEach(cat => {
+                    if (cat.dataset.category === category) {
+                        cat.style.display = 'block';
+                    } else {
+                        cat.style.display = 'none';
+                    }
+                });
+            }
+        }
+    </script>
+</body>
+</html>
