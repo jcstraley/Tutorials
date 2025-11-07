@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nepali Daily Phrases - Interactive Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #dc2626 0%, #1e40af 50%, #dc2626 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        h1 {
+            text-align: center;
+            color: #dc2626;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+
+        .category {
+            margin-bottom: 35px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 25px;
+            transition: transform 0.3s ease;
+        }
+
+        .category:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .category-title {
+            color: #1e40af;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #dc2626;
+            padding-bottom: 10px;
+        }
+
+        .phrase-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-left: 5px solid #dc2626;
+        }
+
+        .phrase-card:hover {
+            background: #fef2f2;
+            transform: translateX(10px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .phrase-card.active {
+            background: #dbeafe;
+            border-left-color: #1e40af;
+        }
+
+        .nepali {
+            font-size: 1.8em;
+            color: #dc2626;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .devanagari {
+            font-size: 1.6em;
+            color: #1e40af;
+            font-weight: bold;
+            margin-bottom: 8px;
+            font-family: 'Noto Sans Devanagari', sans-serif;
+        }
+
+        .pronunciation {
+            font-size: 1.3em;
+            color: #ea580c;
+            background: #fff7ed;
+            padding: 5px 10px;
+            border-radius: 5px;
+            display: inline-block;
+            margin-bottom: 8px;
+            font-style: italic;
+        }
+
+        .english {
+            font-size: 1.2em;
+            color: #555;
+        }
+
+        .context {
+            font-size: 0.95em;
+            color: #999;
+            font-style: italic;
+            margin-top: 5px;
+        }
+
+        .info-box {
+            background: #dbeafe;
+            border-left: 5px solid #1e40af;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+
+        .info-box h3 {
+            color: #1e3a8a;
+            margin-bottom: 10px;
+        }
+
+        .info-box p {
+            color: #1e3a8a;
+            line-height: 1.6;
+        }
+
+        .love-box {
+            background: #fef2f2;
+            border-left: 5px solid #dc2626;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+
+        .love-box h3 {
+            color: #991b1b;
+            margin-bottom: 10px;
+        }
+
+        .love-box p {
+            color: #991b1b;
+            line-height: 1.6;
+        }
+
+        .filter-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: #dc2626;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover {
+            background: #1e40af;
+            transform: scale(1.05);
+        }
+
+        .filter-btn.active {
+            background: #1e40af;
+            box-shadow: 0 5px 15px rgba(30, 64, 175, 0.4);
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #e5e7eb;
+            color: #6b7280;
+            font-size: 0.95em;
+        }
+
+        .footer strong {
+            color: #dc2626;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 1.8em;
+            }
+
+            .nepali {
+                font-size: 1.5em;
+            }
+        }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1>🇳🇵 Nepali Daily Phrases</h1>
+        <p class="subtitle">नमस्ते • Click any phrase to highlight it • From husband to wife with love</p>
+
+        <div class="info-box">
+            <h3>📖 About Nepali Pronunciation</h3>
+            <p><strong>For American speakers:</strong> Nepali uses Devanagari script. Vowels are similar to Spanish: A (ah), E (eh), I (ee), O (oh), U (oo). The aspirated consonants (like "kh", "th", "ph") are pronounced with a puff of air. "Cha" sounds like "cha" in "church".</p>
+        </div>
+
+        <div class="filter-buttons">
+            <button class="filter-btn active" onclick="filterCategory('all')">All Phrases</button>
+            <button class="filter-btn" onclick="filterCategory('greetings')">Greetings</button>
+            <button class="filter-btn" onclick="filterCategory('love')">Love & Care</button>
+            <button class="filter-btn" onclick="filterCategory('meals')">Meals</button>
+            <button class="filter-btn" onclick="filterCategory('apology')">Apologies</button>
+            <button class="filter-btn" onclick="filterCategory('daily')">Daily Life</button>
+        </div>
+
+        <div class="category" data-category="greetings">
+            <h2 class="category-title">👋 Greetings & Basic Phrases</h2>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="devanagari">नमस्ते</div>
+                <div class="pronunciation">nah-mah-STAY</div>
+                <div class="english">Hello / Greetings</div>
+                <div class="context">Traditional greeting with hands together</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="devanagari">तपाईंलाई कस्तो छ?</div>
+                <div class="pronunciation">tah-PAH-ee-lie KUSS-toh CHA</div>
+                <div class="english">How are you? (formal)</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="devanagari">तिमीलाई कस्तो छ?</div>
+                <div class="pronunciation">tee-MEE-lie KUSS-toh CHA</div>
+                <div class="english">How are you? (informal to wife)</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="devanagari">म सञ्चै छु</div>
+                <div class="pronunciation">ma SAHN-chai CHU</div>
+                <div class="english">I'm fine</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="devanagari">धन्यवाद</div>
+                <div class="pronunciation">DHAN-yah-vahd</div>
+                <div class="english">Thank you</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="devanagari">धेरै धन्यवाद</div>
+                <div class="pronunciation">DHEH-rye DHAN-yah-vahd</div>
+                <div class="english">Thank you very much</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="devanagari">शुभ प्रभात</div>
+                <div class="pronunciation">SHOO-bha prah-BAHT</div>
+                <div class="english">Good morning</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="devanagari">शुभ रात्री</div>
+                <div class="pronunciation">SHOO-bha RAHT-ree</div>
+                <div class="english">Good night</div>
+            </div>
+        </div>
+
+        <div class="category" data-category="love">
+            <h2 class="category-title">❤️ Love, Care & Thanks to Wife</h2>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="devanagari">म तिमीलाई माया गर्छु</div>
+                <div class="pronunciation">ma tee-MEE-lie MAH-yah GAR-chu</div>
+                <div class="english">I love you</div>
+                <div class="context">From husband to wife (informal, intimate)</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="devanagari">म तिमीलाई धेरै माया गर्छु</div>
+                <div class="pronunciation">ma tee-MEE-lie DHEH-rye MAH-yah GAR-chu</div>
+                <div class="english">I love you very much</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="devanagari">तिमी मेरो संसार हौ</div>
+                <div class="pronunciation">tee-MEE MEH-roh sahn-SAHR how</div>
+                <div class="english">You are my world</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="devanagari">तिमी धेरै सुन्दर छौ</div>
+                <div class="pronunciation">tee-MEE DHEH-rye SOON-dar CHOW</div>
+                <div class="english">You are very beautiful</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="devanagari">म तिमीलाई सधैं माया गर्नेछु</div>
+                <div class="pronunciation">ma tee-MEE-lie sahd-HAI MAH-yah gar-NEH-chu</div>
+                <div class="english">I will always love you</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="devanagari">तिमी बिना म अधुरो छु</div>
+                <div class="pronunciation">tee-MEE bee-NAH ma ah-DHOO-roh CHU</div>
+                <div class="english">Without you I am incomplete</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="devanagari">तिमीलाई सबै कुराको लागि धन्यवाद</div>
+                <div class="pronunciation">tee-MEE-lie SAH-bye koo-RAH-koh LAH-gee DHAN-yah-vahd</div>
+                <div class="english">Thank you for everything</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="devanagari">तिमी सबै भन्दा राम्रो श्रीमती हौ</div>
+                <div class="pronunciation">tee-MEE SAH-bye BHAHN-dah RAHM-roh shree-MAH-tee how</div>
+                <div class="english">You are the best wife</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="devanagari">म तिमीमा धेरै गर्व गर्छु</div>
+                <div class="pronunciation">ma tee-MEE-mah DHEH-rye GAR-va GAR-chu</div>
+                <div class="english">I'm very proud of you</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="devanagari">तिमी मेरो जीवनको सबै कुरा हौ</div>
+                <div class="pronunciation">tee-MEE MEH-roh jee-VAHN-koh SAH-bye koo-RAH how</div>
+                <div class="english">You are everything in my life</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="devanagari">म तिमीलाई साँच्चै धन्यवाद दिन्छु</div>
+                <div class="pronunciation">ma tee-MEE-lie SAHN-chai DHAN-yah-vahd DEEN-chu</div>
+                <div class="english">I truly thank you</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="devanagari">तिमीले मलाई खुसी बनाउँछौ</div>
+                <div class="pronunciation">tee-MEE-leh mah-LIE koo-SEE bah-NOW-chow</div>
+                <div class="english">You make me happy</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="devanagari">म तिमीलाई सकेसम्म माया गर्छु</div>
+                <div class="pronunciation">ma tee-MEE-lie sah-KEH-sahm MAH-yah GAR-chu</div>
+                <div class="english">I love you as much as possible</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="devanagari">तिमी मेरो हृदय हौ</div>
+                <div class="pronunciation">tee-MEE MEH-roh HREE-dah-yah how</div>
+                <div class="english">You are my heart</div>
+            </div>
+        </div>
+
+        <div class="category" data-category="meals">
+            <h2 class="category-title">🍛 Meals & Food</h2>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="devanagari">खाना खाऔं</div>
+                <div class="pronunciation">KAH-nah kah-OW</div>
+                <div class="english">Let's eat</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="devanagari">धेरै मिठो छ</div>
+                <div class="pronunciation">DHEH-rye mee-TOH CHA</div>
+                <div class="english">It's very delicious</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="devanagari">तिमीको खाना साँच्चै राम्रो छ</div>
+                <div class="pronunciation">tee-MEE-koh KAH-nah SAHN-chai RAHM-roh CHA</div>
+                <div class="english">Your cooking is really good</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="devanagari">मलाई भोक लागेको छ</div>
+                <div class="pronunciation">mah-LIE BHOK lah-GEH-koh CHA</div>
+                <div class="english">I'm hungry</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="devanagari">म भरिएँ</div>
+                <div class="pronunciation">ma bhah-REE-yeh</div>
+                <div class="english">I'm full</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="devanagari">मलाई तिर्खा लागेको छ</div>
+                <div class="pronunciation">mah-LIE TEER-kah lah-GEH-koh CHA</div>
+                <div class="english">I'm thirsty</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="devanagari">पानी दिनुहोस्</div>
+                <div class="pronunciation">PAH-nee dee-noo-HOHS</div>
+                <div class="english">Please give me water</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="devanagari">यो के हो?</div>
+                <div class="pronunciation">yoh KEH hoh</div>
+                <div class="english">What is this?</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="devanagari">खानाको लागि धन्यवाद</div>
+                <div class="pronunciation">kah-NAH-koh LAH-gee DHAN-yah-vahd</div>
+                <div class="english">Thank you for the meal</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="devanagari">तपाईंले राम्रो पकाउनुभयो</div>
+                <div class="pronunciation">tah-PAH-ee-leh RAHM-roh pah-KOW-noo-bhah-yoh</div>
+                <div class="english">You cooked well</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="devanagari">अझै चाहिन्छ?</div>
+                <div class="pronunciation">ah-ZHYE chah-HEEN-cha</div>
+                <div class="english">Do you want more?</div>
+            </div>
+        </div>
+
+        <div class="category" data-category="apology">
+            <h2 class="category-title">🙏 Apologies & Forgiveness</h2>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="devanagari">माफ गर</div>
+                <div class="pronunciation">MAHF gar</div>
+                <div class="english">Forgive me / Sorry (informal)</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="devanagari">मलाई माफ गर</div>
+                <div class="pronunciation">mah-LIE MAHF gar</div>
+                <div class="english">Please forgive me</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="devanagari">मलाई धेरै माफ गर</div>
+                <div class="pronunciation">mah-LIE DHEH-rye MAHF gar</div>
+                <div class="english">Please forgive me very much</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="devanagari">म साँच्चै माफी चाहन्छु</div>
+                <div class="pronunciation">ma SAHN-chai MAH-fee CHAH-han-chu</div>
+                <div class="english">I truly want forgiveness / I'm truly sorry</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="devanagari">यो मेरो गल्ती हो</div>
+                <div class="pronunciation">yoh MEH-roh gahl-TEE hoh</div>
+                <div class="english">This is my mistake</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="devanagari">म पश्चाताप गर्छु</div>
+                <div class="pronunciation">ma pash-CHAH-tahp GAR-chu</div>
+                <div class="english">I regret it / I repent</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="devanagari">मैले तिमीलाई दुःख दिएँ</div>
+                <div class="pronunciation">MAI-leh tee-MEE-lie DOOKH dee-YEH</div>
+                <div class="english">I hurt you / I gave you pain</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="devanagari">म फेरि यस्तो गर्दिनँ</div>
+                <div class="pronunciation">ma FEH-ree YAHS-toh gar-DEE-nah</div>
+                <div class="english">I won't do this again</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="devanagari">मलाई एक मौका दे</div>
+                <div class="pronunciation">mah-LIE ek MOW-kah deh</div>
+                <div class="english">Give me one chance</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="devanagari">कृपया मलाई माफ गर</div>
+                <div class="pronunciation">KREE-pah-yah mah-LIE MAHF gar</div>
+                <div class="english">Please forgive me</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="devanagari">म तिमीलाई चोट पुर्याउन चाहन्नथेँ</div>
+                <div class="pronunciation">ma tee-MEE-lie CHOHT poor-YOW-noo chah-HAN-nah-theh</div>
+                <div class="english">I didn't mean to hurt you</div>
+            </div>
+        </div>
+
+        <div class="category" data-category="daily">
+            <h2 class="category-title">💬 Daily Conversation</h2>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="devanagari">हो</div>
+                <div class="pronunciation">hoh</div>
+                <div class="english">Yes</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="devanagari">होइन</div>
+                <div class="pronunciation">HOI-nah</div>
+                <div class="english">No</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="devanagari">ठिक छ</div>
+                <div class="pronunciation">TEEK CHA</div>
+                <div class="english">Okay / It's fine</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="devanagari">मलाई थाहा छैन</div>
+                <div class="pronunciation">mah-LIE TAH-hah CHAI-nah</div>
+                <div class="english">I don't know</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="devanagari">म बुझ्छु</div>
+                <div class="pronunciation">ma BOOZH-chu</div>
+                <div class="english">I understand</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="devanagari">म बुझिनँ</div>
+                <div class="pronunciation">ma boo-ZHEE-nah</div>
+                <div class="english">I don't understand</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="devanagari">मलाई मद्दत चाहिन्छ</div>
+                <div class="pronunciation">mah-LIE mahd-DAHT chah-HEEN-cha</div>
+                <div class="english">I need help</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="devanagari">पर्ख</div>
+                <div class="pronunciation">PARKH</div>
+                <div class="english">Wait</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="devanagari">म घर जाँदैछु</div>
+                <div class="pronunciation">ma GHAR jahn-DAI-chu</div>
+                <div class="english">I'm going home</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="devanagari">तिमी कहाँ छौ?</div>
+                <div class="pronunciation">tee-MEE kah-HAH CHOW</div>
+                <div class="english">Where are you?</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="devanagari">म आउँदैछु</div>
+                <div class="pronunciation">ma ow-DAI-chu</div>
+                <div class="english">I'm coming</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="devanagari">यो इमेल बोनस प्रभावित गरिरहेको छ</div>
+                <div class="pronunciation">yoh ee-MAIL BOH-nas prah-bhah-VEET gah-ree-rah-HEH-koh CHA</div>
+                <div class="english">This email is bonus affecting</div>
+                <div class="context">Direct translation of requested phrase</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="devanagari">तिमीलाई म मिस गर्छु</div>
+                <div class="pronunciation">tee-MEE-lie ma MISS GAR-chu</div>
+                <div class="english">I miss you</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="devanagari">तिमी राम्रो छौ?</div>
+                <div class="pronunciation">tee-MEE RAHM-roh CHOW</div>
+                <div class="english">Are you okay?</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="devanagari">म तिमीलाई सँधै सम्झन्छु</div>
+                <div class="pronunciation">ma tee-MEE-lie SAHN-dai sahm-ZHAHN-chu</div>
+                <div class="english">I always remember you</div>
+            </div>
+        </div>
+
+        <div class="love-box">
+            <h3>💝 Terms of Endearment</h3>
+            <p><strong>प्रिय (pree-YAH):</strong> Dear/beloved<br>
+            <strong>मेरी प्यारी (MEH-ree pyah-REE):</strong> My dear (to wife)<br>
+            <strong>मेरो माया (MEH-roh MAH-yah):</strong> My love<br>
+            <strong>सानी (SAH-nee):</strong> Little one (affectionate)</p>
+        </div>
+
+        <div class="info-box">
+            <h3>🎯 Pronunciation & Grammar Tips</h3>
+            <p><strong>Aspirated sounds:</strong> "kh", "th", "ph", "ch" - pronounce with a puff of air<br>
+            <strong>Retroflexed sounds:</strong> Curl tongue back slightly<br>
+            <strong>Informal vs Formal:</strong> Use तिमी (timi) for wife/close people; तपाईं (tapai) for formal/respect<br>
+            <strong>Male forms:</strong> These phrases use masculine verb endings (-chu, -chhu)<br>
+            <strong>Vowels:</strong> Similar to Spanish - clear and distinct</p>
+        </div>
+
+        <div class="footer">
+            <p>🌟 <strong>Page Created by Jay C. Straley</strong> 🌟</p>
+            <p>Made with love for expressing love in Nepali • नमस्ते</p>
+        </div>
+    </div>
+
+    <script>
+        function toggleActive(element) {
+            element.classList.toggle('active');
+        }
+
+        function filterCategory(category) {
+            const categories = document.querySelectorAll('.category');
+            const buttons = document.querySelectorAll('.filter-btn');
+
+            // Update button states
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            // Filter categories
+            if (category === 'all') {
+                categories.forEach(cat => cat.style.display = 'block');
+            } else {
+                categories.forEach(cat => {
+                    if (cat.dataset.category === category) {
+                        cat.style.display = 'block';
+                    } else {
+                        cat.style.display = 'none';
+                    }
+                });
+            }
+        }
+    </script>
+</body>
+</html>
