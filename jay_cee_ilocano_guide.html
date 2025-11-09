@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jay Cee's Ilocano Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f97316 0%, #dc2626 50%, #eab308 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        h1 {
+            text-align: center;
+            color: #dc2626;
+            margin-bottom: 5px;
+            font-size: 2.8em;
+        }
+
+        .tagline {
+            text-align: center;
+            color: #ea580c;
+            margin-bottom: 10px;
+            font-size: 1.3em;
+            font-weight: 600;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+
+        .category {
+            margin-bottom: 35px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 25px;
+            transition: transform 0.3s ease;
+        }
+
+        .category:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .category-title {
+            color: #dc2626;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #f97316;
+            padding-bottom: 10px;
+        }
+
+        .phrase-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-left: 5px solid #f97316;
+        }
+
+        .phrase-card:hover {
+            background: #fef3c7;
+            transform: translateX(10px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .phrase-card.active {
+            background: #fee2e2;
+            border-left-color: #dc2626;
+        }
+
+        .ilocano {
+            font-size: 1.8em;
+            color: #dc2626;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .pronunciation {
+            font-size: 1.3em;
+            color: #ea580c;
+            background: #fff7ed;
+            padding: 5px 10px;
+            border-radius: 5px;
+            display: inline-block;
+            margin-bottom: 8px;
+            font-style: italic;
+        }
+
+        .english {
+            font-size: 1.2em;
+            color: #555;
+        }
+
+        .context {
+            font-size: 0.95em;
+            color: #999;
+            font-style: italic;
+            margin-top: 5px;
+        }
+
+        .info-box {
+            background: #fef3c7;
+            border-left: 5px solid #eab308;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+
+        .info-box h3 {
+            color: #a16207;
+            margin-bottom: 10px;
+        }
+
+        .info-box p {
+            color: #a16207;
+            line-height: 1.6;
+        }
+
+        .filter-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: #f97316;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover {
+            background: #dc2626;
+            transform: scale(1.05);
+        }
+
+        .filter-btn.active {
+            background: #dc2626;
+            box-shadow: 0 5px 15px rgba(220, 38, 38, 0.4);
+        }
+
+        .search-box {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .search-input {
+            width: 100%;
+            max-width: 500px;
+            padding: 12px 20px;
+            font-size: 1.1em;
+            border: 2px solid #f97316;
+            border-radius: 25px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            border-color: #dc2626;
+            box-shadow: 0 0 10px rgba(220, 38, 38, 0.3);
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #e5e7eb;
+            color: #6b7280;
+            font-size: 0.95em;
+        }
+
+        .footer strong {
+            color: #dc2626;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            .ilocano {
+                font-size: 1.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🇵🇭 Jay Cee's Ilocano Guide 🇵🇭</h1>
+        <p class="tagline">Comprehensive Ilocano Language Resource</p>
+        <p class="subtitle">Agyamanak! • Click any phrase to highlight • Extensive phrases for daily life</p>
+
+        <div class="info-box">
+            <h3>📖 About Ilocano Language</h3>
+            <p><strong>Ilocano (Ilokano)</strong> is the third most-spoken native language in the Philippines, primarily in the Ilocos Region and northern Luzon. Pronunciation is generally phonetic with vowels similar to Spanish: A (ah), E (eh), I (ee), O (oh), U (oo). The language uses some Spanish loanwords from colonial history.</p>
+        </div>
+
+        <div class="search-box">
+            <input type="text" class="search-input" id="searchInput" placeholder="🔍 Search phrases..." onkeyup="searchPhrases()">
+        </div>
+
+        <div class="filter-buttons">
+            <button class="filter-btn active" onclick="filterCategory('all')">All Phrases</button>
+            <button class="filter-btn" onclick="filterCategory('greetings')">Greetings</button>
+            <button class="filter-btn" onclick="filterCategory('family')">Family</button>
+            <button class="filter-btn" onclick="filterCategory('healthcare')">Healthcare</button>
+            <button class="filter-btn" onclick="filterCategory('food')">Food & Meals</button>
+            <button class="filter-btn" onclick="filterCategory('daily')">Daily Life</button>
+        </div>
+
+        <div class="category" data-category="greetings">
+            <h2 class="category-title">👋 Greetings & Politeness</h2>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="ilocano">Naimbag a bigat</div>
+                <div class="pronunciation">nah-eem-BAHG ah bee-GAHT</div>
+                <div class="english">Good morning</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="ilocano">Naimbag a malem</div>
+                <div class="pronunciation">nah-eem-BAHG ah mah-LEM</div>
+                <div class="english">Good afternoon</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="ilocano">Naimbag a rabii</div>
+                <div class="pronunciation">nah-eem-BAHG ah rah-BEE</div>
+                <div class="english">Good evening</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="ilocano">Kumusta ka?</div>
+                <div class="pronunciation">koo-MOOS-tah kah</div>
+                <div class="english">How are you?</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="ilocano">Naimbag</div>
+                <div class="pronunciation">nah-eem-BAHG</div>
+                <div class="english">I'm fine / Good</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="ilocano">Naimbag a kasasaadko</div>
+                <div class="pronunciation">nah-eem-BAHG ah kah-sah-sah-AHD-koh</div>
+                <div class="english">I'm doing well</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="ilocano">Agyamanak</div>
+                <div class="pronunciation">ahg-yah-MAH-nahk</div>
+                <div class="english">Thank you</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="ilocano">Agyamanak unay</div>
+                <div class="pronunciation">ahg-yah-MAH-nahk oo-NEYE</div>
+                <div class="english">Thank you very much</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="ilocano">Awan ti ania man</div>
+                <div class="pronunciation">ah-WAHN tee ah-NEE-ah mahn</div>
+                <div class="english">You're welcome</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="ilocano">Pakawanennak</div>
+                <div class="pronunciation">pah-kah-wah-NEN-nahk</div>
+                <div class="english">Excuse me / Forgive me</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="ilocano">Agpakawanak</div>
+                <div class="pronunciation">ahg-pah-kah-WAH-nahk</div>
+                <div class="english">I'm sorry</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="ilocano">Adios / Agpakadaak</div>
+                <div class="pronunciation">ah-DYOHS / ahg-pah-kah-DAH-ahk</div>
+                <div class="english">Goodbye</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="ilocano">Agawidakon</div>
+                <div class="pronunciation">ahg-ah-wee-DAH-kohn</div>
+                <div class="english">I'm going home</div>
+            </div>
+        </div>
+
+        <div class="category" data-category="family">
+            <h2 class="category-title">👨‍👩‍👧‍👦 Family & Relationships</h2>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="ilocano">Ay-ayatenka</div>
+                <div class="pronunciation">eye-eye-AH-ten-kah</div>
+                <div class="english">I love you</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="ilocano">Ay-ayatenka unay</div>
+                <div class="pronunciation">eye-eye-AH-ten-kah oo-NEYE</div>
+                <div class="english">I love you very much</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="ilocano">Pamilya</div>
+                <div class="pronunciation">pah-MEEL-yah</div>
+                <div class="english">Family</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="ilocano">Ama</div>
+                <div class="pronunciation">AH-mah</div>
+                <div class="english">Father</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="ilocano">Ina</div>
+                <div class="pronunciation">ee-NAH</div>
+                <div class="english">Mother</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="ilocano">Kabsat</div>
+                <div class="pronunciation">kahb-SAHT</div>
+                <div class="english">Sibling / Brother or sister</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="ilocano">Anak</div>
+                <div class="pronunciation">AH-nahk</div>
+                <div class="english">Child</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="ilocano">Asawa</div>
+                <div class="pronunciation">ah-SAH-wah</div>
+                <div class="english">Spouse / Husband / Wife</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="ilocano">Lolo</div>
+                <div class="pronunciation">LOH-loh</div>
+                <div class="english">Grandfather</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="ilocano">Lola</div>
+                <div class="pronunciation">LOH-lah</div>
+                <div class="english">Grandmother</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="ilocano">Apoko</div>
+                <div class="pronunciation">ah-POH-koh</div>
+                <div class="english">Grandchild</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="ilocano">Ay-ayatenka ti pamilya</div>
+                <div class="pronunciation">eye-eye-AH-ten-kah tee pah-MEEL-yah</div>
+                <div class="english">The family loves you</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="ilocano">Makaay-ayoak kenka</div>
+                <div class="pronunciation">mah-kah-eye-AYO-ahk ken-KAH</div>
+                <div class="english">I care about you</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="ilocano">Naaragsak nga agkita</div>
+                <div class="pronunciation">nah-ah-rahg-SAHK ngah ahg-kee-TAH</div>
+                <div class="english">Nice to see you / Happy to meet</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="ilocano">Kayatka</div>
+                <div class="pronunciation">kah-YAHT-kah</div>
+                <div class="english">I like you / I want you</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="ilocano">Marigatak</div>
+                <div class="pronunciation">mah-ree-GAH-tahk</div>
+                <div class="english">I miss you</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="ilocano">Agtalinaedka a nasalun-at</div>
+                <div class="pronunciation">ahg-tah-lee-NAH-ed-kah ah nah-sah-loon-AHT</div>
+                <div class="english">Stay healthy / Take care</div>
+            </div>
+        </div>
+
+        <div class="category" data-category="healthcare">
+            <h2 class="category-title">🏥 Healthcare & Medical</h2>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="ilocano">Masakit</div>
+                <div class="pronunciation">mah-sah-KEET</div>
+                <div class="english">It hurts / Painful</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="ilocano">Masaksakitak</div>
+                <div class="pronunciation">mah-sahk-sah-KEE-tahk</div>
+                <div class="english">I am in pain / I'm hurting</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="ilocano">Masakit ti ulok</div>
+                <div class="pronunciation">mah-sah-KEET tee oo-LOHK</div>
+                <div class="english">My head hurts / I have a headache</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="ilocano">Masakit ti tian</div>
+                <div class="pronunciation">mah-sah-KEET tee TEE-ahn</div>
+                <div class="english">My stomach hurts</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="ilocano">Sasakitak</div>
+                <div class="pronunciation">sah-sah-KEE-tahk</div>
+                <div class="english">I am sick</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="ilocano">Adda guruatko</div>
+                <div class="pronunciation">ahd-DAH goo-roo-AHT-koh</div>
+                <div class="english">I have a fever</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="ilocano">Agbagtitko</div>
+                <div class="pronunciation">ahg-bahg-TEET-koh</div>
+                <div class="english">I'm coughing</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="ilocano">Agangodak</div>
+                <div class="pronunciation">ahg-ah-NGOH-dahk</div>
+                <div class="english">I have a cold / runny nose</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="ilocano">Kasapulan ko ti doktor</div>
+                <div class="pronunciation">kah-sah-poo-LAHN koh tee dohk-TOHR</div>
+                <div class="english">I need a doctor</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="ilocano">Kasapulan ko ti ospital</div>
+                <div class="pronunciation">kah-sah-poo-LAHN koh tee ohs-pee-TAHL</div>
+                <div class="english">I need the hospital</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="ilocano">Kasapulan ko ti agas</div>
+                <div class="pronunciation">kah-sah-poo-LAHN koh tee AH-gahs</div>
+                <div class="english">I need medicine</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="ilocano">Sadino ti ospital?</div>
+                <div class="pronunciation">sah-DEE-noh tee ohs-pee-TAHL</div>
+                <div class="english">Where is the hospital?</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="ilocano">Tulongandak</div>
+                <div class="pronunciation">too-loh-NGAHN-dahk</div>
+                <div class="english">Help me</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="ilocano">Kasapulan ko ti tulong</div>
+                <div class="pronunciation">kah-sah-poo-LAHN koh tee too-LOHNG</div>
+                <div class="english">I need help</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="ilocano">Nasalun-atnak</div>
+                <div class="pronunciation">nah-sah-loon-AHT-nahk</div>
+                <div class="english">I am well / healthy</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="ilocano">Mapanka ti doktor</div>
+                <div class="pronunciation">mah-PAHN-kah tee dohk-TOHR</div>
+                <div class="english">Go to the doctor</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="ilocano">Agpatinggaka</div>
+                <div class="pronunciation">ahg-pah-teeng-GAH-kah</div>
+                <div class="english">You should rest</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="ilocano">Inumemon ti agasmo</div>
+                <div class="pronunciation">ee-noo-MEH-mohn tee ah-GAHS-moh</div>
+                <div class="english">Take your medicine</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="ilocano">Maadu unayen?</div>
+                <div class="pronunciation">mah-AH-doo oo-NAH-yen</div>
+                <div class="english">Are you feeling better?</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="ilocano">Umay-ayoken</div>
+                <div class="pronunciation">oo-my-eye-OH-ken</div>
+                <div class="english">I'm getting better</div>
+            </div>
+        </div>
+
+        <div class="category" data-category="food">
+            <h2 class="category-title">🍲 Food & Meals</h2>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="ilocano">Mangantayon</div>
+                <div class="pronunciation">mah-NGAHN-tah-yohn</div>
+                <div class="english">Let's eat</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="ilocano">Makan</div>
+                <div class="pronunciation">mah-KAHN</div>
+                <div class="english">Eat</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="ilocano">Naimas</div>
+                <div class="pronunciation">nah-ee-MAHS</div>
+                <div class="english">Delicious / Tasty</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="ilocano">Naimas unay!</div>
+                <div class="pronunciation">nah-ee-MAHS oo-NEYE</div>
+                <div class="english">Very delicious!</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="ilocano">Mabisinanak</div>
+                <div class="pronunciation">mah-bee-see-NAH-nahk</div>
+                <div class="english">I'm hungry</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="ilocano">Nabusuogakon</div>
+                <div class="pronunciation">nah-boo-soo-OH-gah-kohn</div>
+                <div class="english">I'm full</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="ilocano">Maawawak</div>
+                <div class="pronunciation">mah-ah-WAH-wahk</div>
+                <div class="english">I'm thirsty</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="ilocano">Danum</div>
+                <div class="pronunciation">DAH-noom</div>
+                <div class="english">Water</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="ilocano">Ikkam ti danum</div>
+                <div class="pronunciation">EEK-kahm tee DAH-noom</div>
+                <div class="english">Give me water</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="ilocano">Taraon</div>
+                <div class="pronunciation">tah-RAH-ohn</div>
+                <div class="english">Food</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="ilocano">Panangsangar</div>
+                <div class="pronunciation">pah-nahng-sah-NGAHR</div>
+                <div class="english">Breakfast</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="ilocano">Pangrabii</div>
+                <div class="pronunciation">pahng-rah-BEE</div>
+                <div class="english">Dinner</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="ilocano">Tinapay</div>
+                <div class="pronunciation">tee-NAH-pye</div>
+                <div class="english">Bread</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="ilocano">Bagas</div>
+                <div class="pronunciation">BAH-gahs</div>
+                <div class="english">Rice (uncooked)</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="ilocano">Inapoy</div>
+                <div class="pronunciation">ee-NAH-poy</div>
+                <div class="english">Cooked rice</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="ilocano">Karne</div>
+                <div class="pronunciation">KAHR-neh</div>
+                <div class="english">Meat</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="ilocano">Nateng</div>
+                <div class="pronunciation">nah-TENG</div>
+                <div class="english">Vegetables</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="ilocano">Lames</div>
+                <div class="pronunciation">LAH-mes</div>
+                <div class="english">Fish</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="ilocano">Prutas</div>
+                <div class="pronunciation">PROO-tahs</div>
+                <div class="english">Fruit</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="ilocano">Kape</div>
+                <div class="pronunciation">KAH-peh</div>
+                <div class="english">Coffee</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="ilocano">Kayatko ti kape</div>
+                <div class="pronunciation">kah-YAHT-koh tee KAH-peh</div>
+                <div class="english">I want coffee</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="ilocano">Ania ti nagan daytoy?</div>
+                <div class="pronunciation">ah-NEE-ah tee NAH-gahn DEYE-toy</div>
+                <div class="english">What is the name of this? / What is this called?</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="ilocano">Napudot</div>
+                <div class="pronunciation">nah-poo-DOHT</div>
+                <div class="english">Spicy / Hot</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="ilocano">Nasam-it</div>
+                <div class="pronunciation">nah-SAHM-eet</div>
+                <div class="english">Sweet</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="ilocano">Napait</div>
+                <div class="pronunciation">nah-PAH-eet</div>
+                <div class="english">Bitter</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="ilocano">Naalsem</div>
+                <div class="pronunciation">nah-ahl-SEM</div>
+                <div class="english">Sour</div>
+            </div>
+        </div>
+
+        <div class="category" data-category="daily">
+            <h2 class="category-title">💬 Daily Life & Conversation</h2>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="ilocano">Wen</div>
+                <div class="pronunciation">WEHN</div>
+                <div class="english">Yes</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="ilocano">Saan</div>
+                <div class="pronunciation">sah-AHN</div>
+                <div class="english">No</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="ilocano">Ammokon</div>
+                <div class="pronunciation">ahm-moh-KOHN</div>
+                <div class="english">I know</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="ilocano">Diak ammo</div>
+                <div class="pronunciation">DEE-ahk AHM-moh</div>
+                <div class="english">I don't know</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="ilocano">Maawatanak</div>
+                <div class="pronunciation">mah-ah-wah-TAH-nahk</div>
+                <div class="english">I understand</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="ilocano">Diak maawatan</div>
+                <div class="pronunciation">DEE-ahk mah-ah-wah-TAHN</div>
+                <div class="english">I don't understand</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="ilocano">Makasaritaka ti Ingles?</div>
+                <div class="pronunciation">mah-kah-sah-ree-TAH-kah tee eeng-GLEHS</div>
+                <div class="english">Can you speak English?</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="ilocano">Sadino ti?</div>
+                <div class="pronunciation">sah-DEE-noh tee</div>
+                <div class="english">Where is?</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="ilocano">Sadino ti balay?</div>
+                <div class="pronunciation">sah-DEE-noh tee bah-LEYE</div>
+                <div class="english">Where is the house?</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="ilocano">Sadino ti kasilyas?</div>
+                <div class="pronunciation">sah-DEE-noh tee kah-seel-YAHS</div>
+                <div class="english">Where is the bathroom?</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="ilocano">Mano?</div>
+                <div class="pronunciation">MAH-noh</div>
+                <div class="english">How much?</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="ilocano">Mano ti gatadna?</div>
+                <div class="pronunciation">MAH-noh tee gah-TAHD-nah</div>
+                <div class="english">How much is the price?</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="ilocano">Kayatko</div>
+                <div class="pronunciation">kah-YAHT-koh</div>
+                <div class="english">I want / I like</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="ilocano">Diak kayat</div>
+                <div class="pronunciation">DEE-ahk kah-YAHT</div>
+                <div class="english">I don't want</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="ilocano">Mapanak</div>
+                <div class="pronunciation">mah-PAH-nahk</div>
+                <div class="english">I'm going / I will go</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="ilocano">Umayen</div>
+                <div class="pronunciation">oo-MAH-yen</div>
+                <div class="english">I'm coming / I will come</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="ilocano">Urayem</div>
+                <div class="pronunciation">oo-RAH-yem</div>
+                <div class="english">Wait</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="ilocano">Dagus</div>
+                <div class="pronunciation">DAH-goos</div>
+                <div class="english">Quickly / Fast / Now</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="ilocano">In-inut</div>
+                <div class="pronunciation">een-ee-NOOT</div>
+                <div class="english">Slowly</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="ilocano">Ania ti nagan mo?</div>
+                <div class="pronunciation">ah-NEE-ah tee NAH-gahn moh</div>
+                <div class="english">What is your name?</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="ilocano">Ti naganko ket...</div>
+                <div class="pronunciation">tee nah-GAHN-koh ket</div>
+                <div class="english">My name is...</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="ilocano">Adino ka aggapo?</div>
+                <div class="pronunciation">ah-DEE-noh kah ahg-gah-POH</div>
+                <div class="english">Where are you from?</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="ilocano">Mabalin</div>
+                <div class="pronunciation">mah-BAH-leen</div>
+                <div class="english">It's possible / Can / May</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="ilocano">Saan a mabalin</div>
+                <div class="pronunciation">sah-AHN ah mah-BAH-leen</div>
+                <div class="english">Not possible / Cannot</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="ilocano">Nasayaat dayta!</div>
+                <div class="pronunciation">nah-sah-yah-AHT DEYE-tah</div>
+                <div class="english">That's good!</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="ilocano">Dakes dayta</div>
+                <div class="pronunciation">DAH-kes DEYE-tah</div>
+                <div class="english">That's bad</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="ilocano">Ania ti aramiden mo?</div>
+                <div class="pronunciation">ah-NEE-ah tee ah-rah-mee-DEN moh</div>
+                <div class="english">What are you doing?</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="ilocano">Awan</div>
+                <div class="pronunciation">ah-WAHN</div>
+                <div class="english">Nothing / None / There isn't</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="ilocano">Adda</div>
+                <div class="pronunciation">ahd-DAH</div>
+                <div class="english">There is / There are</div>
+            </div>
+
+            <div class="phrase-card" onclick="toggleActive(this)">
+                <div class="ilocano">Agturturogan</div>
+                <div class="pronunciation">ahg-toor-too-roh-GAHN</div>
+                <div class="english">I'm going to sleep / Let's sleep</div>
+            </div>
+        </div>
+
+        <div class="info-box">
+            <h3>🎯 Pronunciation Tips for Americans</h3>
+            <p><strong>Vowels:</strong> A (ah), E (eh), I (ee), O (oh), U (oo) - pronounced clearly like Spanish<br>
+            <strong>"ng" sound:</strong> Very common in Ilocano, like "ng" in "sing"<br>
+            <strong>Double vowels:</strong> Hold the sound longer (e.g., "aa" = longer "ah")<br>
+            <strong>Stress:</strong> Usually on the second-to-last syllable<br>
+            <strong>R:</strong> Lightly rolled or tapped, not as strong as Spanish R<br>
+            <strong>Spanish influence:</strong> Many Spanish loanwords from colonial period</p>
+        </div>
+
+        <div class="info-box">
+            <h3>🗣️ Common Expressions</h3>
+            <p><strong>Ay-ayaten ka Dios:</strong> God loves you<br>
+            <strong>Naimbag nga aldaw:</strong> Have a nice day<br>
+            <strong>Aginus-inuska:</strong> Take it easy / Go slowly<br>
+            <strong>Narigat:</strong> Difficult / Hard<br>
+            <strong>Nalaka:</strong> Easy</p>
+        </div>
+
+        <div class="footer">
+            <p>📚 <strong>Jay Cee's Ilocano Guide</strong> 📚</p>
+            <p>Comprehensive resource for learning Ilocano • Agyamanak! (Thank you!)</p>
+            <p style="margin-top: 10px; color: #999;">Over 130 essential phrases for daily life, family, healthcare, and food</p>
+        </div>
+    </div>
+
+    <script>
+        let currentFilter = 'all';
+
+        function toggleActive(element) {
+            element.classList.toggle('active');
+        }
+
+        function filterCategory(category) {
+            currentFilter = category;
+            const categories = document.querySelectorAll('.category');
+            const buttons = document.querySelectorAll('.filter-btn');
+
+            // Update button states
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            // Clear search
+            document.getElementById('searchInput').value = '';
+
+            // Filter categories
+            if (category === 'all') {
+                categories.forEach(cat => cat.style.display = 'block');
+            } else {
+                categories.forEach(cat => {
+                    if (cat.dataset.category === category) {
+                        cat.style.display = 'block';
+                    } else {
+                        cat.style.display = 'none';
+                    }
+                });
+            }
+        }
+
+        function searchPhrases() {
+            const input = document.getElementById('searchInput');
+            const filter = input.value.toLowerCase();
+            const cards = document.querySelectorAll('.phrase-card');
+            const categories = document.querySelectorAll('.category');
+
+            if (filter === '') {
+                // If search is empty, show based on current filter
+                filterCategory(currentFilter);
+                return;
+            }
+
+            // Show all categories during search
+            categories.forEach(cat => cat.style.display = 'block');
+
+            cards.forEach(card => {
+                const ilocano = card.querySelector('.ilocano').textContent.toLowerCase();
+                const english = card.querySelector('.english').textContent.toLowerCase();
+
+                if (ilocano.includes(filter) || english.includes(filter)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            // Hide empty categories
+            categories.forEach(cat => {
+                const visibleCards = cat.querySelectorAll('.phrase-card[style*="display: block"]');
+                if (visibleCards.length === 0) {
+                    cat.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>
