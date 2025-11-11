@@ -1,0 +1,1434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schneider Innovation Summit 2025 – Session Strategy</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #3CAA46 0%, #2D7A35 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        header h1 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+        
+        header .subtitle {
+            font-size: 1.1em;
+            opacity: 0.95;
+        }
+        
+        .overview {
+            background: #f8f9fa;
+            padding: 25px;
+            border-left: 5px solid #3CAA46;
+            margin: 25px;
+            border-radius: 8px;
+        }
+        
+        .overview h2 {
+            color: #2D7A35;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+        
+        .tabs {
+            display: flex;
+            background: #e9ecef;
+            padding: 0;
+            margin: 0 25px;
+            border-radius: 8px;
+            overflow-x: auto;
+        }
+        
+        .tab-btn {
+            flex: 1;
+            padding: 15px 20px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+            color: #495057;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+        
+        .tab-btn.active {
+            background: white;
+            color: #3CAA46;
+            border-bottom: 3px solid #3CAA46;
+        }
+        
+        .tab-btn:hover {
+            background: rgba(255,255,255,0.5);
+        }
+        
+        .tab-content {
+            display: none;
+            padding: 25px;
+        }
+        
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.4s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .session-card {
+            background: white;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            transition: all 0.3s;
+            position: relative;
+        }
+        
+        .session-card:hover {
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
+        }
+        
+        .session-card.must-attend {
+            border-left: 6px solid #28a745;
+            background: linear-gradient(to right, #e8f5e9 0%, white 100%);
+        }
+        
+        .session-card.maybe {
+            border-left: 6px solid #ffc107;
+            background: linear-gradient(to right, #fff8e1 0%, white 100%);
+        }
+        
+        .session-card.skip {
+            border-left: 6px solid #dc3545;
+            background: linear-gradient(to right, #ffebee 0%, white 100%);
+            opacity: 0.7;
+        }
+        
+        .session-time {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .session-title {
+            font-size: 1.3em;
+            color: #212529;
+            margin: 10px 0;
+            font-weight: 700;
+        }
+        
+        .session-speakers {
+            color: #6c757d;
+            font-style: italic;
+            margin-bottom: 15px;
+        }
+        
+        .session-why {
+            color: #495057;
+            line-height: 1.7;
+        }
+        
+        .priority-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.85em;
+            text-transform: uppercase;
+        }
+        
+        .badge-must {
+            background: #28a745;
+            color: white;
+        }
+        
+        .badge-maybe {
+            background: #ffc107;
+            color: #000;
+        }
+        
+        .badge-skip {
+            background: #dc3545;
+            color: white;
+        }
+        
+        .coordination {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        
+        .coordination h3 {
+            font-size: 1.4em;
+            margin-bottom: 15px;
+        }
+        
+        .coordination ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .coordination li {
+            padding: 10px 0;
+            padding-left: 30px;
+            position: relative;
+        }
+        
+        .coordination li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+            font-size: 1.3em;
+        }
+        
+        .end-state {
+            background: #3CAA46;
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+        }
+        
+        .end-state h3 {
+            font-size: 1.4em;
+            margin-bottom: 15px;
+        }
+        
+        .end-state ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .end-state li {
+            padding: 10px 0;
+            padding-left: 30px;
+            position: relative;
+            font-size: 1.05em;
+        }
+        
+        .end-state li:before {
+            content: "🎯";
+            position: absolute;
+            left: 0;
+        }
+        
+        .legend {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .legend-color {
+            width: 30px;
+            height: 30px;
+            border-radius: 5px;
+        }
+        
+        .day-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin: 30px 0 20px 0;
+            font-size: 1.3em;
+            font-weight: 700;
+        }
+        
+        .glossary {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        
+        .glossary h4 {
+            color: #3CAA46;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+        
+        .glossary-item {
+            margin-bottom: 10px;
+        }
+        
+        .glossary-term {
+            font-weight: 700;
+            color: #495057;
+        }
+        
+        /* Contact Fields Styles */
+        .contact-fields {
+            background: #f8f9fa;
+            border: 2px solid #3CAA46;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+        }
+        
+        .contact-fields h5 {
+            color: #3CAA46;
+            margin-bottom: 10px;
+            font-size: 1em;
+        }
+        
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+        }
+        
+        .contact-field {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .contact-field label {
+            font-size: 0.85em;
+            color: #6c757d;
+            margin-bottom: 3px;
+            font-weight: 600;
+        }
+        
+        .contact-field input,
+        .contact-field select {
+            padding: 8px;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            font-size: 0.9em;
+        }
+        
+        .contact-field input:focus,
+        .contact-field select:focus {
+            outline: none;
+            border-color: #3CAA46;
+        }
+        
+        /* Follow-up Tracking Table */
+        .tracking-section {
+            margin-top: 30px;
+        }
+        
+        .tracking-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .tracking-header h3 {
+            color: #2D7A35;
+            font-size: 1.5em;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            font-size: 0.9em;
+        }
+        
+        .btn-primary {
+            background: #3CAA46;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #2D7A35;
+        }
+        
+        .btn-secondary {
+            background: #667eea;
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background: #5568d3;
+        }
+        
+        .tracking-table-wrapper {
+            overflow-x: auto;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .tracking-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+        
+        .tracking-table thead {
+            background: linear-gradient(135deg, #3CAA46 0%, #2D7A35 100%);
+            color: white;
+        }
+        
+        .tracking-table th {
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.9em;
+        }
+        
+        .tracking-table td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .tracking-table tbody tr:hover {
+            background: #f8f9fa;
+        }
+        
+        .tracking-table input,
+        .tracking-table select,
+        .tracking-table textarea {
+            width: 100%;
+            padding: 6px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            font-size: 0.85em;
+        }
+        
+        .tracking-table textarea {
+            min-height: 60px;
+            resize: vertical;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            font-weight: 600;
+        }
+        
+        .status-hot {
+            background: #dc3545;
+            color: white;
+        }
+        
+        .status-warm {
+            background: #ffc107;
+            color: #000;
+        }
+        
+        .status-cold {
+            background: #6c757d;
+            color: white;
+        }
+        
+        .delete-btn {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.85em;
+        }
+        
+        .delete-btn:hover {
+            background: #c82333;
+        }
+        
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.5em;
+            }
+            
+            .priority-badge {
+                position: static;
+                display: inline-block;
+                margin-bottom: 10px;
+            }
+            
+            .tabs {
+                flex-direction: column;
+            }
+            
+            .tab-btn {
+                border-left: 3px solid transparent;
+            }
+            
+            .tab-btn.active {
+                border-left: 3px solid #3CAA46;
+                border-bottom: none;
+            }
+            
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .tracking-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+            
+            .action-buttons {
+                width: 100%;
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎯 Schneider Innovation Summit 2025</h1>
+            <div class="subtitle">Session Strategy & Attendance Plan • November 18-19, 2025</div>
+        </header>
+        
+        <div class="overview">
+            <h2>Overview</h2>
+            <p>Schneider Electric's 2025 Summit gathers top leaders shaping industrial automation, digital grid, and secure power. <strong>We need to get meetings with them to show them where SyncMetra fits.</strong></p>
+            <p style="margin-top: 10px;">Let's focus on rooms where Schneider executives own architecture or budget, and where our SyncMetra platform can directly enable deterministic, synchronized edge operations. Everything else supports visibility or relationship-building.</p>
+        </div>
+        
+        <div class="tabs">
+            <button class="tab-btn active" onclick="switchTab('all')">All Sessions</button>
+            <button class="tab-btn" onclick="switchTab('must')">✅ Must Attend</button>
+            <button class="tab-btn" onclick="switchTab('maybe')">⚡ Maybe</button>
+            <button class="tab-btn" onclick="switchTab('skip')">🚫 Skip</button>
+            <button class="tab-btn" onclick="switchTab('tracking')">📊 Follow-Up Tracker</button>
+            <button class="tab-btn" onclick="switchTab('plan')">🤝 Coordination</button>
+        </div>
+        
+        <div id="all" class="tab-content active">
+            <div class="legend">
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #28a745;"></div>
+                    <span><strong>Must Attend</strong></span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #ffc107;"></div>
+                    <span><strong>Maybe</strong></span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #dc3545;"></div>
+                    <span><strong>Skip / Hallway Work</strong></span>
+                </div>
+            </div>
+            
+            <div class="day-header">📅 Day 1 — November 18, 2025</div>
+            
+            <!-- 11:00 AM Sessions -->
+            <div class="session-card must-attend">
+                <span class="priority-badge badge-must">Must Attend</span>
+                <div class="session-time">Nov 18 • 11:00–11:45 AM</div>
+                <div class="session-title">How AI Workloads are Redefining Power Dynamics</div>
+                <div class="session-speakers">Jim Simonelli (Schneider CTO Secure Power), Chris Crosby (Compass Datacenters)</div>
+                <div class="session-why">
+                    <strong>Why It Matters:</strong> Data-center + power convergence. Position SyncMetra as the orchestration layer between Schneider's power systems and Compass's edge modules.<br>
+                    <strong>Action:</strong> Catch Simonelli/Crosby at stage exit; propose a compact demo concept.
+                </div>
+                
+                <div class="contact-fields">
+                    <h5>📇 Speaker Contact Info</h5>
+                    <div class="contact-grid">
+                        <div class="contact-field">
+                            <label>Name</label>
+                            <input type="text" placeholder="Jim Simonelli" data-speaker="simonelli">
+                        </div>
+                        <div class="contact-field">
+                            <label>Email</label>
+                            <input type="email" placeholder="email@schneider-electric.com" data-speaker="simonelli">
+                        </div>
+                        <div class="contact-field">
+                            <label>Phone</label>
+                            <input type="tel" placeholder="+1 (555) 000-0000" data-speaker="simonelli">
+                        </div>
+                        <div class="contact-field">
+                            <label>LinkedIn</label>
+                            <input type="text" placeholder="linkedin.com/in/..." data-speaker="simonelli">
+                        </div>
+                    </div>
+                    <div class="contact-grid" style="margin-top: 10px;">
+                        <div class="contact-field">
+                            <label>Name</label>
+                            <input type="text" placeholder="Chris Crosby" data-speaker="crosby">
+                        </div>
+                        <div class="contact-field">
+                            <label>Email</label>
+                            <input type="email" placeholder="email@compass.com" data-speaker="crosby">
+                        </div>
+                        <div class="contact-field">
+                            <label>Phone</label>
+                            <input type="tel" placeholder="+1 (555) 000-0000" data-speaker="crosby">
+                        </div>
+                        <div class="contact-field">
+                            <label>LinkedIn</label>
+                            <input type="text" placeholder="linkedin.com/in/..." data-speaker="crosby">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="session-card must-attend">
+                <span class="priority-badge badge-must">Must Attend</span>
+                <div class="session-time">Nov 18 • 11:00–11:45 AM</div>
+                <div class="session-title">How Tech is Reshaping Industry</div>
+                <div class="session-speakers">André Marino (SVP Industrial & Process Automation)</div>
+                <div class="session-why">
+                    <strong>Why It Matters:</strong> Core automation leader. Anchor SyncMetra as the deterministic edge fabric for EcoStruxure Plant.<br>
+                    <strong>Action:</strong> Get a 20-min follow-up on a TSN + 5G orchestration pilot.
+                </div>
+                
+                <div class="contact-fields">
+                    <h5>📇 Speaker Contact Info</h5>
+                    <div class="contact-grid">
+                        <div class="contact-field">
+                            <label>Name</label>
+                            <input type="text" placeholder="André Marino" data-speaker="marino">
+                        </div>
+                        <div class="contact-field">
+                            <label>Email</label>
+                            <input type="email" placeholder="email@schneider-electric.com" data-speaker="marino">
+                        </div>
+                        <div class="contact-field">
+                            <label>Phone</label>
+                            <input type="tel" placeholder="+1 (555) 000-0000" data-speaker="marino">
+                        </div>
+                        <div class="contact-field">
+                            <label>LinkedIn</label>
+                            <input type="text" placeholder="linkedin.com/in/..." data-speaker="marino">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="session-card maybe">
+                <span class="priority-badge badge-maybe">Maybe</span>
+                <div class="session-time">Nov 18 • 11:00–11:45 AM</div>
+                <div class="session-title">AI-Native Startups Changing the Game</div>
+                <div class="session-speakers">Amit Chaturvedy (SE Ventures)</div>
+                <div class="session-why">
+                    <strong>Note:</strong> Visibility with SE Ventures; attend opening then pull Amit for a sidebar.
+                </div>
+                
+                <div class="contact-fields">
+                    <h5>📇 Speaker Contact Info</h5>
+                    <div class="contact-grid">
+                        <div class="contact-field">
+                            <label>Name</label>
+                            <input type="text" placeholder="Amit Chaturvedy" data-speaker="chaturvedy">
+                        </div>
+                        <div class="contact-field">
+                            <label>Email</label>
+                            <input type="email" placeholder="email@se-ventures.com" data-speaker="chaturvedy">
+                        </div>
+                        <div class="contact-field">
+                            <label>Phone</label>
+                            <input type="tel" placeholder="+1 (555) 000-0000" data-speaker="chaturvedy">
+                        </div>
+                        <div class="contact-field">
+                            <label>LinkedIn</label>
+                            <input type="text" placeholder="linkedin.com/in/..." data-speaker="chaturvedy">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 12:00 PM Sessions -->
+            <div class="session-card skip">
+                <span class="priority-badge badge-skip">Skip</span>
+                <div class="session-time">Nov 18 • 12:00–12:45 PM</div>
+                <div class="session-title">Grid Operators & Tech Innovators / Renewable Growth</div>
+                <div class="session-speakers">TBD</div>
+                <div class="session-why">
+                    <strong>Reason:</strong> Broad, policy-heavy; not target-rich for SyncMetra.
+                </div>
+            </div>
+            
+            <!-- 1:00 PM Sessions -->
+            <div class="session-card skip">
+                <span class="priority-badge badge-skip">Skip</span>
+                <div class="session-time">Nov 18 • 1:00–1:45 PM</div>
+                <div class="session-title">Scaling Innovation</div>
+                <div class="session-speakers">Anthony Cottone (1PointFive)</div>
+                <div class="session-why">
+                    <strong>Reason:</strong> Energy transition focus; useful only if carbon capture comes up later.
+                </div>
+            </div>
+            
+            <!-- 2:00 PM Sessions -->
+            <div class="session-card maybe">
+                <span class="priority-badge badge-maybe">Maybe</span>
+                <div class="session-time">Nov 18 • 2:00–2:45 PM</div>
+                <div class="session-title">IT Infra for AI Edge</div>
+                <div class="session-speakers">Gordon Lord, Jon Gould (Schneider)</div>
+                <div class="session-why">
+                    <strong>Note:</strong> Channel + software BD alignment. Learn how they onboard tech partners that span OT/IT.
+                </div>
+                
+                <div class="contact-fields">
+                    <h5>📇 Speaker Contact Info</h5>
+                    <div class="contact-grid">
+                        <div class="contact-field">
+                            <label>Name</label>
+                            <input type="text" placeholder="Gordon Lord" data-speaker="lord">
+                        </div>
+                        <div class="contact-field">
+                            <label>Email</label>
+                            <input type="email" placeholder="email@schneider-electric.com" data-speaker="lord">
+                        </div>
+                        <div class="contact-field">
+                            <label>Phone</label>
+                            <input type="tel" placeholder="+1 (555) 000-0000" data-speaker="lord">
+                        </div>
+                        <div class="contact-field">
+                            <label>LinkedIn</label>
+                            <input type="text" placeholder="linkedin.com/in/..." data-speaker="lord">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="session-card maybe">
+                <span class="priority-badge badge-maybe">Maybe</span>
+                <div class="session-time">Nov 18 • 2:00–2:45 PM</div>
+                <div class="session-title">Connected Networks Fueling Industry</div>
+                <div class="session-speakers">Bry Dillon (AVEVA)</div>
+                <div class="session-why">
+                    <strong>Note:</strong> AVEVA integration angle; quick drop-in for partner mapping.
+                </div>
+                
+                <div class="contact-fields">
+                    <h5>📇 Speaker Contact Info</h5>
+                    <div class="contact-grid">
+                        <div class="contact-field">
+                            <label>Name</label>
+                            <input type="text" placeholder="Bry Dillon" data-speaker="dillon">
+                        </div>
+                        <div class="contact-field">
+                            <label>Email</label>
+                            <input type="email" placeholder="email@aveva.com" data-speaker="dillon">
+                        </div>
+                        <div class="contact-field">
+                            <label>Phone</label>
+                            <input type="tel" placeholder="+1 (555) 000-0000" data-speaker="dillon">
+                        </div>
+                        <div class="contact-field">
+                            <label>LinkedIn</label>
+                            <input type="text" placeholder="linkedin.com/in/..." data-speaker="dillon">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 3:00 PM Sessions -->
+            <div class="session-card must-attend">
+                <span class="priority-badge badge-must">Must Attend</span>
+                <div class="session-time">Nov 18 • 3:00–3:45 PM</div>
+                <div class="session-title">Resilient, Flexible Grid</div>
+                <div class="session-speakers">Ruben Llanes (CEO Digital Grid), PG&E, Microsoft, AECOM</div>
+                <div class="session-why">
+                    <strong>Why It Matters:</strong> Digital Grid ownership + utility buyers. Float a Distributed Energy Resources (DER) orchestration pilot that links field devices, edge compute, and grid analytics. AECOM is a global Engineering, Procurement, and Construction (EPC) firm.<br>
+                    <strong>Action:</strong> Front 5 rows. Engage speakers right after.
+                </div>
+                
+                <div class="contact-fields">
+                    <h5>📇 Speaker Contact Info</h5>
+                    <div class="contact-grid">
+                        <div class="contact-field">
+                            <label>Name</label>
+                            <input type="text" placeholder="Ruben Llanes" data-speaker="llanes">
+                        </div>
+                        <div class="contact-field">
+                            <label>Email</label>
+                            <input type="email" placeholder="email@schneider-electric.com" data-speaker="llanes">
+                        </div>
+                        <div class="contact-field">
+                            <label>Phone</label>
+                            <input type="tel" placeholder="+1 (555) 000-0000" data-speaker="llanes">
+                        </div>
+                        <div class="contact-field">
+                            <label>LinkedIn</label>
+                            <input type="text" placeholder="linkedin.com/in/..." data-speaker="llanes">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="day-header">📅 Day 2 — November 19, 2025</div>
+            
+            <!-- 12:00 PM Sessions -->
+            <div class="session-card maybe">
+                <span class="priority-badge badge-maybe">Maybe</span>
+                <div class="session-time">Nov 19 • 12:00–12:45 PM</div>
+                <div class="session-title">Industrial Competitiveness / Software</div>
+                <div class="session-speakers">Hany Fouda (Schneider Process Automation)</div>
+                <div class="session-why">
+                    <strong>Note:</strong> Good for reinforcement and Microsoft/AVEVA overlap.
+                </div>
+                
+                <div class="contact-fields">
+                    <h5>📇 Speaker Contact Info</h5>
+                    <div class="contact-grid">
+                        <div class="contact-field">
+                            <label>Name</label>
+                            <input type="text" placeholder="Hany Fouda" data-speaker="fouda">
+                        </div>
+                        <div class="contact-field">
+                            <label>Email</label>
+                            <input type="email" placeholder="email@schneider-electric.com" data-speaker="fouda">
+                        </div>
+                        <div class="contact-field">
+                            <label>Phone</label>
+                            <input type="tel" placeholder="+1 (555) 000-0000" data-speaker="fouda">
+                        </div>
+                        <div class="contact-field">
+                            <label>LinkedIn</label>
+                            <input type="text" placeholder="linkedin.com/in/..." data-speaker="fouda">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 1:00 PM Sessions -->
+            <div class="session-card must-attend">
+                <span class="priority-badge badge-must">Must Attend</span>
+                <div class="session-time">Nov 19 • 1:00–1:45 PM</div>
+                <div class="session-title">Grid Intelligence / Hybrid Cloud</div>
+                <div class="session-speakers">Matt Schnugg (CPO Digital Grid), Microsoft, AiDASH</div>
+                <div class="session-why">
+                    <strong>Why It Matters:</strong> Closest to a formal pilot spec. Frame SyncMetra as the runtime keeping hybrid cloud + DERMS in sync. Prioritize this over Hackenson's IT Ops session if they conflict. DERMS is Distributed Energy Resource Management System.<br>
+                    <strong>Action:</strong> Front 5 rows. Top priority for pilot formation.
+                </div>
+                
+                <div class="contact-fields">
+                    <h5>📇 Speaker Contact Info</h5>
+                    <div class="contact-grid">
+                        <div class="contact-field">
+                            <label>Name</label>
+                            <input type="text" placeholder="Matt Schnugg" data-speaker="schnugg">
+                        </div>
+                        <div class="contact-field">
+                            <label>Email</label>
+                            <input type="email" placeholder="email@schneider-electric.com" data-speaker="schnugg">
+                        </div>
+                        <div class="contact-field">
+                            <label>Phone</label>
+                            <input type="tel" placeholder="+1 (555) 000-0000" data-speaker="schnugg">
+                        </div>
+                        <div class="contact-field">
+                            <label>LinkedIn</label>
+                            <input type="text" placeholder="linkedin.com/in/..." data-speaker="schnugg">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="session-card skip">
+                <span class="priority-badge badge-skip">Skip</span>
+                <div class="session-time">Nov 19 • 1:00–1:45 PM</div>
+                <div class="session-title">Hybrid IT, Data Center Ops</div>
+                <div class="session-speakers">Elizabeth Hackenson (CIO, Schneider)</div>
+                <div class="session-why">
+                    <strong>Reason:</strong> Valuable but secondary. Attend Schnugg's Grid Intelligence instead.
+                </div>
+            </div>
+            
+            <!-- 2:00 PM Sessions -->
+            <div class="session-card maybe">
+                <span class="priority-badge badge-maybe">Maybe</span>
+                <div class="session-time">Nov 19 • 2:00–2:45 PM</div>
+                <div class="session-title">Startup Showcase / 2026+</div>
+                <div class="session-speakers">Amit Chaturvedy (SE Ventures)</div>
+                <div class="session-why">
+                    <strong>Note:</strong> Scouting + visibility; 10-minute fly-through.
+                </div>
+            </div>
+            
+            <div class="session-card skip">
+                <span class="priority-badge badge-skip">Skip</span>
+                <div class="session-time">Nov 19 • 2:00–2:45 PM</div>
+                <div class="session-title">CIO / CISO Secure Infra</div>
+                <div class="session-speakers">Jay Abdallah (Cyber Security)</div>
+                <div class="session-why">
+                    <strong>Reason:</strong> Too generic for pilot formation. Catch hallway contacts instead.
+                </div>
+            </div>
+            
+            <div class="glossary">
+                <h4>📚 Key Terms & Contacts</h4>
+                <div class="glossary-item">
+                    <span class="glossary-term">AECOM:</span> Global Engineering, Procurement, and Construction (EPC) firm specializing in complex energy, infrastructure, and industrial projects.
+                </div>
+                <div class="glossary-item">
+                    <span class="glossary-term">AVEVA:</span> Global industrial software company (majority owned by Schneider Electric) providing digital-twin, data-management, and operations-control platforms.
+                </div>
+                <div class="glossary-item">
+                    <span class="glossary-term">AiDash:</span> AI-powered software company using satellite and ground data for utilities infrastructure management and grid resilience.
+                </div>
+                <div class="glossary-item">
+                    <span class="glossary-term">DERMS:</span> Distributed Energy Resource Management System.
+                </div>
+                <div class="glossary-item">
+                    <span class="glossary-term">DER:</span> Distributed Energy Resources.
+                </div>
+                <div class="glossary-item">
+                    <span class="glossary-term">TSN:</span> Time-Sensitive Networking - deterministic networking standard for industrial automation.
+                </div>
+            </div>
+        </div>
+        
+        <div id="must" class="tab-content">
+            <h2 style="color: #28a745; margin-bottom: 20px;">✅ MUST ATTEND (Front 5 rows. Engage speakers right after.)</h2>
+            
+            <div class="day-header">📅 Day 1 — November 18, 2025</div>
+            
+            <div class="session-card must-attend">
+                <div class="session-time">Nov 18 • 11:00–11:45 AM</div>
+                <div class="session-title">How AI Workloads are Redefining Power Dynamics</div>
+                <div class="session-speakers">Jim Simonelli (Schneider CTO Secure Power), Chris Crosby (Compass Datacenters)</div>
+                <div class="session-why">
+                    <strong>Why It Matters:</strong> Data-center + power convergence. Position SyncMetra as the orchestration layer.<br>
+                    <strong>Action:</strong> Catch Simonelli/Crosby at stage exit; propose a compact demo concept.
+                </div>
+            </div>
+            
+            <div class="session-card must-attend">
+                <div class="session-time">Nov 18 • 11:00–11:45 AM</div>
+                <div class="session-title">How Tech is Reshaping Industry</div>
+                <div class="session-speakers">André Marino (SVP Industrial & Process Automation)</div>
+                <div class="session-why">
+                    <strong>Why It Matters:</strong> Core automation leader. Anchor SyncMetra as the deterministic edge fabric for EcoStruxure Plant.<br>
+                    <strong>Action:</strong> Get a 20-min follow-up on a TSN + 5G orchestration pilot.
+                </div>
+            </div>
+            
+            <div class="session-card must-attend">
+                <div class="session-time">Nov 18 • 3:00–3:45 PM</div>
+                <div class="session-title">Resilient, Flexible Grid</div>
+                <div class="session-speakers">Ruben Llanes (CEO Digital Grid), PG&E, Microsoft, AECOM</div>
+                <div class="session-why">
+                    <strong>Why It Matters:</strong> Digital Grid ownership + utility buyers. Float a DER orchestration pilot.<br>
+                    <strong>Action:</strong> Front 5 rows. Engage speakers right after.
+                </div>
+            </div>
+            
+            <div class="day-header">📅 Day 2 — November 19, 2025</div>
+            
+            <div class="session-card must-attend">
+                <div class="session-time">Nov 19 • 1:00–1:45 PM</div>
+                <div class="session-title">Grid Intelligence / Hybrid Cloud</div>
+                <div class="session-speakers">Matt Schnugg (CPO Digital Grid), Microsoft, AiDASH</div>
+                <div class="session-why">
+                    <strong>Why It Matters:</strong> Closest to a formal pilot spec. Frame SyncMetra as the runtime keeping hybrid cloud + DERMS in sync.<br>
+                    <strong>Action:</strong> Front 5 rows. Top priority for pilot formation.
+                </div>
+            </div>
+        </div>
+        
+        <div id="maybe" class="tab-content">
+            <h2 style="color: #ffc107; margin-bottom: 20px;">⚡ MAYBE (Attend if target contact is there or to fill schedule gaps.)</h2>
+            
+            <div class="day-header">📅 Day 1 — November 18, 2025</div>
+            
+            <div class="session-card maybe">
+                <div class="session-time">Nov 18 • 11:00–11:45 AM</div>
+                <div class="session-title">AI-Native Startups Changing the Game</div>
+                <div class="session-speakers">Amit Chaturvedy (SE Ventures)</div>
+                <div class="session-why">
+                    <strong>Note:</strong> Visibility with SE Ventures; attend opening then pull Amit for a sidebar.
+                </div>
+            </div>
+            
+            <div class="session-card maybe">
+                <div class="session-time">Nov 18 • 2:00–2:45 PM</div>
+                <div class="session-title">IT Infra for AI Edge</div>
+                <div class="session-speakers">Gordon Lord, Jon Gould (Schneider)</div>
+                <div class="session-why">
+                    <strong>Note:</strong> Channel + software BD alignment. Learn how they onboard tech partners that span OT/IT.
+                </div>
+            </div>
+            
+            <div class="session-card maybe">
+                <div class="session-time">Nov 18 • 2:00–2:45 PM</div>
+                <div class="session-title">Connected Networks Fueling Industry</div>
+                <div class="session-speakers">Bry Dillon (AVEVA)</div>
+                <div class="session-why">
+                    <strong>Note:</strong> AVEVA integration angle; quick drop-in for partner mapping.
+                </div>
+            </div>
+            
+            <div class="day-header">📅 Day 2 — November 19, 2025</div>
+            
+            <div class="session-card maybe">
+                <div class="session-time">Nov 19 • 12:00–12:45 PM</div>
+                <div class="session-title">Industrial Competitiveness / Software</div>
+                <div class="session-speakers">Hany Fouda (Schneider Process Automation)</div>
+                <div class="session-why">
+                    <strong>Note:</strong> Good for reinforcement and Microsoft/AVEVA overlap.
+                </div>
+            </div>
+            
+            <div class="session-card maybe">
+                <div class="session-time">Nov 19 • 2:00–2:45 PM</div>
+                <div class="session-title">Startup Showcase / 2026+</div>
+                <div class="session-speakers">Amit Chaturvedy (SE Ventures)</div>
+                <div class="session-why">
+                    <strong>Note:</strong> Scouting + visibility; 10-minute fly-through.
+                </div>
+            </div>
+        </div>
+        
+        <div id="skip" class="tab-content">
+            <h2 style="color: #dc3545; margin-bottom: 20px;">🚫 SKIP / HALLWAY WORK</h2>
+            
+            <div class="day-header">📅 Day 1 — November 18, 2025</div>
+            
+            <div class="session-card skip">
+                <div class="session-time">Nov 18 • 12:00–12:45 PM</div>
+                <div class="session-title">Grid Operators & Tech Innovators / Renewable Growth</div>
+                <div class="session-speakers">TBD</div>
+                <div class="session-why">
+                    <strong>Reason:</strong> Broad, policy-heavy; not target-rich for SyncMetra.
+                </div>
+            </div>
+            
+            <div class="session-card skip">
+                <div class="session-time">Nov 18 • 1:00–1:45 PM</div>
+                <div class="session-title">Scaling Innovation</div>
+                <div class="session-speakers">Anthony Cottone (1PointFive)</div>
+                <div class="session-why">
+                    <strong>Reason:</strong> Energy transition focus; useful only if carbon capture comes up later.
+                </div>
+            </div>
+            
+            <div class="day-header">📅 Day 2 — November 19, 2025</div>
+            
+            <div class="session-card skip">
+                <div class="session-time">Nov 19 • 1:00–1:45 PM</div>
+                <div class="session-title">Hybrid IT, Data Center Ops</div>
+                <div class="session-speakers">Elizabeth Hackenson (CIO, Schneider)</div>
+                <div class="session-why">
+                    <strong>Reason:</strong> Valuable but secondary. Attend Schnugg's Grid Intelligence instead.
+                </div>
+            </div>
+            
+            <div class="session-card skip">
+                <div class="session-time">Nov 19 • 2:00–2:45 PM</div>
+                <div class="session-title">CIO / CISO Secure Infra</div>
+                <div class="session-speakers">Jay Abdallah (Cyber Security)</div>
+                <div class="session-why">
+                    <strong>Reason:</strong> Too generic for pilot formation. Catch hallway contacts instead.
+                </div>
+            </div>
+        </div>
+        
+        <!-- FOLLOW-UP TRACKING TAB -->
+        <div id="tracking" class="tab-content">
+            <div class="tracking-section">
+                <div class="tracking-header">
+                    <h3>📊 Follow-Up Tracking System</h3>
+                    <div class="action-buttons">
+                        <button class="btn btn-primary" onclick="addTrackingRow()">➕ Add Contact</button>
+                        <button class="btn btn-secondary" onclick="exportTracking()">📥 Export to CSV</button>
+                    </div>
+                </div>
+                
+                <div class="tracking-table-wrapper">
+                    <table class="tracking-table" id="trackingTable">
+                        <thead>
+                            <tr>
+                                <th style="width: 150px;">Name</th>
+                                <th style="width: 150px;">Organization</th>
+                                <th style="width: 100px;">Title/Role</th>
+                                <th style="width: 120px;">Contact Info</th>
+                                <th style="width: 100px;">Lead Status</th>
+                                <th style="width: 120px;">Interest Level</th>
+                                <th style="width: 200px;">Next Step</th>
+                                <th style="width: 120px;">Follow-Up Date</th>
+                                <th style="width: 250px;">Notes</th>
+                                <th style="width: 80px;">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="trackingBody">
+                            <!-- Sample rows -->
+                            <tr>
+                                <td><input type="text" placeholder="Matt Schnugg" value="Matt Schnugg"></td>
+                                <td><input type="text" placeholder="Organization" value="Schneider Electric"></td>
+                                <td><input type="text" placeholder="Title" value="CPO Digital Grid"></td>
+                                <td><input type="text" placeholder="Email/Phone"></td>
+                                <td>
+                                    <select>
+                                        <option value="">Select...</option>
+                                        <option value="new">New Lead</option>
+                                        <option value="contacted">Contacted</option>
+                                        <option value="qualified" selected>Qualified</option>
+                                        <option value="demo">Demo Scheduled</option>
+                                        <option value="proposal">Proposal Sent</option>
+                                        <option value="closed">Closed Won</option>
+                                        <option value="lost">Closed Lost</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select>
+                                        <option value="">Select...</option>
+                                        <option value="hot" selected>Hot 🔥</option>
+                                        <option value="warm">Warm ☀️</option>
+                                        <option value="cold">Cold ❄️</option>
+                                        <option value="pilot">Pilot Interest</option>
+                                        <option value="explore">Explore</option>
+                                        <option value="intel">Intel Only</option>
+                                    </select>
+                                </td>
+                                <td><input type="text" placeholder="Next action..." value="20-min pilot call"></td>
+                                <td><input type="date" value="2025-11-20"></td>
+                                <td><textarea placeholder="Meeting notes, insights...">DERMS + hybrid cloud pilot - top priority</textarea></td>
+                                <td><button class="delete-btn" onclick="deleteRow(this)">Delete</button></td>
+                            </tr>
+                            <tr>
+                                <td><input type="text" placeholder="André Marino" value="André Marino"></td>
+                                <td><input type="text" placeholder="Organization" value="Schneider Electric"></td>
+                                <td><input type="text" placeholder="Title" value="SVP Industrial"></td>
+                                <td><input type="text" placeholder="Email/Phone"></td>
+                                <td>
+                                    <select>
+                                        <option value="">Select...</option>
+                                        <option value="new">New Lead</option>
+                                        <option value="contacted" selected>Contacted</option>
+                                        <option value="qualified">Qualified</option>
+                                        <option value="demo">Demo Scheduled</option>
+                                        <option value="proposal">Proposal Sent</option>
+                                        <option value="closed">Closed Won</option>
+                                        <option value="lost">Closed Lost</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select>
+                                        <option value="">Select...</option>
+                                        <option value="hot" selected>Hot 🔥</option>
+                                        <option value="warm">Warm ☀️</option>
+                                        <option value="cold">Cold ❄️</option>
+                                        <option value="pilot">Pilot Interest</option>
+                                        <option value="explore">Explore</option>
+                                        <option value="intel">Intel Only</option>
+                                    </select>
+                                </td>
+                                <td><input type="text" placeholder="Next action..." value="TSN + 5G orchestration follow-up"></td>
+                                <td><input type="date" value="2025-11-19"></td>
+                                <td><textarea placeholder="Meeting notes, insights...">EcoStruxure Plant integration angle</textarea></td>
+                                <td><button class="delete-btn" onclick="deleteRow(this)">Delete</button></td>
+                            </tr>
+                            <tr>
+                                <td><input type="text" placeholder="Bry Dillon" value="Bry Dillon"></td>
+                                <td><input type="text" placeholder="Organization" value="AVEVA"></td>
+                                <td><input type="text" placeholder="Title" value="Solutions Lead"></td>
+                                <td><input type="text" placeholder="Email/Phone"></td>
+                                <td>
+                                    <select>
+                                        <option value="">Select...</option>
+                                        <option value="new" selected>New Lead</option>
+                                        <option value="contacted">Contacted</option>
+                                        <option value="qualified">Qualified</option>
+                                        <option value="demo">Demo Scheduled</option>
+                                        <option value="proposal">Proposal Sent</option>
+                                        <option value="closed">Closed Won</option>
+                                        <option value="lost">Closed Lost</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select>
+                                        <option value="">Select...</option>
+                                        <option value="hot">Hot 🔥</option>
+                                        <option value="warm" selected>Warm ☀️</option>
+                                        <option value="cold">Cold ❄️</option>
+                                        <option value="pilot">Pilot Interest</option>
+                                        <option value="explore">Explore</option>
+                                        <option value="intel">Intel Only</option>
+                                    </select>
+                                </td>
+                                <td><input type="text" placeholder="Next action..." value="Partner mapping discussion"></td>
+                                <td><input type="date" value="2025-11-21"></td>
+                                <td><textarea placeholder="Meeting notes, insights...">AVEVA integration within SE ecosystem</textarea></td>
+                                <td><button class="delete-btn" onclick="deleteRow(this)">Delete</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="glossary" style="margin-top: 20px;">
+                    <h4>📋 Lead Status Guide</h4>
+                    <div class="glossary-item">
+                        <span class="glossary-term">New Lead:</span> Initial contact made or identified at session.
+                    </div>
+                    <div class="glossary-item">
+                        <span class="glossary-term">Contacted:</span> First follow-up completed (email, LinkedIn, phone).
+                    </div>
+                    <div class="glossary-item">
+                        <span class="glossary-term">Qualified:</span> Confirmed budget authority, timeline, and technical fit.
+                    </div>
+                    <div class="glossary-item">
+                        <span class="glossary-term">Demo Scheduled:</span> SyncMetra demonstration or pilot discussion booked.
+                    </div>
+                    <div class="glossary-item">
+                        <span class="glossary-term">Proposal Sent:</span> Technical proposal, pricing, or pilot plan delivered.
+                    </div>
+                    <div class="glossary-item">
+                        <span class="glossary-term">Closed Won:</span> Deal closed or pilot contract signed.
+                    </div>
+                    <div class="glossary-item">
+                        <span class="glossary-term">Closed Lost:</span> Opportunity lost; document reason in notes.
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="plan" class="tab-content">
+            <div class="coordination">
+                <h3>🤝 Coordination Plan</h3>
+                <ul>
+                    <li>If two "musts" overlap, we split coverage; one handles Q&A, one preps speaker intercept.</li>
+                    <li>Every session yields at least one follow-up ask (20-min post-summit call).</li>
+                    <li>Track: Name, Org, Interest (Pilot / Explore / Intel), Next Step, Date.</li>
+                </ul>
+            </div>
+            
+            <div class="end-state">
+                <h3>✅ End State — By End of Day 2</h3>
+                <ul>
+                    <li>3 qualified Schneider conversations (Marino, Llanes, Schnugg targets)</li>
+                    <li>1 conversation with AVEVA (within SE) with Bry Dillon</li>
+                    <li>2 ecosystem follow-ups (Cisco, Compass, Microsoft)</li>
+                    <li>A pilot thread defined for industrial or grid edge orchestration</li>
+                </ul>
+            </div>
+            
+            <div class="glossary" style="margin-top: 25px;">
+                <h4>🎯 Target Contacts — Priority Order</h4>
+                <div class="glossary-item">
+                    <span class="glossary-term">1. Matt Schnugg</span> (CPO Digital Grid) — Pilot-ready, hybrid cloud + DERMS sync
+                </div>
+                <div class="glossary-item">
+                    <span class="glossary-term">2. André Marino</span> (SVP Industrial & Process Automation) — TSN + 5G orchestration for EcoStruxure Plant
+                </div>
+                <div class="glossary-item">
+                    <span class="glossary-term">3. Ruben Llanes</span> (CEO Digital Grid) — DER orchestration with utility buyers (PG&E, AECOM)
+                </div>
+                <div class="glossary-item">
+                    <span class="glossary-term">4. Bry Dillon</span> (AVEVA) — Integration and partner mapping within Schneider ecosystem
+                </div>
+                <div class="glossary-item">
+                    <span class="glossary-term">5. Jim Simonelli</span> (CTO Secure Power) — Power + edge orchestration at Compass sites
+                </div>
+            </div>
+        </div>
+        
+        <div style="padding: 25px; text-align: center; background: #f8f9fa; color: #6c757d;">
+            <p><strong>SyncMetra Positioning:</strong> Software-defined, deterministic edge fabric for industrial automation, digital grid, and AI workloads requiring ultra-low latency, TSN integration, and 5G orchestration.</p>
+            <p style="margin-top: 10px; font-size: 0.9em;">Canoga Perkins • Innovation Summit North America 2025</p>
+        </div>
+    </div>
+    
+    <script>
+        function switchTab(tabName) {
+            // Hide all tab contents
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // Remove active class from all buttons
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Show selected tab content
+            document.getElementById(tabName).classList.add('active');
+            
+            // Add active class to clicked button
+            event.target.classList.add('active');
+        }
+        
+        function addTrackingRow() {
+            const tbody = document.getElementById('trackingBody');
+            const newRow = document.createElement('tr');
+            newRow.innerHTML = `
+                <td><input type="text" placeholder="Name"></td>
+                <td><input type="text" placeholder="Organization"></td>
+                <td><input type="text" placeholder="Title/Role"></td>
+                <td><input type="text" placeholder="Email/Phone"></td>
+                <td>
+                    <select>
+                        <option value="">Select...</option>
+                        <option value="new">New Lead</option>
+                        <option value="contacted">Contacted</option>
+                        <option value="qualified">Qualified</option>
+                        <option value="demo">Demo Scheduled</option>
+                        <option value="proposal">Proposal Sent</option>
+                        <option value="closed">Closed Won</option>
+                        <option value="lost">Closed Lost</option>
+                    </select>
+                </td>
+                <td>
+                    <select>
+                        <option value="">Select...</option>
+                        <option value="hot">Hot 🔥</option>
+                        <option value="warm">Warm ☀️</option>
+                        <option value="cold">Cold ❄️</option>
+                        <option value="pilot">Pilot Interest</option>
+                        <option value="explore">Explore</option>
+                        <option value="intel">Intel Only</option>
+                    </select>
+                </td>
+                <td><input type="text" placeholder="Next action..."></td>
+                <td><input type="date"></td>
+                <td><textarea placeholder="Meeting notes, insights..."></textarea></td>
+                <td><button class="delete-btn" onclick="deleteRow(this)">Delete</button></td>
+            `;
+            tbody.appendChild(newRow);
+        }
+        
+        function deleteRow(btn) {
+            if (confirm('Are you sure you want to delete this contact?')) {
+                const row = btn.parentElement.parentElement;
+                row.remove();
+            }
+        }
+        
+        function exportTracking() {
+            const table = document.getElementById('trackingTable');
+            const rows = table.querySelectorAll('tr');
+            let csv = [];
+            
+            // Get headers
+            const headers = [];
+            rows[0].querySelectorAll('th').forEach(th => {
+                headers.push(th.textContent.trim());
+            });
+            csv.push(headers.join(','));
+            
+            // Get data rows
+            const dataRows = table.querySelectorAll('tbody tr');
+            dataRows.forEach(row => {
+                const rowData = [];
+                const inputs = row.querySelectorAll('input, select, textarea');
+                inputs.forEach((input, index) => {
+                    if (index < 9) { // Exclude the delete button column
+                        let value = input.value || '';
+                        // Escape quotes and wrap in quotes if contains comma
+                        value = value.replace(/"/g, '""');
+                        if (value.includes(',') || value.includes('\n')) {
+                            value = '"' + value + '"';
+                        }
+                        rowData.push(value);
+                    }
+                });
+                csv.push(rowData.join(','));
+            });
+            
+            // Create download
+            const csvContent = csv.join('\n');
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            const url = URL.createObjectURL(blob);
+            link.setAttribute('href', url);
+            link.setAttribute('download', 'schneider_summit_followup_' + new Date().toISOString().split('T')[0] + '.csv');
+            link.style.visibility = 'hidden';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+        
+        // Auto-save to localStorage every 30 seconds
+        setInterval(() => {
+            const tableData = [];
+            const rows = document.querySelectorAll('#trackingBody tr');
+            rows.forEach(row => {
+                const rowData = {};
+                const inputs = row.querySelectorAll('input, select, textarea');
+                rowData.values = Array.from(inputs).map(input => input.value);
+                tableData.push(rowData);
+            });
+            localStorage.setItem('schneiderTracking', JSON.stringify(tableData));
+        }, 30000);
+        
+        // Load from localStorage on page load
+        window.addEventListener('load', () => {
+            const saved = localStorage.getItem('schneiderTracking');
+            if (saved) {
+                const tableData = JSON.parse(saved);
+                const tbody = document.getElementById('trackingBody');
+                // Only restore if user wants to
+                if (confirm('Restore previously saved tracking data?')) {
+                    tbody.innerHTML = '';
+                    tableData.forEach(rowData => {
+                        addTrackingRow();
+                        const lastRow = tbody.lastElementChild;
+                        const inputs = lastRow.querySelectorAll('input, select, textarea');
+                        inputs.forEach((input, index) => {
+                            if (rowData.values[index] !== undefined) {
+                                input.value = rowData.values[index];
+                            }
+                        });
+                    });
+                }
+            }
+        });
+    </script>
+</body>
+</html>
