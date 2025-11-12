@@ -32,6 +32,7 @@
             color: white;
             padding: 30px;
             text-align: center;
+            position: relative;
         }
         
         header h1 {
@@ -42,6 +43,39 @@
         header .subtitle {
             font-size: 1.1em;
             opacity: 0.95;
+        }
+        
+        .confidential-banner {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            border-left: 6px solid #ff9800;
+            padding: 15px 20px;
+            margin: 20px 25px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .confidential-icon {
+            font-size: 2em;
+            color: #ff9800;
+        }
+        
+        .confidential-text {
+            flex: 1;
+        }
+        
+        .confidential-text h3 {
+            color: #e65100;
+            font-size: 1.1em;
+            margin-bottom: 5px;
+        }
+        
+        .confidential-text p {
+            color: #5d4037;
+            font-size: 0.9em;
+            line-height: 1.5;
         }
         
         .overview {
@@ -648,6 +682,22 @@
             color: #495057;
         }
         
+        .footer {
+            padding: 25px;
+            text-align: center;
+            background: #f8f9fa;
+            color: #6c757d;
+            border-top: 2px solid #e9ecef;
+        }
+        
+        .footer .copyright {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #dee2e6;
+            font-size: 0.85em;
+            color: #868e96;
+        }
+        
         .hidden {
             display: none;
         }
@@ -683,6 +733,11 @@
             .action-buttons {
                 flex-direction: column;
             }
+            
+            .confidential-banner {
+                flex-direction: column;
+                text-align: center;
+            }
         }
     </style>
 </head>
@@ -692,6 +747,14 @@
             <h1>🎯 Schneider Innovation Summit 2025</h1>
             <div class="subtitle">Complete Session Strategy • November 18-19, 2025</div>
         </header>
+        
+        <div class="confidential-banner">
+            <div class="confidential-icon">🔒</div>
+            <div class="confidential-text">
+                <h3>Internal Use Only</h3>
+                <p>This document contains strategic sales planning information intended solely for authorized Canoga Perkins personnel. Distribution outside the organization is prohibited. Please handle with appropriate discretion and safeguard all captured contact information in accordance with data privacy best practices.</p>
+            </div>
+        </div>
         
         <div class="overview">
             <h2>Overview</h2>
@@ -1648,7 +1711,7 @@ Best,
             <p>One-click access to collateral, technical docs, and positioning guides. Update these links with your actual resource URLs.</p>
             
             <div class="resources-grid">
-                <div class="resource-card" onclick="window.open('https://canogaperkins.net/products/syncmetra/', '_blank')">
+                <div class="resource-card" onclick="window.open('https://www.canogaperkins.net/syncmetra', '_blank')">
                     <div class="resource-icon">📄</div>
                     <div class="resource-title">SyncMetra Overview</div>
                     <div class="resource-desc">Product page with key features and benefits</div>
@@ -1788,9 +1851,14 @@ Best,
             </div>
         </div>
         
-        <div style="padding: 25px; text-align: center; background: #f8f9fa; color: #6c757d; border-top: 2px solid #e9ecef;">
-            <p><strong>SyncMetra by Canoga Perkins:</strong> Software-defined, deterministic edge fabric for industrial automation, digital grid, and AI workloads requiring ultra-low latency, TSN integration, and 5G orchestration.</p>
+        <div class="footer">
+            <p><strong>SyncMetra® by Canoga Perkins:</strong> Software-defined, deterministic edge fabric for industrial automation, digital grid, and AI workloads requiring ultra-low latency, TSN integration, and 5G orchestration.</p>
             <p style="margin-top: 10px; font-size: 0.9em;">Schneider Electric Innovation Summit • North America 2025 • Dallas, TX</p>
+            <div class="copyright">
+                <p><strong>Internal Use Only - Confidential Sales Strategy Document</strong></p>
+                <p>© 2025 Jay Cee Straley | Canoga Perkins. All rights reserved.</p>
+                <p style="margin-top: 8px; font-size: 0.9em;">This document and all captured data are proprietary and confidential. Unauthorized distribution or disclosure is prohibited.</p>
+            </div>
         </div>
     </div>
     
