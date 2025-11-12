@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Schneider Innovation Summit 2025 – Session Strategy</title>
+    <title>Schneider Innovation Summit 2025 – Complete Session Strategy</title>
     <style>
         * {
             margin: 0;
@@ -157,12 +157,24 @@
         .session-speakers {
             color: #6c757d;
             font-style: italic;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
+        }
+        
+        .session-description {
+            color: #495057;
+            margin-bottom: 10px;
+            line-height: 1.6;
         }
         
         .session-why {
-            color: #495057;
-            line-height: 1.7;
+            background: #f8f9fa;
+            padding: 12px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        
+        .session-why strong {
+            color: #3CAA46;
         }
         
         .priority-badge {
@@ -191,7 +203,7 @@
             color: white;
         }
         
-        /* Quick Notes & Capture Section */
+        /* Quick Capture Section */
         .quick-capture {
             background: #fff9e6;
             border: 2px dashed #ffc107;
@@ -230,6 +242,7 @@
             background: white;
             border-radius: 5px;
             border: 2px solid #e9ecef;
+            cursor: pointer;
         }
         
         .met-checkbox input[type="checkbox"] {
@@ -279,10 +292,10 @@
             border-color: #764ba2;
         }
         
-        /* Media Capture Buttons */
+        /* Media Controls */
         .media-controls {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
             gap: 10px;
             margin-top: 10px;
         }
@@ -376,11 +389,26 @@
         }
         
         .contact-field input,
-        .contact-field select {
+        .contact-field select,
+        .contact-field textarea {
             padding: 8px;
             border: 1px solid #ced4da;
             border-radius: 5px;
             font-size: 0.9em;
+        }
+        
+        /* Storage Info Panel */
+        .storage-info {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        
+        .storage-info h4 {
+            color: #1976d2;
+            margin-bottom: 10px;
         }
         
         /* Email Templates */
@@ -434,7 +462,7 @@
             white-space: pre-wrap;
         }
         
-        /* Resources Section */
+        /* Resources */
         .resources-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -474,22 +502,6 @@
             color: #6c757d;
         }
         
-        /* Coordination */
-        .coordination {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 25px;
-            border-radius: 10px;
-            margin: 20px 0;
-        }
-        
-        .end-state {
-            background: #3CAA46;
-            color: white;
-            padding: 25px;
-            border-radius: 10px;
-        }
-        
         /* Tracking Table */
         .tracking-section {
             margin-top: 30px;
@@ -500,11 +512,14 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 10px;
         }
         
         .action-buttons {
             display: flex;
             gap: 10px;
+            flex-wrap: wrap;
         }
         
         .btn {
@@ -524,6 +539,11 @@
         
         .btn-secondary {
             background: #667eea;
+            color: white;
+        }
+        
+        .btn-danger {
+            background: #dc3545;
             color: white;
         }
         
@@ -654,6 +674,15 @@
             .resources-grid {
                 grid-template-columns: 1fr;
             }
+            
+            .tracking-header {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
         }
     </style>
 </head>
@@ -661,56 +690,76 @@
     <div class="container">
         <header>
             <h1>🎯 Schneider Innovation Summit 2025</h1>
-            <div class="subtitle">Session Strategy & Attendance Plan • November 18-19, 2025</div>
+            <div class="subtitle">Complete Session Strategy • November 18-19, 2025</div>
         </header>
         
         <div class="overview">
             <h2>Overview</h2>
-            <p>Schneider Electric's 2025 Summit gathers top leaders shaping industrial automation, digital grid, and secure power. <strong>We need to get meetings with them to show them where SyncMetra fits.</strong></p>
+            <p>Schneider Electric's 2025 Summit gathers top leaders shaping industrial automation, digital grid, and secure power. <strong>Focus on rooms where Schneider executives own architecture or budget, and where SyncMetra can directly enable deterministic, synchronized edge operations.</strong></p>
+        </div>
+        
+        <div class="storage-info">
+            <h4>💾 Data Storage: How Your Conference Data is Saved</h4>
+            <p><strong>All captured data (notes, photos, audio, contact info) is stored locally in your browser using IndexedDB.</strong> This means:</p>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>✓ Data stays on YOUR device—nothing uploaded to servers</li>
+                <li>✓ Works offline during the conference</li>
+                <li>✓ Can store large files (photos up to several MB, audio recordings)</li>
+                <li>✓ Auto-saves every 30 seconds</li>
+                <li>✓ Persists even if you close the browser</li>
+                <li>⚠️ Clearing browser data will delete everything—export to CSV regularly!</li>
+            </ul>
+            <p style="margin-top: 10px;"><strong>Best Practice:</strong> Export your tracking data to CSV at the end of each day to back up your contacts and notes.</p>
         </div>
         
         <div class="tabs">
             <button class="tab-btn active" onclick="switchTab('all')">All Sessions</button>
-            <button class="tab-btn" onclick="switchTab('must')">✅ Must Attend</button>
-            <button class="tab-btn" onclick="switchTab('tracking')">📊 Tracker</button>
+            <button class="tab-btn" onclick="switchTab('tracking')">📊 Contact Tracker</button>
             <button class="tab-btn" onclick="switchTab('templates')">📧 Email Templates</button>
             <button class="tab-btn" onclick="switchTab('resources')">📚 Resources</button>
-            <button class="tab-btn" onclick="switchTab('plan')">🤝 Plan</button>
+            <button class="tab-btn" onclick="switchTab('plan')">🤝 Strategy</button>
         </div>
         
         <div id="all" class="tab-content active">
             <div class="legend">
                 <div class="legend-item">
                     <div class="legend-color" style="background: #28a745;"></div>
-                    <span><strong>Must Attend</strong></span>
+                    <span><strong>Must Attend</strong> - Priority sessions</span>
                 </div>
                 <div class="legend-item">
                     <div class="legend-color" style="background: #ffc107;"></div>
-                    <span><strong>Maybe</strong></span>
+                    <span><strong>Maybe</strong> - Secondary opportunities</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #dc3545;"></div>
+                    <span><strong>Skip</strong> - Hallway work instead</span>
                 </div>
             </div>
             
-            <div class="day-header">📅 Day 1 — November 18, 2025</div>
+            <div class="day-header">📅 Day 1 — Monday, November 18, 2025</div>
             
-            <!-- Session 1 -->
-            <div class="session-card must-attend">
+            <!-- SESSION 1 -->
+            <div class="session-card must-attend" data-session-id="session-1">
                 <span class="priority-badge badge-must">Must Attend</span>
                 <div class="session-time">Nov 18 • 11:00–11:45 AM</div>
                 <div class="session-title">How AI Workloads are Redefining Power Dynamics</div>
                 <div class="session-speakers">Jim Simonelli (Schneider CTO Secure Power), Chris Crosby (Compass Datacenters)</div>
+                <div class="session-description">
+                    Explore how AI workload demands are transforming data center power infrastructure and edge computing architectures. Discussion covers next-generation power systems, edge module integration, and orchestration challenges at the intersection of compute and power.
+                </div>
                 <div class="session-why">
-                    <strong>Why:</strong> Data-center + power convergence. Position SyncMetra as orchestration layer.<br>
-                    <strong>Action:</strong> Catch Simonelli/Crosby at stage exit; propose demo concept.
+                    <strong>Why It Matters:</strong> Data-center + power convergence is a strategic entry point. Position SyncMetra as the orchestration layer between Schneider's power systems and Compass's edge modules—enabling deterministic synchronization for AI workloads across distributed infrastructure.<br><br>
+                    <strong>Action Items:</strong> Catch Simonelli/Crosby at stage exit immediately after Q&A. Propose compact demo concept showing SyncMetra orchestrating power-aware workload placement. Target: 20-min follow-up call within 72 hours.
                 </div>
                 
                 <div class="quick-capture">
                     <h5>⚡ Quick Capture</h5>
                     <div class="capture-grid">
-                        <textarea class="quick-notes-field" placeholder="Key quotes, technical details, questions asked..."></textarea>
+                        <textarea class="quick-notes-field" placeholder="Key quotes, technical details, questions asked by speakers or audience..."></textarea>
                         
                         <div class="met-checkbox" onclick="toggleMet(this)">
                             <input type="checkbox">
-                            <label>✓ Met speaker at this session</label>
+                            <label>✓ Met speaker(s) at this session</label>
                         </div>
                         
                         <div class="task-assignment">
@@ -732,15 +781,15 @@
                 </div>
                 
                 <div class="contact-fields">
-                    <h5>📇 Contact Info</h5>
+                    <h5>📇 Contact Information</h5>
                     <div class="contact-grid">
                         <div class="contact-field">
                             <label>Name</label>
-                            <input type="text" placeholder="Jim Simonelli">
+                            <input type="text" placeholder="Jim Simonelli / Chris Crosby">
                         </div>
                         <div class="contact-field">
                             <label>Email</label>
-                            <input type="email" placeholder="email@schneider-electric.com">
+                            <input type="email" placeholder="email@company.com">
                         </div>
                         <div class="contact-field">
                             <label>Phone</label>
@@ -754,25 +803,28 @@
                 </div>
             </div>
             
-            <!-- Session 2 -->
-            <div class="session-card must-attend">
+            <!-- SESSION 2 -->
+            <div class="session-card must-attend" data-session-id="session-2">
                 <span class="priority-badge badge-must">Must Attend</span>
                 <div class="session-time">Nov 18 • 11:00–11:45 AM</div>
                 <div class="session-title">How Tech is Reshaping Industry</div>
                 <div class="session-speakers">André Marino (SVP Industrial & Process Automation)</div>
+                <div class="session-description">
+                    Deep dive into how digital transformation, edge computing, and real-time connectivity are revolutionizing manufacturing and industrial automation. Focus on EcoStruxure Plant architecture, OT/IT convergence, and deterministic networking requirements for Industry 4.0.
+                </div>
                 <div class="session-why">
-                    <strong>Why:</strong> Core automation leader. Anchor SyncMetra as deterministic edge fabric for EcoStruxure Plant.<br>
-                    <strong>Action:</strong> Get 20-min follow-up on TSN + 5G orchestration pilot.
+                    <strong>Why It Matters:</strong> André Marino is THE core automation leader at Schneider. This is the highest-value session for positioning SyncMetra as the deterministic edge fabric for EcoStruxure Plant deployments. TSN + 5G orchestration is a perfect fit for their automation roadmap.<br><br>
+                    <strong>Action Items:</strong> Front 3 rows. Prepare specific question about time-sensitive networking in distributed manufacturing. Get 20-min follow-up specifically on TSN + 5G orchestration pilot for EcoStruxure Plant environment.
                 </div>
                 
                 <div class="quick-capture">
                     <h5>⚡ Quick Capture</h5>
                     <div class="capture-grid">
-                        <textarea class="quick-notes-field" placeholder="Key quotes, technical details, questions asked..."></textarea>
+                        <textarea class="quick-notes-field" placeholder="Key quotes, technical details, questions asked by speakers or audience..."></textarea>
                         
                         <div class="met-checkbox" onclick="toggleMet(this)">
                             <input type="checkbox">
-                            <label>✓ Met speaker at this session</label>
+                            <label>✓ Met speaker(s) at this session</label>
                         </div>
                         
                         <div class="task-assignment">
@@ -794,7 +846,7 @@
                 </div>
                 
                 <div class="contact-fields">
-                    <h5>📇 Contact Info</h5>
+                    <h5>📇 Contact Information</h5>
                     <div class="contact-grid">
                         <div class="contact-field">
                             <label>Name</label>
@@ -816,25 +868,28 @@
                 </div>
             </div>
             
-            <!-- Session 3 -->
-            <div class="session-card must-attend">
-                <span class="priority-badge badge-must">Must Attend</span>
-                <div class="session-time">Nov 18 • 3:00–3:45 PM</div>
-                <div class="session-title">Resilient, Flexible Grid</div>
-                <div class="session-speakers">Ruben Llanes (CEO Digital Grid), PG&E, Microsoft, AECOM</div>
+            <!-- SESSION 3 - MAYBE -->
+            <div class="session-card maybe" data-session-id="session-3">
+                <span class="priority-badge badge-maybe">Maybe</span>
+                <div class="session-time">Nov 18 • 11:00–11:45 AM</div>
+                <div class="session-title">AI-Native Startups Changing the Game</div>
+                <div class="session-speakers">Amit Chaturvedy (SE Ventures)</div>
+                <div class="session-description">
+                    Showcase of AI-first startups transforming industrial and energy sectors. SE Ventures investment thesis and how they evaluate technology partnerships. Focus on companies bringing AI to operational technology environments.
+                </div>
                 <div class="session-why">
-                    <strong>Why:</strong> Digital Grid ownership + utility buyers. Float DER orchestration pilot.<br>
-                    <strong>Action:</strong> Front 5 rows. Engage speakers right after.
+                    <strong>Why It Matters:</strong> Visibility opportunity with SE Ventures investment arm. Canoga Perkins could be positioned as a strategic technology partner for Schneider ecosystem companies needing deterministic edge infrastructure.<br><br>
+                    <strong>Action Items:</strong> Attend opening remarks (first 10 mins), then pull Amit for sidebar conversation. Position SyncMetra as enabling infrastructure for AI-native OT applications. Explore partnership / investment angle.
                 </div>
                 
                 <div class="quick-capture">
                     <h5>⚡ Quick Capture</h5>
                     <div class="capture-grid">
-                        <textarea class="quick-notes-field" placeholder="Key quotes, technical details, questions asked..."></textarea>
+                        <textarea class="quick-notes-field" placeholder="Key quotes, technical details, questions asked by speakers or audience..."></textarea>
                         
                         <div class="met-checkbox" onclick="toggleMet(this)">
                             <input type="checkbox">
-                            <label>✓ Met speaker at this session</label>
+                            <label>✓ Met speaker(s) at this session</label>
                         </div>
                         
                         <div class="task-assignment">
@@ -856,11 +911,106 @@
                 </div>
                 
                 <div class="contact-fields">
-                    <h5>📇 Contact Info</h5>
+                    <h5>📇 Contact Information</h5>
                     <div class="contact-grid">
                         <div class="contact-field">
                             <label>Name</label>
-                            <input type="text" placeholder="Ruben Llanes">
+                            <input type="text" placeholder="Amit Chaturvedy">
+                        </div>
+                        <div class="contact-field">
+                            <label>Email</label>
+                            <input type="email" placeholder="email@se-ventures.com">
+                        </div>
+                        <div class="contact-field">
+                            <label>Phone</label>
+                            <input type="tel" placeholder="+1 (555) 000-0000">
+                        </div>
+                        <div class="contact-field">
+                            <label>LinkedIn</label>
+                            <input type="text" placeholder="linkedin.com/in/...">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- SESSION 4 - SKIP -->
+            <div class="session-card skip" data-session-id="session-4">
+                <span class="priority-badge badge-skip">Skip / Hallway</span>
+                <div class="session-time">Nov 18 • 12:00–12:45 PM</div>
+                <div class="session-title">Grid Operators & Tech Innovators / Renewable Growth</div>
+                <div class="session-speakers">Panel Discussion (TBD)</div>
+                <div class="session-description">
+                    Policy and regulatory discussion on renewable energy integration, grid modernization incentives, and utility innovation programs. Focus on macro-level trends and government initiatives.
+                </div>
+                <div class="session-why">
+                    <strong>Why Skip:</strong> Broad, policy-heavy content without specific technical architecture discussion. Not target-rich for SyncMetra positioning—better to use this time for hallway conversations with contacts from morning sessions.<br><br>
+                    <strong>Action Items:</strong> Skip session. Use this time to follow up with Marino or Simonelli if they're available. Alternatively, scout afternoon session rooms and position yourselves strategically.
+                </div>
+            </div>
+            
+            <!-- SESSION 5 - SKIP -->
+            <div class="session-card skip" data-session-id="session-5">
+                <span class="priority-badge badge-skip">Skip / Hallway</span>
+                <div class="session-time">Nov 18 • 1:00–1:45 PM</div>
+                <div class="session-title">Scaling Innovation</div>
+                <div class="session-speakers">Anthony Cottone (1PointFive)</div>
+                <div class="session-description">
+                    Discussion on scaling carbon capture technology and energy transition investments. Focus on 1PointFive's direct air capture facilities and long-term climate technology roadmap.
+                </div>
+                <div class="session-why">
+                    <strong>Why Skip:</strong> Energy transition and carbon capture focus—not directly relevant to SyncMetra's edge orchestration and industrial automation positioning. Only valuable if carbon capture infrastructure comes up in later client discussions.<br><br>
+                    <strong>Action Items:</strong> Skip session. Use time for lunch meetings with morning contacts or prep for afternoon priority sessions.
+                </div>
+            </div>
+            
+            <!-- SESSION 6 - MAYBE -->
+            <div class="session-card maybe" data-session-id="session-6">
+                <span class="priority-badge badge-maybe">Maybe</span>
+                <div class="session-time">Nov 18 • 2:00–2:45 PM</div>
+                <div class="session-title">IT Infrastructure for AI at the Edge</div>
+                <div class="session-speakers">Gordon Lord, Jon Gould (Schneider)</div>
+                <div class="session-description">
+                    Technical deep-dive into IT infrastructure requirements for AI/ML workloads at industrial edge. Discussion covers hybrid cloud architectures, OT/IT integration patterns, and partner ecosystem strategies for edge deployments.
+                </div>
+                <div class="session-why">
+                    <strong>Why It Matters:</strong> Channel + software BD alignment opportunity. Learn how Schneider onboards technology partners that span OT/IT boundaries. Gordon and Jon can facilitate introductions to technical evaluators and systems integrators.<br><br>
+                    <strong>Action Items:</strong> Attend if no conflict with higher-priority sessions. Focus on understanding partner onboarding process. Get contact info for partner program managers.
+                </div>
+                
+                <div class="quick-capture">
+                    <h5>⚡ Quick Capture</h5>
+                    <div class="capture-grid">
+                        <textarea class="quick-notes-field" placeholder="Key quotes, technical details, questions asked by speakers or audience..."></textarea>
+                        
+                        <div class="met-checkbox" onclick="toggleMet(this)">
+                            <input type="checkbox">
+                            <label>✓ Met speaker(s) at this session</label>
+                        </div>
+                        
+                        <div class="task-assignment">
+                            <button class="task-btn" onclick="assignTask(this, 'jc')">Assign to JC</button>
+                            <button class="task-btn" onclick="assignTask(this, 'raj')">Assign to Raj</button>
+                        </div>
+                        
+                        <div class="media-controls">
+                            <label class="media-btn photo-btn">
+                                📸 Business Card
+                                <input type="file" accept="image/*" capture="environment" onchange="handlePhoto(this)" class="hidden">
+                            </label>
+                            <button class="media-btn voice-btn" onclick="startVoiceMemo(this)">🎤 Voice Memo</button>
+                        </div>
+                        
+                        <div class="photo-container"></div>
+                        <div class="audio-container"></div>
+                    </div>
+                </div>
+                
+                <div class="contact-fields">
+                    <h5>📇 Contact Information</h5>
+                    <div class="contact-grid">
+                        <div class="contact-field">
+                            <label>Name</label>
+                            <input type="text" placeholder="Gordon Lord / Jon Gould">
                         </div>
                         <div class="contact-field">
                             <label>Email</label>
@@ -878,27 +1028,28 @@
                 </div>
             </div>
             
-            <div class="day-header">📅 Day 2 — November 19, 2025</div>
-            
-            <!-- Session 4 -->
-            <div class="session-card must-attend">
-                <span class="priority-badge badge-must">Must Attend</span>
-                <div class="session-time">Nov 19 • 1:00–1:45 PM</div>
-                <div class="session-title">Grid Intelligence / Hybrid Cloud</div>
-                <div class="session-speakers">Matt Schnugg (CPO Digital Grid), Microsoft, AiDASH</div>
+            <!-- SESSION 7 - MAYBE -->
+            <div class="session-card maybe" data-session-id="session-7">
+                <span class="priority-badge badge-maybe">Maybe</span>
+                <div class="session-time">Nov 18 • 2:00–2:45 PM</div>
+                <div class="session-title">Connected Networks Fueling Industry</div>
+                <div class="session-speakers">Bry Dillon (AVEVA)</div>
+                <div class="session-description">
+                    How industrial software platforms integrate with network infrastructure to enable real-time operations. AVEVA's digital twin and data management platforms, and the connectivity layer that powers them.
+                </div>
                 <div class="session-why">
-                    <strong>Why:</strong> Closest to formal pilot spec. Frame SyncMetra as runtime keeping hybrid cloud + DERMS in sync.<br>
-                    <strong>Action:</strong> Front 5 rows. Top priority for pilot formation.
+                    <strong>Why It Matters:</strong> AVEVA (majority-owned by Schneider) is a critical ecosystem partner. Integration angle for SyncMetra to support AVEVA's real-time data synchronization requirements across distributed industrial sites.<br><br>
+                    <strong>Action Items:</strong> Quick drop-in for partner mapping. Get Bry's contact info and schedule 30-min follow-up on AVEVA + SyncMetra integration use cases. Target: joint proof-of-concept with AVEVA customer.
                 </div>
                 
                 <div class="quick-capture">
                     <h5>⚡ Quick Capture</h5>
                     <div class="capture-grid">
-                        <textarea class="quick-notes-field" placeholder="Key quotes, technical details, questions asked..."></textarea>
+                        <textarea class="quick-notes-field" placeholder="Key quotes, technical details, questions asked by speakers or audience..."></textarea>
                         
                         <div class="met-checkbox" onclick="toggleMet(this)">
                             <input type="checkbox">
-                            <label>✓ Met speaker at this session</label>
+                            <label>✓ Met speaker(s) at this session</label>
                         </div>
                         
                         <div class="task-assignment">
@@ -920,7 +1071,204 @@
                 </div>
                 
                 <div class="contact-fields">
-                    <h5>📇 Contact Info</h5>
+                    <h5>📇 Contact Information</h5>
+                    <div class="contact-grid">
+                        <div class="contact-field">
+                            <label>Name</label>
+                            <input type="text" placeholder="Bry Dillon">
+                        </div>
+                        <div class="contact-field">
+                            <label>Email</label>
+                            <input type="email" placeholder="email@aveva.com">
+                        </div>
+                        <div class="contact-field">
+                            <label>Phone</label>
+                            <input type="tel" placeholder="+1 (555) 000-0000">
+                        </div>
+                        <div class="contact-field">
+                            <label>LinkedIn</label>
+                            <input type="text" placeholder="linkedin.com/in/...">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- SESSION 8 -->
+            <div class="session-card must-attend" data-session-id="session-8">
+                <span class="priority-badge badge-must">Must Attend</span>
+                <div class="session-time">Nov 18 • 3:00–3:45 PM</div>
+                <div class="session-title">Building a Resilient, Flexible Grid</div>
+                <div class="session-speakers">Ruben Llanes (CEO Digital Grid), PG&E, Microsoft, AECOM</div>
+                <div class="session-description">
+                    Strategic discussion on grid modernization, distributed energy resources (DER) orchestration, and the software/hardware infrastructure needed for resilient power systems. Panel includes utility operator (PG&E), cloud provider (Microsoft), and global EPC firm (AECOM).
+                </div>
+                <div class="session-why">
+                    <strong>Why It Matters:</strong> Ruben Llanes owns Digital Grid business unit—direct budget authority. This panel brings together utility buyers (PG&E) and systems integrators (AECOM). Perfect opportunity to position SyncMetra for DER orchestration pilot linking field devices, edge compute, and grid analytics with deterministic latency guarantees.<br><br>
+                    <strong>Action Items:</strong> Front 5 rows mandatory. Engage Ruben immediately after session—propose DER orchestration pilot concept. Also connect with AECOM rep for EPC channel strategy. Target: 30-min technical call within week.
+                </div>
+                
+                <div class="quick-capture">
+                    <h5>⚡ Quick Capture</h5>
+                    <div class="capture-grid">
+                        <textarea class="quick-notes-field" placeholder="Key quotes, technical details, questions asked by speakers or audience..."></textarea>
+                        
+                        <div class="met-checkbox" onclick="toggleMet(this)">
+                            <input type="checkbox">
+                            <label>✓ Met speaker(s) at this session</label>
+                        </div>
+                        
+                        <div class="task-assignment">
+                            <button class="task-btn" onclick="assignTask(this, 'jc')">Assign to JC</button>
+                            <button class="task-btn" onclick="assignTask(this, 'raj')">Assign to Raj</button>
+                        </div>
+                        
+                        <div class="media-controls">
+                            <label class="media-btn photo-btn">
+                                📸 Business Card
+                                <input type="file" accept="image/*" capture="environment" onchange="handlePhoto(this)" class="hidden">
+                            </label>
+                            <button class="media-btn voice-btn" onclick="startVoiceMemo(this)">🎤 Voice Memo</button>
+                        </div>
+                        
+                        <div class="photo-container"></div>
+                        <div class="audio-container"></div>
+                    </div>
+                </div>
+                
+                <div class="contact-fields">
+                    <h5>📇 Contact Information</h5>
+                    <div class="contact-grid">
+                        <div class="contact-field">
+                            <label>Name</label>
+                            <input type="text" placeholder="Ruben Llanes / PG&E Rep / AECOM Rep">
+                        </div>
+                        <div class="contact-field">
+                            <label>Email</label>
+                            <input type="email" placeholder="email@company.com">
+                        </div>
+                        <div class="contact-field">
+                            <label>Phone</label>
+                            <input type="tel" placeholder="+1 (555) 000-0000">
+                        </div>
+                        <div class="contact-field">
+                            <label>LinkedIn</label>
+                            <input type="text" placeholder="linkedin.com/in/...">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="day-header">📅 Day 2 — Tuesday, November 19, 2025</div>
+            
+            <!-- SESSION 9 - MAYBE -->
+            <div class="session-card maybe" data-session-id="session-9">
+                <span class="priority-badge badge-maybe">Maybe</span>
+                <div class="session-time">Nov 19 • 12:00–12:45 PM</div>
+                <div class="session-title">Industrial Competitiveness Through Software</div>
+                <div class="session-speakers">Hany Fouda (Schneider Process Automation)</div>
+                <div class="session-description">
+                    How software-defined industrial automation drives competitive advantage in process industries. Discussion covers IIoT platforms, edge computing strategies, and the convergence of automation software with Microsoft Azure and AVEVA platforms.
+                </div>
+                <div class="session-why">
+                    <strong>Why It Matters:</strong> Good reinforcement session for industrial automation positioning. Hany bridges process automation and software—can provide pathway into specific manufacturing accounts. Microsoft/AVEVA overlap creates partnership opportunities.<br><br>
+                    <strong>Action Items:</strong> Attend if schedule permits. Focus on customer introduction opportunities in process industries (oil/gas, chemicals, pharma). Get contact info for process automation solutions architects.
+                </div>
+                
+                <div class="quick-capture">
+                    <h5>⚡ Quick Capture</h5>
+                    <div class="capture-grid">
+                        <textarea class="quick-notes-field" placeholder="Key quotes, technical details, questions asked by speakers or audience..."></textarea>
+                        
+                        <div class="met-checkbox" onclick="toggleMet(this)">
+                            <input type="checkbox">
+                            <label>✓ Met speaker(s) at this session</label>
+                        </div>
+                        
+                        <div class="task-assignment">
+                            <button class="task-btn" onclick="assignTask(this, 'jc')">Assign to JC</button>
+                            <button class="task-btn" onclick="assignTask(this, 'raj')">Assign to Raj</button>
+                        </div>
+                        
+                        <div class="media-controls">
+                            <label class="media-btn photo-btn">
+                                📸 Business Card
+                                <input type="file" accept="image/*" capture="environment" onchange="handlePhoto(this)" class="hidden">
+                            </label>
+                            <button class="media-btn voice-btn" onclick="startVoiceMemo(this)">🎤 Voice Memo</button>
+                        </div>
+                        
+                        <div class="photo-container"></div>
+                        <div class="audio-container"></div>
+                    </div>
+                </div>
+                
+                <div class="contact-fields">
+                    <h5>📇 Contact Information</h5>
+                    <div class="contact-grid">
+                        <div class="contact-field">
+                            <label>Name</label>
+                            <input type="text" placeholder="Hany Fouda">
+                        </div>
+                        <div class="contact-field">
+                            <label>Email</label>
+                            <input type="email" placeholder="email@schneider-electric.com">
+                        </div>
+                        <div class="contact-field">
+                            <label>Phone</label>
+                            <input type="tel" placeholder="+1 (555) 000-0000">
+                        </div>
+                        <div class="contact-field">
+                            <label>LinkedIn</label>
+                            <input type="text" placeholder="linkedin.com/in/...">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- SESSION 10 - TOP PRIORITY -->
+            <div class="session-card must-attend" data-session-id="session-10">
+                <span class="priority-badge badge-must">Must Attend</span>
+                <div class="session-time">Nov 19 • 1:00–1:45 PM</div>
+                <div class="session-title">Grid Intelligence Powered by Hybrid Cloud</div>
+                <div class="session-speakers">Matt Schnugg (CPO Digital Grid), Microsoft, AiDASH</div>
+                <div class="session-description">
+                    Technical architecture session on hybrid cloud infrastructure for grid intelligence applications. Focus on DERMS (Distributed Energy Resource Management Systems), edge-to-cloud data synchronization, and AI-powered grid optimization. Panel includes Microsoft Azure for Energy and AiDash (AI infrastructure monitoring).
+                </div>
+                <div class="session-why">
+                    <strong>Why It Matters:</strong> THIS IS THE #1 PRIORITY SESSION. Matt Schnugg (CPO) has most direct line to formal pilot specifications. Hybrid cloud + DERMS architecture is PERFECT fit for SyncMetra—deterministic runtime keeping edge devices and cloud analytics in perfect sync. Prioritize this over Hackenson's IT Ops session if conflict.<br><br>
+                    <strong>Action Items:</strong> Front 3 rows absolute must. Prepare technical question about latency/sync challenges in DERMS deployments. Engage Matt immediately after—frame SyncMetra as the missing orchestration layer. Target: Pilot spec meeting within 5 business days.
+                </div>
+                
+                <div class="quick-capture">
+                    <h5>⚡ Quick Capture</h5>
+                    <div class="capture-grid">
+                        <textarea class="quick-notes-field" placeholder="Key quotes, technical details, questions asked by speakers or audience..."></textarea>
+                        
+                        <div class="met-checkbox" onclick="toggleMet(this)">
+                            <input type="checkbox">
+                            <label>✓ Met speaker(s) at this session</label>
+                        </div>
+                        
+                        <div class="task-assignment">
+                            <button class="task-btn" onclick="assignTask(this, 'jc')">Assign to JC</button>
+                            <button class="task-btn" onclick="assignTask(this, 'raj')">Assign to Raj</button>
+                        </div>
+                        
+                        <div class="media-controls">
+                            <label class="media-btn photo-btn">
+                                📸 Business Card
+                                <input type="file" accept="image/*" capture="environment" onchange="handlePhoto(this)" class="hidden">
+                            </label>
+                            <button class="media-btn voice-btn" onclick="startVoiceMemo(this)">🎤 Voice Memo</button>
+                        </div>
+                        
+                        <div class="photo-container"></div>
+                        <div class="audio-container"></div>
+                    </div>
+                </div>
+                
+                <div class="contact-fields">
+                    <h5>📇 Contact Information</h5>
                     <div class="contact-grid">
                         <div class="contact-field">
                             <label>Name</label>
@@ -941,21 +1289,137 @@
                     </div>
                 </div>
             </div>
-        </div>
-        
-        <div id="must" class="tab-content">
-            <h2 style="color: #28a745; margin-bottom: 20px;">✅ MUST ATTEND Summary</h2>
-            <p>Quick reference for priority sessions - see "All Sessions" tab for full capture tools.</p>
+            
+            <!-- SESSION 11 - SKIP -->
+            <div class="session-card skip" data-session-id="session-11">
+                <span class="priority-badge badge-skip">Skip / Hallway</span>
+                <div class="session-time">Nov 19 • 1:00–1:45 PM</div>
+                <div class="session-title">Hybrid IT and Data Center Operations</div>
+                <div class="session-speakers">Elizabeth Hackenson (CIO, Schneider Electric)</div>
+                <div class="session-description">
+                    CIO perspective on managing hybrid IT infrastructure, data center modernization, and enterprise technology roadmap. Focus on internal Schneider IT operations rather than customer-facing solutions.
+                </div>
+                <div class="session-why">
+                    <strong>Why Skip:</strong> Valuable but secondary priority. This conflicts with Matt Schnugg's session which is FAR more important for pilot formation. Elizabeth's session is more about internal IT operations—less relevant to selling SyncMetra to Schneider customers.<br><br>
+                    <strong>Action Items:</strong> Skip session—attend Schnugg instead. If you meet Elizabeth in hallway, focus on partner program and technology evaluation process.
+                </div>
+            </div>
+            
+            <!-- SESSION 12 - MAYBE -->
+            <div class="session-card maybe" data-session-id="session-12">
+                <span class="priority-badge badge-maybe">Maybe</span>
+                <div class="session-time">Nov 19 • 2:00–2:45 PM</div>
+                <div class="session-title">Innovation Showcase: Startups Shaping 2026</div>
+                <div class="session-speakers">Amit Chaturvedy (SE Ventures)</div>
+                <div class="session-description">
+                    Curated showcase of SE Ventures portfolio companies and emerging technology partners. Lightning presentations from startups addressing industrial IoT, grid modernization, and sustainable infrastructure challenges.
+                </div>
+                <div class="session-why">
+                    <strong>Why It Matters:</strong> Competitive intelligence and ecosystem visibility. See what other technology companies Schneider is partnering with. Networking opportunity with other startups—potential integration or go-to-market partnerships.<br><br>
+                    <strong>Action Items:</strong> 10-minute fly-through if schedule permits. Connect with 2-3 complementary technology vendors for potential co-selling opportunities. Network during networking break.
+                </div>
+                
+                <div class="quick-capture">
+                    <h5>⚡ Quick Capture</h5>
+                    <div class="capture-grid">
+                        <textarea class="quick-notes-field" placeholder="Key quotes, technical details, questions asked by speakers or audience..."></textarea>
+                        
+                        <div class="met-checkbox" onclick="toggleMet(this)">
+                            <input type="checkbox">
+                            <label>✓ Met speaker(s) at this session</label>
+                        </div>
+                        
+                        <div class="task-assignment">
+                            <button class="task-btn" onclick="assignTask(this, 'jc')">Assign to JC</button>
+                            <button class="task-btn" onclick="assignTask(this, 'raj')">Assign to Raj</button>
+                        </div>
+                        
+                        <div class="media-controls">
+                            <label class="media-btn photo-btn">
+                                📸 Business Card
+                                <input type="file" accept="image/*" capture="environment" onchange="handlePhoto(this)" class="hidden">
+                            </label>
+                            <button class="media-btn voice-btn" onclick="startVoiceMemo(this)">🎤 Voice Memo</button>
+                        </div>
+                        
+                        <div class="photo-container"></div>
+                        <div class="audio-container"></div>
+                    </div>
+                </div>
+                
+                <div class="contact-fields">
+                    <h5>📇 Contact Information</h5>
+                    <div class="contact-grid">
+                        <div class="contact-field">
+                            <label>Name</label>
+                            <input type="text" placeholder="Contact name">
+                        </div>
+                        <div class="contact-field">
+                            <label>Email</label>
+                            <input type="email" placeholder="email@company.com">
+                        </div>
+                        <div class="contact-field">
+                            <label>Phone</label>
+                            <input type="tel" placeholder="+1 (555) 000-0000">
+                        </div>
+                        <div class="contact-field">
+                            <label>LinkedIn</label>
+                            <input type="text" placeholder="linkedin.com/in/...">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- SESSION 13 - SKIP -->
+            <div class="session-card skip" data-session-id="session-13">
+                <span class="priority-badge badge-skip">Skip / Hallway</span>
+                <div class="session-time">Nov 19 • 2:00–2:45 PM</div>
+                <div class="session-title">CIO/CISO Roundtable: Securing Critical Infrastructure</div>
+                <div class="session-speakers">Jay Abdallah (Cybersecurity), Panel of CIOs/CISOs</div>
+                <div class="session-description">
+                    Cybersecurity best practices for protecting operational technology and critical infrastructure. Focus on zero-trust architectures, threat detection, and compliance frameworks (NERC CIP, IEC 62443).
+                </div>
+                <div class="session-why">
+                    <strong>Why Skip:</strong> Too generic and broad for pilot formation. Cybersecurity is important but not the primary value proposition for SyncMetra. Better to spend time on hallway follow-ups with contacts from earlier sessions.<br><br>
+                    <strong>Action Items:</strong> Skip session. Use time for informal conversations with Day 1 contacts, or prep for end-of-conference recap meeting between JC and Raj.
+                </div>
+            </div>
+            
+            <div class="glossary">
+                <h4>📚 Key Terms Reference</h4>
+                <div class="glossary-item">
+                    <span class="glossary-term">DERMS:</span> Distributed Energy Resource Management System—software platform coordinating solar, batteries, EVs, and other distributed assets on the grid.
+                </div>
+                <div class="glossary-item">
+                    <span class="glossary-term">DER:</span> Distributed Energy Resources—solar panels, battery storage, electric vehicles, generators located at customer sites.
+                </div>
+                <div class="glossary-item">
+                    <span class="glossary-term">TSN:</span> Time-Sensitive Networking (IEEE 802.1)—deterministic Ethernet standard for industrial automation with guaranteed latency.
+                </div>
+                <div class="glossary-item">
+                    <span class="glossary-term">AVEVA:</span> Industrial software company (majority-owned by Schneider) providing digital-twin, SCADA, and operations platforms.
+                </div>
+                <div class="glossary-item">
+                    <span class="glossary-term">AECOM:</span> Global Engineering, Procurement, and Construction (EPC) firm—designs and builds industrial facilities and energy infrastructure.
+                </div>
+                <div class="glossary-item">
+                    <span class="glossary-term">AiDash:</span> AI-powered platform using satellite imagery for utility vegetation management and grid infrastructure monitoring.
+                </div>
+                <div class="glossary-item">
+                    <span class="glossary-term">EcoStruxure Plant:</span> Schneider's industrial automation and digitalization platform for manufacturing operations.
+                </div>
+            </div>
         </div>
         
         <!-- TRACKING TAB -->
         <div id="tracking" class="tab-content">
             <div class="tracking-section">
                 <div class="tracking-header">
-                    <h3>📊 Follow-Up Tracking</h3>
+                    <h3>📊 Contact & Follow-Up Tracker</h3>
                     <div class="action-buttons">
                         <button class="btn btn-primary" onclick="addTrackingRow()">➕ Add Contact</button>
-                        <button class="btn btn-secondary" onclick="exportTracking()">📥 Export CSV</button>
+                        <button class="btn btn-secondary" onclick="exportTracking()">📥 Export to CSV</button>
+                        <button class="btn btn-danger" onclick="clearAllData()">🗑️ Clear All Data</button>
                     </div>
                 </div>
                 
@@ -963,23 +1427,23 @@
                     <table class="tracking-table" id="trackingTable">
                         <thead>
                             <tr>
-                                <th>Name</th>
-                                <th>Organization</th>
-                                <th>Contact</th>
-                                <th>Owner</th>
-                                <th>Status</th>
-                                <th>Interest</th>
-                                <th>Next Step</th>
-                                <th>Date</th>
-                                <th>Notes</th>
-                                <th>Action</th>
+                                <th style="min-width: 150px;">Name</th>
+                                <th style="min-width: 150px;">Organization</th>
+                                <th style="min-width: 120px;">Contact</th>
+                                <th style="min-width: 100px;">Owner</th>
+                                <th style="min-width: 120px;">Status</th>
+                                <th style="min-width: 120px;">Interest</th>
+                                <th style="min-width: 180px;">Next Step</th>
+                                <th style="min-width: 120px;">Follow-Up Date</th>
+                                <th style="min-width: 250px;">Notes</th>
+                                <th style="min-width: 80px;">Action</th>
                             </tr>
                         </thead>
                         <tbody id="trackingBody">
                             <tr>
-                                <td><input type="text" value="Matt Schnugg"></td>
-                                <td><input type="text" value="Schneider Electric"></td>
-                                <td><input type="text" placeholder="Email/Phone"></td>
+                                <td><input type="text" value="Matt Schnugg" placeholder="Full name"></td>
+                                <td><input type="text" value="Schneider Electric" placeholder="Company"></td>
+                                <td><input type="text" placeholder="Email or phone"></td>
                                 <td>
                                     <select>
                                         <option value="">Unassigned</option>
@@ -995,6 +1459,43 @@
                                         <option value="qualified" selected>Qualified</option>
                                         <option value="demo">Demo Scheduled</option>
                                         <option value="proposal">Proposal Sent</option>
+                                        <option value="closed-won">Closed Won</option>
+                                        <option value="closed-lost">Closed Lost</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select>
+                                        <option value="hot" selected>Hot 🔥</option>
+                                        <option value="warm">Warm ☀️</option>
+                                        <option value="cold">Cold ❄️</option>
+                                        <option value="pilot">Pilot Interest</option>
+                                        <option value="explore">Exploring</option>
+                                    </select>
+                                </td>
+                                <td><input type="text" value="Schedule 20-min pilot call" placeholder="Next action..."></td>
+                                <td><input type="date" value="2025-11-20"></td>
+                                <td><textarea placeholder="Meeting notes...">DERMS + hybrid cloud pilot - TOP PRIORITY. Engaged at Grid Intelligence session.</textarea></td>
+                                <td><button class="delete-btn" onclick="deleteRow(this)">Delete</button></td>
+                            </tr>
+                            <tr>
+                                <td><input type="text" value="André Marino" placeholder="Full name"></td>
+                                <td><input type="text" value="Schneider Electric" placeholder="Company"></td>
+                                <td><input type="text" placeholder="Email or phone"></td>
+                                <td>
+                                    <select>
+                                        <option value="">Unassigned</option>
+                                        <option value="jc">JC</option>
+                                        <option value="raj" selected>Raj</option>
+                                        <option value="both">Both</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select>
+                                        <option value="new">New Lead</option>
+                                        <option value="contacted" selected>Contacted</option>
+                                        <option value="qualified">Qualified</option>
+                                        <option value="demo">Demo Scheduled</option>
+                                        <option value="proposal">Proposal Sent</option>
                                     </select>
                                 </td>
                                 <td>
@@ -1004,26 +1505,46 @@
                                         <option value="pilot">Pilot Interest</option>
                                     </select>
                                 </td>
-                                <td><input type="text" value="20-min pilot call"></td>
-                                <td><input type="date" value="2025-11-20"></td>
-                                <td><textarea>DERMS + hybrid cloud pilot</textarea></td>
+                                <td><input type="text" value="TSN + 5G pilot for EcoStruxure" placeholder="Next action..."></td>
+                                <td><input type="date" value="2025-11-22"></td>
+                                <td><textarea placeholder="Meeting notes...">SVP Industrial Automation. Interested in deterministic edge fabric for plant automation. Follow up on EcoStruxure integration.</textarea></td>
                                 <td><button class="delete-btn" onclick="deleteRow(this)">Delete</button></td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
+                
+                <div class="glossary" style="margin-top: 25px;">
+                    <h4>📋 Status Definitions</h4>
+                    <div class="glossary-item">
+                        <span class="glossary-term">New Lead:</span> Initial contact made at conference—name/title captured.
+                    </div>
+                    <div class="glossary-item">
+                        <span class="glossary-term">Contacted:</span> First follow-up email/call completed within 48 hours.
+                    </div>
+                    <div class="glossary-item">
+                        <span class="glossary-term">Qualified:</span> Confirmed budget authority, technical fit, and timeline (BANT criteria).
+                    </div>
+                    <div class="glossary-item">
+                        <span class="glossary-term">Demo Scheduled:</span> Technical demonstration or pilot discussion meeting booked.
+                    </div>
+                    <div class="glossary-item">
+                        <span class="glossary-term">Proposal Sent:</span> Formal pilot proposal, pricing, or SOW delivered to prospect.
+                    </div>
+                </div>
             </div>
         </div>
         
-        <!-- EMAIL TEMPLATES TAB -->
+        <!-- TEMPLATES TAB -->
         <div id="templates" class="tab-content">
-            <h2 style="color: #667eea; margin-bottom: 20px;">📧 Email Templates</h2>
+            <h2 style="color: #667eea; margin-bottom: 20px;">📧 Follow-Up Email Templates</h2>
+            <p>Pre-written templates optimized for 24-48 hour post-conference follow-up. Click "Copy" to clipboard, then personalize with specific details from your conversation.</p>
             
             <div class="email-templates">
                 <div class="template-card">
                     <div class="template-header">
                         <div class="template-title">1. Initial Thank You (24-48 hours)</div>
-                        <button class="copy-btn" onclick="copyTemplate(this)">Copy</button>
+                        <button class="copy-btn" onclick="copyTemplate(this)">Copy to Clipboard</button>
                     </div>
                     <div class="template-body">Subject: Great connecting at Schneider Innovation Summit
 
@@ -1040,13 +1561,13 @@ I've attached a one-pager on [relevant use case].
 Best regards,
 [Your Name]
 Canoga Perkins | SyncMetra Solutions
-[LinkedIn Profile]</div>
+[Phone] | [LinkedIn Profile]</div>
                 </div>
                 
                 <div class="template-card">
                     <div class="template-header">
                         <div class="template-title">2. Pilot Proposal Follow-Up</div>
-                        <button class="copy-btn" onclick="copyTemplate(this)">Copy</button>
+                        <button class="copy-btn" onclick="copyTemplate(this)">Copy to Clipboard</button>
                     </div>
                     <div class="template-body">Subject: SyncMetra Pilot Proposal - [Use Case]
 
@@ -1057,22 +1578,22 @@ Following up on our conversation at the Summit about [specific challenge/opportu
 Based on your requirements for [deterministic networking / edge orchestration / DERMS integration], I've outlined a focused pilot approach:
 
 **Pilot Scope:**
-- Duration: 60-90 days
-- Environment: [Industrial plant / Grid edge / Data center]
-- Key Metrics: Latency, synchronization accuracy, TSN integration
-- Deliverables: Technical report, architecture recommendations
+• Duration: 60-90 days
+• Environment: [Industrial plant / Grid edge / Data center]
+• Key Metrics: Latency, synchronization accuracy, TSN integration
+• Deliverables: Technical report, architecture recommendations
 
 **What We Provide:**
-- SyncMetra platform licenses
-- Technical implementation support
-- Performance benchmarking tools
+• SyncMetra platform licenses
+• Technical implementation support  
+• Performance benchmarking tools
 
 **What You Provide:**
-- Test environment access
-- Network topology documentation
-- Subject matter expert time (4-6 hours/week)
+• Test environment access
+• Network topology documentation
+• Subject matter expert time (4-6 hours/week)
 
-Would [Date] work for a 30-minute call to discuss next steps?
+Would [Date/Time] work for a 30-minute call to discuss next steps?
 
 Best,
 [Your Name]</div>
@@ -1081,7 +1602,7 @@ Best,
                 <div class="template-card">
                     <div class="template-header">
                         <div class="template-title">3. TSN + 5G Technical Deep-Dive</div>
-                        <button class="copy-btn" onclick="copyTemplate(this)">Copy</button>
+                        <button class="copy-btn" onclick="copyTemplate(this)">Copy to Clipboard</button>
                     </div>
                     <div class="template-body">Subject: Technical Deep-Dive: SyncMetra TSN + 5G Orchestration
 
@@ -1090,16 +1611,16 @@ Hi [Name],
 Per your request for more technical detail on how SyncMetra handles deterministic networking over 5G transport:
 
 **Key Capabilities:**
-- IEEE 802.1AS-compliant time synchronization (sub-microsecond accuracy)
-- 3GPP Release 16/17 integration for URLLC traffic
-- Hardware timestamping with PTP boundary/transparent clock support
-- TSN stream mapping to 5G QoS flows
-- Zero-touch orchestration across OT/IT boundaries
+• IEEE 802.1AS-compliant time synchronization (sub-microsecond accuracy)
+• 3GPP Release 16/17 integration for URLLC traffic
+• Hardware timestamping with PTP boundary/transparent clock support
+• TSN stream mapping to 5G QoS flows
+• Zero-touch orchestration across OT/IT boundaries
 
 **Relevant Use Cases:**
-- EcoStruxure Plant deterministic automation
-- Distributed Energy Resources (DER) coordination
-- Edge AI workload synchronization
+• EcoStruxure Plant deterministic automation
+• Distributed Energy Resources (DER) coordination  
+• Edge AI workload synchronization
 
 I've attached our technical whitepaper and reference architecture for [their industry].
 
@@ -1111,10 +1632,10 @@ Best,
                 
                 <div class="template-card">
                     <div class="template-header">
-                        <div class="template-title">4. LinkedIn Connection Request</div>
-                        <button class="copy-btn" onclick="copyTemplate(this)">Copy</button>
+                        <div class="template-title">4. LinkedIn Connection Message</div>
+                        <button class="copy-btn" onclick="copyTemplate(this)">Copy to Clipboard</button>
                     </div>
-                    <div class="template-body">Hi [Name], great meeting you at the Schneider Innovation Summit during the [Session Name] session. I'd love to stay connected and continue the conversation about [specific topic]. Looking forward to exploring how SyncMetra can support [their initiative].
+                    <div class="template-body">Hi [Name], great meeting you at the Schneider Innovation Summit during the [Session Name] session. I'd love to stay connected and continue the conversation about [specific topic—e.g., DERMS orchestration, TSN for industrial automation]. Looking forward to exploring how SyncMetra can support [their initiative].
 
 —[Your Name], Canoga Perkins</div>
                 </div>
@@ -1123,53 +1644,53 @@ Best,
         
         <!-- RESOURCES TAB -->
         <div id="resources" class="tab-content">
-            <h2 style="color: #3CAA46; margin-bottom: 20px;">📚 SyncMetra Resources</h2>
-            <p>One-click access to sales collateral and technical documentation</p>
+            <h2 style="color: #3CAA46; margin-bottom: 20px;">📚 SyncMetra Sales Resources</h2>
+            <p>One-click access to collateral, technical docs, and positioning guides. Update these links with your actual resource URLs.</p>
             
             <div class="resources-grid">
-                <div class="resource-card" onclick="window.open('https://canogaperkins.net/syncmetra/', '_blank')">
+                <div class="resource-card" onclick="window.open('https://canogaperkins.net/products/syncmetra/', '_blank')">
                     <div class="resource-icon">📄</div>
                     <div class="resource-title">SyncMetra Overview</div>
                     <div class="resource-desc">Product page with key features and benefits</div>
                 </div>
                 
-                <div class="resource-card" onclick="alert('Upload your SyncMetra case study PDF to share')">
+                <div class="resource-card" onclick="alert('Upload your industrial automation case study PDF')">
                     <div class="resource-icon">🏭</div>
                     <div class="resource-title">Industrial Case Studies</div>
                     <div class="resource-desc">Manufacturing and automation deployments</div>
                 </div>
                 
-                <div class="resource-card" onclick="alert('Upload your technical specs document')">
+                <div class="resource-card" onclick="alert('Upload your technical specifications document')">
                     <div class="resource-icon">⚙️</div>
                     <div class="resource-title">Technical Specifications</div>
-                    <div class="resource-desc">Detailed architecture and integration specs</div>
+                    <div class="resource-desc">Architecture, protocols, integration specs</div>
                 </div>
                 
-                <div class="resource-card" onclick="alert('Upload your TSN whitepaper')">
+                <div class="resource-card" onclick="alert('Upload TSN + 5G whitepaper')">
                     <div class="resource-icon">📡</div>
                     <div class="resource-title">TSN + 5G Whitepaper</div>
                     <div class="resource-desc">Deterministic networking over 5G transport</div>
                 </div>
                 
-                <div class="resource-card" onclick="alert('Upload your competitive positioning document')">
+                <div class="resource-card" onclick="alert('Upload competitive positioning document')">
                     <div class="resource-icon">🎯</div>
-                    <div class="resource-title">Competitive Positioning</div>
-                    <div class="resource-desc">SyncMetra vs. alternatives</div>
+                    <div class="resource-title">Competitive Analysis</div>
+                    <div class="resource-desc">SyncMetra vs. alternatives battle card</div>
                 </div>
                 
-                <div class="resource-card" onclick="alert('Upload your ROI calculator')">
+                <div class="resource-card" onclick="alert('Upload ROI calculator spreadsheet')">
                     <div class="resource-icon">💰</div>
                     <div class="resource-title">ROI Calculator</div>
                     <div class="resource-desc">Business case and financial justification</div>
                 </div>
                 
-                <div class="resource-card" onclick="alert('Upload your demo video or link')">
+                <div class="resource-card" onclick="alert('Add link to product demo video')">
                     <div class="resource-icon">🎥</div>
-                    <div class="resource-title">Product Demo Video</div>
+                    <div class="resource-title">Demo Video</div>
                     <div class="resource-desc">5-minute SyncMetra demonstration</div>
                 </div>
                 
-                <div class="resource-card" onclick="alert('Add link to your Calendly or meeting scheduler')">
+                <div class="resource-card" onclick="alert('Add Calendly or scheduling link')">
                     <div class="resource-icon">📅</div>
                     <div class="resource-title">Schedule Demo</div>
                     <div class="resource-desc">Book technical consultation</div>
@@ -1177,81 +1698,140 @@ Best,
             </div>
             
             <div class="glossary" style="margin-top: 30px;">
-                <h4>💡 Quick Positioning Tips</h4>
+                <h4>💡 Quick Positioning Statements</h4>
                 <div class="glossary-item">
-                    <span class="glossary-term">For Industrial Automation:</span> "SyncMetra provides the deterministic edge fabric that EcoStruxure Plant needs for real-time control—TSN over 5G with sub-microsecond synchronization."
+                    <span class="glossary-term">For Industrial Automation (Marino, Fouda):</span> "SyncMetra provides the deterministic edge fabric that EcoStruxure Plant needs for real-time control—TSN over 5G with sub-microsecond synchronization for distributed manufacturing."
                 </div>
                 <div class="glossary-item">
-                    <span class="glossary-term">For Digital Grid:</span> "SyncMetra orchestrates DER coordination and DERMS integration across hybrid cloud and edge—solving the latency and synchronization challenges in distributed energy systems."
+                    <span class="glossary-term">For Digital Grid (Schnugg, Llanes):</span> "SyncMetra orchestrates DER coordination and DERMS integration across hybrid cloud and edge—solving latency and synchronization challenges in distributed energy systems with guaranteed QoS."
                 </div>
                 <div class="glossary-item">
-                    <span class="glossary-term">For Secure Power:</span> "SyncMetra enables deterministic orchestration between power systems and edge compute modules—critical for AI workload synchronization in next-gen data centers."
+                    <span class="glossary-term">For Secure Power (Simonelli):</span> "SyncMetra enables deterministic orchestration between power systems and edge compute modules—critical for AI workload synchronization in next-gen data centers with power-aware placement."
+                </div>
+                <div class="glossary-item">
+                    <span class="glossary-term">For AVEVA Integration (Dillon):</span> "SyncMetra provides the real-time transport layer for AVEVA's digital twin and operations platforms—ensuring data consistency across distributed industrial sites with TSN-grade determinism."
                 </div>
             </div>
         </div>
         
-        <!-- PLAN TAB -->
+        <!-- STRATEGY TAB -->
         <div id="plan" class="tab-content">
-            <div class="coordination">
-                <h3>🤝 Team Coordination</h3>
+            <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 25px; border-radius: 10px; margin-bottom: 20px;">
+                <h3 style="font-size: 1.4em; margin-bottom: 15px;">🤝 Team Coordination Strategy</h3>
                 <ul style="list-style: none; padding: 0;">
                     <li style="padding: 10px 0; padding-left: 30px; position: relative;">
-                        <span style="position: absolute; left: 0;">✓</span>
-                        If two "musts" overlap, split coverage: one handles Q&A, one preps speaker intercept
+                        <span style="position: absolute; left: 0; font-weight: bold; font-size: 1.2em;">✓</span>
+                        <strong>Session Overlap Protocol:</strong> If two "must-attend" sessions conflict (e.g., Day 1 at 11am), split coverage. One person handles Q&A, the other positions themselves at stage exit for speaker intercept.
                     </li>
                     <li style="padding: 10px 0; padding-left: 30px; position: relative;">
-                        <span style="position: absolute; left: 0;">✓</span>
-                        Every session yields at least one follow-up (20-min post-summit call)
+                        <span style="position: absolute; left: 0; font-weight: bold; font-size: 1.2em;">✓</span>
+                        <strong>Every Session = One Follow-Up:</strong> Target at least one concrete follow-up action from every attended session (20-min call, pilot discussion, technical deep-dive).
                     </li>
                     <li style="padding: 10px 0; padding-left: 30px; position: relative;">
-                        <span style="position: absolute; left: 0;">✓</span>
-                        Use task assignment buttons to track who owns each contact
+                        <span style="position: absolute; left: 0; font-weight: bold; font-size: 1.2em;">✓</span>
+                        <strong>Task Assignment:</strong> Use "Assign to JC" / "Assign to Raj" buttons in each session card to track ownership. Check assignments in Contact Tracker tab.
                     </li>
                     <li style="padding: 10px 0; padding-left: 30px; position: relative;">
-                        <span style="position: absolute; left: 0;">✓</span>
-                        Capture business cards with photo upload immediately after conversation
+                        <span style="position: absolute; left: 0; font-weight: bold; font-size: 1.2em;">✓</span>
+                        <strong>Immediate Capture:</strong> Take business card photos and voice memos IMMEDIATELY after conversations—don't wait until end of day. Details fade fast.
                     </li>
                     <li style="padding: 10px 0; padding-left: 30px; position: relative;">
-                        <span style="position: absolute; left: 0;">✓</span>
-                        Record voice memos while walking to next session—don't lose details
+                        <span style="position: absolute; left: 0; font-weight: bold; font-size: 1.2em;">✓</span>
+                        <strong>Daily Sync:</strong> End of Day 1 and Day 2—meet for 30-min debrief. Review Contact Tracker, reassign tasks if needed, export CSV backup.
                     </li>
                 </ul>
             </div>
             
-            <div class="end-state">
-                <h3>✅ End State — By End of Day 2</h3>
+            <div style="background: #3CAA46; color: white; padding: 25px; border-radius: 10px;">
+                <h3 style="font-size: 1.4em; margin-bottom: 15px;">✅ Success Criteria — End of Summit</h3>
                 <ul style="list-style: none; padding: 0;">
-                    <li style="padding: 10px 0; padding-left: 30px; position: relative;">
+                    <li style="padding: 10px 0; padding-left: 30px; position: relative; font-size: 1.05em;">
                         <span style="position: absolute; left: 0;">🎯</span>
-                        3 qualified Schneider conversations (Marino, Llanes, Schnugg)
+                        <strong>3 Qualified Schneider Conversations:</strong> Marino (Industrial), Llanes (Digital Grid), Schnugg (Digital Grid CPO)—all with pilot interest documented
                     </li>
-                    <li style="padding: 10px 0; padding-left: 30px; position: relative;">
+                    <li style="padding: 10px 0; padding-left: 30px; position: relative; font-size: 1.05em;">
                         <span style="position: absolute; left: 0;">🎯</span>
-                        1 AVEVA conversation with Bry Dillon
+                        <strong>1 AVEVA Partnership Discussion:</strong> Bry Dillon engaged with integration/co-selling opportunity identified
                     </li>
-                    <li style="padding: 10px 0; padding-left: 30px; position: relative;">
+                    <li style="padding: 10px 0; padding-left: 30px; position: relative; font-size: 1.05em;">
                         <span style="position: absolute; left: 0;">🎯</span>
-                        2 ecosystem follow-ups (Cisco, Compass, Microsoft)
+                        <strong>2 Ecosystem Follow-Ups:</strong> Microsoft, Compass Datacenters, AECOM, or PG&E contacts secured
                     </li>
-                    <li style="padding: 10px 0; padding-left: 30px; position: relative;">
+                    <li style="padding: 10px 0; padding-left: 30px; position: relative; font-size: 1.05em;">
                         <span style="position: absolute; left: 0;">🎯</span>
-                        Pilot thread defined for industrial or grid edge orchestration
+                        <strong>Pilot Thread Defined:</strong> At least one formal pilot discussion in motion (industrial automation OR digital grid edge orchestration)
                     </li>
-                    <li style="padding: 10px 0; padding-left: 30px; position: relative;">
+                    <li style="padding: 10px 0; padding-left: 30px; position: relative; font-size: 1.05em;">
                         <span style="position: absolute; left: 0;">🎯</span>
-                        All contacts entered in tracking system with next steps
+                        <strong>All Data Exported:</strong> Contact Tracker exported to CSV, photos/audio backed up, notes transferred to CRM within 72 hours
                     </li>
                 </ul>
             </div>
+            
+            <div class="glossary" style="margin-top: 25px;">
+                <h4>🎯 Priority Target Contacts (In Order)</h4>
+                <div class="glossary-item">
+                    <span class="glossary-term">1. Matt Schnugg</span> (CPO Digital Grid) — Pilot-ready contact. Hybrid cloud + DERMS orchestration is perfect SyncMetra fit. Day 2, 1pm session is TOP PRIORITY.
+                </div>
+                <div class="glossary-item">
+                    <span class="glossary-term">2. André Marino</span> (SVP Industrial & Process Automation) — Core automation decision-maker. TSN + 5G for EcoStruxure Plant. Day 1, 11am session.
+                </div>
+                <div class="glossary-item">
+                    <span class="glossary-term">3. Ruben Llanes</span> (CEO Digital Grid) — Budget authority for grid solutions. DER orchestration with utility buyers. Day 1, 3pm session.
+                </div>
+                <div class="glossary-item">
+                    <span class="glossary-term">4. Bry Dillon</span> (AVEVA) — Integration partnership. AVEVA + SyncMetra for real-time industrial data sync. Day 1, 2pm session.
+                </div>
+                <div class="glossary-item">
+                    <span class="glossary-term">5. Jim Simonelli</span> (CTO Secure Power) — Power + edge orchestration for AI workloads. Compass Datacenters channel. Day 1, 11am session.
+                </div>
+            </div>
         </div>
         
-        <div style="padding: 25px; text-align: center; background: #f8f9fa; color: #6c757d;">
-            <p><strong>SyncMetra:</strong> Software-defined, deterministic edge fabric for industrial automation, digital grid, and AI workloads.</p>
-            <p style="margin-top: 10px; font-size: 0.9em;">Canoga Perkins • Schneider Innovation Summit 2025</p>
+        <div style="padding: 25px; text-align: center; background: #f8f9fa; color: #6c757d; border-top: 2px solid #e9ecef;">
+            <p><strong>SyncMetra by Canoga Perkins:</strong> Software-defined, deterministic edge fabric for industrial automation, digital grid, and AI workloads requiring ultra-low latency, TSN integration, and 5G orchestration.</p>
+            <p style="margin-top: 10px; font-size: 0.9em;">Schneider Electric Innovation Summit • North America 2025 • Dallas, TX</p>
         </div>
     </div>
     
     <script>
+        // IndexedDB setup for storing photos and audio
+        let db;
+        const dbName = 'SchneiderSummit2025';
+        const dbVersion = 1;
+        
+        function initDB() {
+            const request = indexedDB.open(dbName, dbVersion);
+            
+            request.onerror = () => {
+                console.error('Database failed to open');
+            };
+            
+            request.onsuccess = () => {
+                db = request.result;
+                console.log('Database opened successfully');
+                loadSavedData();
+            };
+            
+            request.onupgradeneeded = (e) => {
+                db = e.target.result;
+                
+                // Create object stores
+                if (!db.objectStoreNames.contains('sessions')) {
+                    db.createObjectStore('sessions', { keyPath: 'sessionId' });
+                }
+                if (!db.objectStoreNames.contains('tracking')) {
+                    db.createObjectStore('tracking', { keyPath: 'id', autoIncrement: true });
+                }
+                if (!db.objectStoreNames.contains('media')) {
+                    db.createObjectStore('media', { keyPath: 'id', autoIncrement: true });
+                }
+            };
+        }
+        
+        // Initialize database on page load
+        window.addEventListener('load', initDB);
+        
         // Tab switching
         function switchTab(tabName) {
             const contents = document.querySelectorAll('.tab-content');
@@ -1269,6 +1849,7 @@ Best,
             const checkbox = element.querySelector('input[type="checkbox"]');
             checkbox.checked = !checkbox.checked;
             element.classList.toggle('checked', checkbox.checked);
+            saveSessionData(element);
         }
         
         // Task assignment
@@ -1278,6 +1859,7 @@ Best,
             
             buttons.forEach(btn => {
                 btn.classList.remove('assigned-jc', 'assigned-raj');
+                btn.textContent = btn.textContent.replace('✓ ', '').replace('Assigned to', 'Assign to');
             });
             
             if (person === 'jc') {
@@ -1287,6 +1869,8 @@ Best,
                 button.classList.add('assigned-raj');
                 button.textContent = '✓ Assigned to Raj';
             }
+            
+            saveSessionData(button);
         }
         
         // Photo upload
@@ -1294,6 +1878,7 @@ Best,
             if (input.files && input.files[0]) {
                 const reader = new FileReader();
                 const container = input.closest('.quick-capture').querySelector('.photo-container');
+                const sessionCard = input.closest('.session-card');
                 
                 reader.onload = function(e) {
                     const img = document.createElement('img');
@@ -1301,6 +1886,18 @@ Best,
                     img.className = 'photo-preview';
                     container.innerHTML = '';
                     container.appendChild(img);
+                    
+                    // Save to IndexedDB
+                    if (db) {
+                        const transaction = db.transaction(['media'], 'readwrite');
+                        const store = transaction.objectStore('media');
+                        store.add({
+                            sessionId: sessionCard.getAttribute('data-session-id'),
+                            type: 'photo',
+                            data: e.target.result,
+                            timestamp: new Date().toISOString()
+                        });
+                    }
                 };
                 
                 reader.readAsDataURL(input.files[0]);
@@ -1330,6 +1927,7 @@ Best,
                         const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
                         const audioUrl = URL.createObjectURL(audioBlob);
                         const container = button.closest('.quick-capture').querySelector('.audio-container');
+                        const sessionCard = button.closest('.session-card');
                         
                         const audio = document.createElement('audio');
                         audio.src = audioUrl;
@@ -1337,6 +1935,22 @@ Best,
                         audio.className = 'audio-player';
                         container.innerHTML = '';
                         container.appendChild(audio);
+                        
+                        // Save to IndexedDB
+                        const reader = new FileReader();
+                        reader.onload = function(e) {
+                            if (db) {
+                                const transaction = db.transaction(['media'], 'readwrite');
+                                const store = transaction.objectStore('media');
+                                store.add({
+                                    sessionId: sessionCard.getAttribute('data-session-id'),
+                                    type: 'audio',
+                                    data: e.target.result,
+                                    timestamp: new Date().toISOString()
+                                });
+                            }
+                        };
+                        reader.readAsDataURL(audioBlob);
                         
                         stream.getTracks().forEach(track => track.stop());
                     };
@@ -1346,7 +1960,8 @@ Best,
                     button.textContent = '⏹️ Stop Recording';
                 })
                 .catch(err => {
-                    alert('Microphone access denied. Please enable microphone permissions.');
+                    alert('Microphone access denied. Please enable microphone permissions in your browser settings.');
+                    console.error('Microphone error:', err);
                 });
         }
         
@@ -1358,14 +1973,102 @@ Best,
             }
         }
         
+        // Save session data
+        function saveSessionData(element) {
+            const sessionCard = element.closest('.session-card');
+            if (!sessionCard || !db) return;
+            
+            const sessionId = sessionCard.getAttribute('data-session-id');
+            const notes = sessionCard.querySelector('.quick-notes-field').value;
+            const metCheckbox = sessionCard.querySelector('.met-checkbox input').checked;
+            const assignedTo = sessionCard.querySelector('.task-btn.assigned-jc') ? 'jc' : 
+                               sessionCard.querySelector('.task-btn.assigned-raj') ? 'raj' : 'unassigned';
+            
+            const contactFields = {};
+            sessionCard.querySelectorAll('.contact-field input').forEach(input => {
+                contactFields[input.placeholder] = input.value;
+            });
+            
+            const transaction = db.transaction(['sessions'], 'readwrite');
+            const store = transaction.objectStore('sessions');
+            
+            store.put({
+                sessionId: sessionId,
+                notes: notes,
+                metSpeaker: metCheckbox,
+                assignedTo: assignedTo,
+                contactInfo: contactFields,
+                lastUpdated: new Date().toISOString()
+            });
+        }
+        
+        // Load saved data from IndexedDB
+        function loadSavedData() {
+            if (!db) return;
+            
+            const transaction = db.transaction(['sessions'], 'readonly');
+            const store = transaction.objectStore('sessions');
+            const request = store.openCursor();
+            
+            request.onsuccess = (e) => {
+                const cursor = e.target.result;
+                if (cursor) {
+                    const data = cursor.value;
+                    const sessionCard = document.querySelector(`[data-session-id="${data.sessionId}"]`);
+                    
+                    if (sessionCard) {
+                        // Restore notes
+                        const notesField = sessionCard.querySelector('.quick-notes-field');
+                        if (notesField && data.notes) notesField.value = data.notes;
+                        
+                        // Restore met checkbox
+                        const metCheckbox = sessionCard.querySelector('.met-checkbox');
+                        if (metCheckbox && data.metSpeaker) {
+                            metCheckbox.querySelector('input').checked = true;
+                            metCheckbox.classList.add('checked');
+                        }
+                        
+                        // Restore task assignment
+                        if (data.assignedTo !== 'unassigned') {
+                            const taskBtns = sessionCard.querySelectorAll('.task-btn');
+                            taskBtns.forEach(btn => {
+                                if ((data.assignedTo === 'jc' && btn.textContent.includes('JC')) ||
+                                    (data.assignedTo === 'raj' && btn.textContent.includes('Raj'))) {
+                                    btn.click();
+                                }
+                            });
+                        }
+                        
+                        // Restore contact info
+                        if (data.contactInfo) {
+                            sessionCard.querySelectorAll('.contact-field input').forEach(input => {
+                                if (data.contactInfo[input.placeholder]) {
+                                    input.value = data.contactInfo[input.placeholder];
+                                }
+                            });
+                        }
+                    }
+                    
+                    cursor.continue();
+                }
+            };
+        }
+        
+        // Auto-save session data
+        document.addEventListener('change', (e) => {
+            if (e.target.closest('.session-card')) {
+                saveSessionData(e.target);
+            }
+        });
+        
         // Tracking table functions
         function addTrackingRow() {
             const tbody = document.getElementById('trackingBody');
             const newRow = document.createElement('tr');
             newRow.innerHTML = `
-                <td><input type="text" placeholder="Name"></td>
-                <td><input type="text" placeholder="Organization"></td>
-                <td><input type="text" placeholder="Email/Phone"></td>
+                <td><input type="text" placeholder="Full name"></td>
+                <td><input type="text" placeholder="Company"></td>
+                <td><input type="text" placeholder="Email or phone"></td>
                 <td>
                     <select>
                         <option value="">Unassigned</option>
@@ -1381,28 +2084,67 @@ Best,
                         <option value="qualified">Qualified</option>
                         <option value="demo">Demo Scheduled</option>
                         <option value="proposal">Proposal Sent</option>
+                        <option value="closed-won">Closed Won</option>
+                        <option value="closed-lost">Closed Lost</option>
                     </select>
                 </td>
                 <td>
                     <select>
                         <option value="hot">Hot 🔥</option>
                         <option value="warm">Warm ☀️</option>
+                        <option value="cold">Cold ❄️</option>
                         <option value="pilot">Pilot Interest</option>
+                        <option value="explore">Exploring</option>
                     </select>
                 </td>
                 <td><input type="text" placeholder="Next action..."></td>
                 <td><input type="date"></td>
-                <td><textarea placeholder="Notes..."></textarea></td>
+                <td><textarea placeholder="Meeting notes..."></textarea></td>
                 <td><button class="delete-btn" onclick="deleteRow(this)">Delete</button></td>
             `;
             tbody.appendChild(newRow);
+            saveTrackingData();
         }
         
         function deleteRow(btn) {
             if (confirm('Delete this contact?')) {
                 btn.closest('tr').remove();
+                saveTrackingData();
             }
         }
+        
+        function saveTrackingData() {
+            if (!db) return;
+            
+            const rows = document.querySelectorAll('#trackingBody tr');
+            const transaction = db.transaction(['tracking'], 'readwrite');
+            const store = transaction.objectStore('tracking');
+            
+            // Clear existing data
+            store.clear().onsuccess = () => {
+                rows.forEach((row, index) => {
+                    const inputs = row.querySelectorAll('input, select, textarea');
+                    const rowData = {
+                        id: index + 1,
+                        name: inputs[0].value,
+                        organization: inputs[1].value,
+                        contact: inputs[2].value,
+                        owner: inputs[3].value,
+                        status: inputs[4].value,
+                        interest: inputs[5].value,
+                        nextStep: inputs[6].value,
+                        followUpDate: inputs[7].value,
+                        notes: inputs[8].value
+                    };
+                    store.add(rowData);
+                });
+            };
+        }
+        
+        // Auto-save tracking data
+        setInterval(() => {
+            saveTrackingData();
+        }, 30000);
         
         function exportTracking() {
             const table = document.getElementById('trackingTable');
@@ -1436,63 +2178,39 @@ Best,
             const blob = new Blob([csvContent], { type: 'text/csv' });
             const link = document.createElement('a');
             link.href = URL.createObjectURL(blob);
-            link.download = 'schneider_summit_' + new Date().toISOString().split('T')[0] + '.csv';
+            link.download = 'schneider_summit_contacts_' + new Date().toISOString().split('T')[0] + '.csv';
             link.click();
+        }
+        
+        function clearAllData() {
+            if (confirm('⚠️ WARNING: This will delete ALL captured data (notes, contacts, photos, audio). Export to CSV first! Continue?')) {
+                if (confirm('Are you absolutely sure? This cannot be undone.')) {
+                    if (db) {
+                        const transaction = db.transaction(['sessions', 'tracking', 'media'], 'readwrite');
+                        transaction.objectStore('sessions').clear();
+                        transaction.objectStore('tracking').clear();
+                        transaction.objectStore('media').clear();
+                    }
+                    location.reload();
+                }
+            }
         }
         
         // Copy email template
         function copyTemplate(button) {
             const template = button.closest('.template-card').querySelector('.template-body').textContent;
             navigator.clipboard.writeText(template).then(() => {
+                const originalText = button.textContent;
                 button.textContent = '✓ Copied!';
+                button.style.background = '#28a745';
                 setTimeout(() => {
-                    button.textContent = 'Copy';
+                    button.textContent = originalText;
+                    button.style.background = '';
                 }, 2000);
+            }).catch(err => {
+                alert('Copy failed. Please manually select and copy the text.');
             });
         }
-        
-        // Auto-save to localStorage
-        setInterval(() => {
-            const allData = {
-                tracking: [],
-                sessions: []
-            };
-            
-            // Save tracking table
-            const rows = document.querySelectorAll('#trackingBody tr');
-            rows.forEach(row => {
-                const inputs = row.querySelectorAll('input, select, textarea');
-                allData.tracking.push(Array.from(inputs).map(i => i.value));
-            });
-            
-            // Save session notes
-            document.querySelectorAll('.quick-notes-field').forEach((field, index) => {
-                allData.sessions.push({
-                    index: index,
-                    notes: field.value
-                });
-            });
-            
-            localStorage.setItem('schneiderSummit2025', JSON.stringify(allData));
-        }, 30000);
-        
-        // Load saved data
-        window.addEventListener('load', () => {
-            const saved = localStorage.getItem('schneiderSummit2025');
-            if (saved && confirm('Restore previously saved data?')) {
-                const data = JSON.parse(saved);
-                
-                // Restore session notes
-                if (data.sessions) {
-                    data.sessions.forEach(session => {
-                        const fields = document.querySelectorAll('.quick-notes-field');
-                        if (fields[session.index]) {
-                            fields[session.index].value = session.notes;
-                        }
-                    });
-                }
-            }
-        });
     </script>
 </body>
 </html>
