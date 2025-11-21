@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Exclusive Licensed 5G Spectrum Access – USA</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 30px; background: #f7f7f7; color: #24292f; }
+    h1, h2, h3 { color: #174370; }
+    .section { background: #fff; border-radius: 8px; padding: 20px; margin-bottom: 24px; }
+    table { border-collapse: collapse; width: 100%; margin-bottom: 16px; }
+    th, td { border: 1px solid #bbb; padding: 8px 10px; text-align: left; }
+    th { background: #e4e8ef; }
+    a { color: #2962ff; text-decoration: underline; }
+    .contact-phone { font-weight: bold; }
+    .deep-link { margin-left: 8px; color: #2962ff; text-decoration: none;}
+    .step { margin: 5px 0; }
+    .biblio { font-size: 0.98em; color: #888; }
+    .bib-ref { font-size: 0.98em; color: #174370; }
+    .highlight { background: #e9f4fd; padding: 2px 6px; border-radius: 2px; }
+  </style>
+</head>
+<body>
+
+<div class="section">
+  <h1>Exclusive Licensed 5G Spectrum Access in the USA</h1>
+  <p>
+    This guide details how US enterprises can obtain exclusive access to licensed 5G spectrum <b>without participating in auctions</b>. Options include spectrum assignment (purchase/transfer), leasing, and sub-licensing via spectrum managers. All recommended steps, available frequencies, and direct contacts are included.
+  </p>
+</div>
+
+<div class="section">
+  <h2>Available Licensed 5G Frequencies</h2>
+  <table>
+    <tr>
+      <th>Spectrum Band</th>
+      <th>Frequency Range (MHz)</th>
+      <th>Acquisition Methods</th>
+      <th>Typical Owner/Manager</th>
+    </tr>
+    <tr>
+      <td>C-Band</td>
+      <td>3700–3980</td>
+      <td>Transfer, Lease, Sublease</td>
+      <td>AT&amp;T, Verizon, T-Mobile</td>
+    </tr>
+    <tr>
+      <td>CBRS PAL</td>
+      <td>3550–3650</td>
+      <td>Lease, Sublease (PAL)</td>
+      <td>Charter, Comcast, WISPs</td>
+    </tr>
+    <tr>
+      <td>GHz MSS/LMDS</td>
+      <td>1670–1675, 2496–2690</td>
+      <td>Lease, Transfer</td>
+      <td>Ligado, EchoStar, Dish</td>
+    </tr>
+    <tr>
+      <td>AWS</td>
+      <td>1700–2200</td>
+      <td>Lease, Transfer</td>
+      <td>Select Spectrum, Carriers</td>
+    </tr>
+  </table>
+  <a href="https://www.ntia.gov/page/united-states-frequency-allocation-chart" target="_blank" class="deep-link">NTIA Frequency Allocation Chart</a>
+</div>
+
+<div class="section">
+  <h2>Major Spectrum Managers & License Holders</h2>
+
+  <h3>National Carriers</h3>
+  <ul>
+    <li>
+      <span class="highlight">AT&T</span>:
+      <ul>
+        <li>Channels: C-Band, AWS, 850, 1900 MHz</li>
+        <li>Enterprise Spectrum Leasing: <a href="https://www.attconnects.com/ten-years-later-a-new-vision-for-the-3-ghz-band/" target="_blank" class="deep-link">AT&T Spectrum Leasing Info</a></li>
+        <li>Contact: <span class="contact-phone"><a href="tel:+18003310500">+1-800-331-0500</a></span> (Ask for spectrum enterprise sales)</li>
+      </ul>
+    </li>
+    <li>
+      <span class="highlight">Verizon</span>:
+      <ul>
+        <li>Channels: C-Band, AWS, 700, CBRS, Millimeter wave</li>
+        <li>Enterprise Leasing: <a href="https://www.verizon.com/business/products/networks/spectrum/" target="_blank" class="deep-link">Verizon Spectrum Enterprise</a></li>
+        <li>Contact: <span class="contact-phone"><a href="tel:+18009220204">+1-800-922-0204</a></span></li>
+      </ul>
+    </li>
+    <li>
+      <span class="highlight">T-Mobile</span>:
+      <ul>
+        <li>Channels: 600 MHz, 700 MHz, C-Band, AWS, CBRS</li>
+        <li>Business Services: <a href="https://www.t-mobile.com/" target="_blank" class="deep-link">T-Mobile Business</a></li>
+        <li>Contact: <span class="contact-phone"><a href="tel:+18777460909">+1-877-746-0909</a></span></li>
+      </ul>
+    </li>
+  </ul>
+
+  <h3>Specialized Spectrum Brokers & Managers</h3>
+  <ul>
+    <li>
+      <span class="highlight">Select Spectrum</span>:
+      <ul>
+        <li>Bands: AWS, 2.5 GHz, 1670–1675 MHz, LMDS</li>
+        <li>Services: Brokerage, lease negotiation, subleasing</li>
+        <li>Contact: <span class="contact-phone"><a href="tel:+17034124142">+1-703-412-4142</a></span>, <a href="https://www.selectspectrum.com/contact" target="_blank" class="deep-link">Contact Form</a></li>
+      </ul>
+    </li>
+    <li>
+      <span class="highlight">Ligado Networks</span>:
+      <ul>
+        <li>Bands: 1670-1675 MHz MSS, 1.6 GHz satellite</li>
+        <li>Contact: <span class="contact-phone"><a href="tel:+17036843000">+1-703-684-3000</a></span>, <a href="https://www.ligado.com/contact/" target="_blank" class="deep-link">Contact Form</a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <h3>CBRS Spectrum Managers / SAS Providers</h3>
+  <ul>
+    <li>
+      <span class="highlight">Federated Wireless</span>:
+      <ul>
+        <li>Bands: CBRS 3550–3700 MHz (GAA, PAL)</li>
+        <li>Contact: <span class="contact-phone"><a href="tel:+17038715487">+1-703-871-5487</a></span>, <a href="https://federatedwireless.ai/contact/" target="_blank" class="deep-link">Contact Page</a></li>
+        <li>Process: Request enterprise CBRS access, specify coverage area and use case, negotiate PAL/GAA rights, sign agreement, begin deployment.</li>
+      </ul>
+    </li>
+  </ul>
+  <p>Other SAS providers: <a href="https://www.cbrs.wirelessinnovation.org" class="deep-link" target="_blank">Wireless Innovation Forum</a></p>
+</div>
+
+<div class="section">
+  <h2>Step-by-Step Acquisition Guides</h2>
+  <h3>Method 1: Direct Assignment/Transfer</h3>
+  <ol>
+    <li>Identify desired frequency & region (see Carrier tables above)</li>
+    <li>Request license details from current holder (AT&T, Verizon, T-Mobile, Select Spectrum, Ligado)</li>
+    <li>Negotiate risks, price, exclusivity level, geographic area</li>
+    <li>Complete FCC-formalized assignment/transfer paperwork (FCC Form 603: <a href="https://www.fcc.gov/licensing-databases/forms" class="deep-link" target="_blank">FCC Licensing Forms</a>)</li>
+    <li>FCC approval, transaction completion</li>
+  </ol>
+
+  <h3>Method 2: Licensing/Leasing/Subleasing</h3>
+  <ol>
+    <li>Contact carrier, broker, or SAS provider (see above)</li>
+    <li>Define exact premises, coverage, use case, term</li>
+    <li>Negotiate contract (specifying exclusivity, duration, regulatory compliance)</li>
+    <li>File lease/sublease paperwork (FCC Form 608 where required)</li>
+    <li>Site readiness, radio deployment, start service</li>
+  </ol>
+
+  <h3>Method 3: CBRS PAL Acquisition (via SAS)</h3>
+  <ol>
+    <li>Determine location and demand (see CBRS opportunities)</li>
+    <li>Contact SAS (such as Federated Wireless)</li>
+    <li>Request PAL/GAA availability and exclusivity levels</li>
+    <li>Negotiate lease, sign agreement, ensure CBSD hardware integration</li>
+    <li>Begin exclusive access as per contract and FCC GAA/PAL rules</li>
+  </ol>
+</div>
+
+<div class="section">
+  <h2>Bibliography & Citations</h2>
+  <div class="biblio">
+    <div>[1] HorizonPowered: <a href="https://horizonpowered.com/5g-frequency-bands-usa/" target="_blank">5G Frequency Bands USA (2025)</a></div>
+    <div>[2] Federated Wireless: <a href="https://federatedwireless.ai/contact/" target="_blank">Contact</a></div>
+    <div>[3] GSMA: <a href="https://www.gsma.com/connectivity-for-good/spectrum/how-spectrum-leasing-can-help-accelerate-the-5g-era/" target="_blank">How Spectrum Leasing Accelerates 5G (2022)</a></div>
+    <div>[4] Select Spectrum: <a href="https://www.selectspectrum.com/" target="_blank">Official Brokerage</a></div>
+    <div>[5] NTIA: <a href="https://www.ntia.gov/page/united-states-frequency-allocation-chart" target="_blank">US Frequency Allocation Chart</a></div>
+    <div>[6] STL Partners: <a href="https://stlpartners.com/articles/private-cellular/what-is-cbrs/" target="_blank">CBRS Explained (2024)</a></div>
+    <div>[7] FCC Leasing Rules: <a href="https://www.law.cornell.edu/cfr/text/47/27.602" target="_blank">47 CFR 27.602</a></div>
+  </div>
+</div>
+
+</body>
+</html>
